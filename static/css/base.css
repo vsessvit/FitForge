@@ -1,3 +1,141 @@
+:root {
+    --black: #0E0E0E;
+    --gold: #DFB011;
+    --light-gold: #DBBB5F;
+    --beige: #D0C09E;
+    --off-white: #E6E5E0;
+}
+
+html, body {
+    height: 100%;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
+    background-color: var(--off-white);
+    color: var(--black);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1 0 auto;
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.container {
+    width: 100%;
+}
+
+.navbar-dark {
+    background-color: var(--black) !important;
+}
+
+.navbar-brand {
+    color: var(--gold) !important;
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+}
+
+.nav-link {
+    color: var(--off-white) !important;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--gold) !important;
+}
+
+.card {
+    border: none;
+    border-radius: 15px;
+    background-color: #fff;
+    box-shadow: 0 10px 30px rgba(14, 14, 14, 0.1);
+}
+
+.card-body h1 {
+    color: var(--black);
+    font-weight: 700;
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+}
+
+form p {
+    margin-bottom: 0.75rem;
+}
+
+form label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--black);
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"] {
+    border: 2px solid var(--beige);
+    border-radius: 8px;
+    padding: 10px;
+    transition: border-color 0.3s ease;
+}
+
+form input[type="text"]:focus,
+form input[type="email"]:focus,
+form input[type="password"]:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 0.2rem rgba(223, 176, 17, 0.25);
+    outline: none;
+}
+
+.btn-primary {
+    background-color: var(--gold);
+    border-color: var(--gold);
+    color: var(--black);
+    font-weight: 600;
+    padding: 10px 25px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--light-gold);
+    border-color: var(--light-gold);
+    color: var(--black);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(223, 176, 17, 0.3);
+}
+
+.btn-link {
+    color: var(--gold);
+    text-decoration: none;
+}
+
+.btn-link:hover {
+    color: var(--light-gold);
+    text-decoration: underline;
+}
+
+footer {
+    background-color: var(--black);
+    color: var(--off-white);
+    padding: 15px 0;
+    margin-top: auto;
+    flex-shrink: 0;
+    text-align: center;
+}
+
+footer p {
+    margin: 0;
+}
+
+a {
+    color: var(--gold);
+}
+
+a:hover {
+    color: var(--light-gold);
 }

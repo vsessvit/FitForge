@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class MembershipTier(models.Model):
@@ -24,3 +25,27 @@ class MembershipTier(models.Model):
     
     def __str__(self):
         return f"{self.name} - {self.get_duration_display()}"
+
+
+class UserMembership(models.Model):
+    """Model for individual user memberships"""
+    STATUS_CHOICES = [
+        ('active', 'Active'),
+        ('expired', 'Expired'),
+        ('cancelled', 'Cancelled'),
+        ('pending', 'Pending'),
+    ]
+    
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='membership')
+    membership_tier = models.ForeignKey('MembershipTier', on_delete=models.SET_NULL, null=True)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    auto_renew = models.BooleanField(default=False)
+    classes_used_this_week = models.IntegerField(default=0)
+    
+    class Meta:
+        verbose_name_plural = 'User Memberships'
+    
+    def __str__(self):
+        return f"{self.user.username} - {self.membership_tier.name if self.membership_tier else 'No Tier'}"

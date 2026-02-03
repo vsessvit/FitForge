@@ -41,3 +41,20 @@ class FitnessClass(models.Model):
     
     def __str__(self):
         return self.name
+
+
+class ClassSchedule(models.Model):
+    """Model for scheduled class sessions"""
+    fitness_class = models.ForeignKey('FitnessClass', on_delete=models.CASCADE, related_name='schedules')
+    date = models.DateField()
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+    available_spots = models.IntegerField()
+    is_active = models.BooleanField(default=True)
+    
+    class Meta:
+        verbose_name_plural = 'Class Schedules'
+        ordering = ['date', 'start_time']
+    
+    def __str__(self):
+        return f"{self.fitness_class.name} - {self.date} {self.start_time}"

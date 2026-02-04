@@ -515,3 +515,65 @@ a:hover {
     color: #666;
     font-size: 0.9rem;
 }
+
+/* Product Cards */
+.product-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(14, 14, 14, 0.2);
+}
+
+.product-card .product-img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+
+.product-card a:hover .product-img {
+    opacity: 0.85;
+}
+
+.product-img-placeholder {
+    width: 100%;
+    height: 250px;
+    background-color: var(--beige);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    color: var(--black);
+    opacity: 0.3;
+}
+
+.product-card .card-title {
+    color: var(--black);
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.product-card .card-title:hover {
+    color: var(--gold);
+}
+
+.product-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gold);
+}
+
+.product-rating {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.product-card .badge-secondary {
+    background-color: var(--beige);
+    color: var(--black);
+    font-weight: 500;
+}

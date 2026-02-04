@@ -23,6 +23,20 @@
         </div>
     </div>
     
+    <!-- Sorting Dropdown -->
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="btn-group float-right">
+                <select class="form-control" id="sort-selector">
+                    <option value="?sort=name&direction=asc" {% if current_sorting == 'name_asc' %}selected{% endif %}>Name (A-Z)</option>
+                    <option value="?sort=name&direction=desc" {% if current_sorting == 'name_desc' %}selected{% endif %}>Name (Z-A)</option>
+                    <option value="?sort=difficulty&direction=asc" {% if current_sorting == 'difficulty_asc' %}selected{% endif %}>Difficulty (Low-High)</option>
+                    <option value="?sort=difficulty&direction=desc" {% if current_sorting == 'difficulty_desc' %}selected{% endif %}>Difficulty (High-Low)</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    
     <!-- Category Navigation -->
     <div class="row mb-4">
         <div class="col-12">
@@ -66,4 +80,29 @@
         {% endfor %}
     </div>
 </div>
+{% endblock %}
+
+{% block postloadjs %}
+<script>
+    $('#sort-selector').change(function() {
+        var selector = $(this);
+        var currentUrl = new URL(window.location);
+        var selectedVal = selector.val();
+        
+        if (selectedVal != "reset") {
+            var sort = selectedVal.split("&")[0].split("=")[1];
+            var direction = selectedVal.split("&")[1].split("=")[1];
+            
+            currentUrl.searchParams.set("sort", sort);
+            currentUrl.searchParams.set("direction", direction);
+            
+            window.location.replace(currentUrl);
+        } else {
+            currentUrl.searchParams.delete("sort");
+            currentUrl.searchParams.delete("direction");
+            
+            window.location.replace(currentUrl);
+        }
+    });
+</script>
 {% endblock %}

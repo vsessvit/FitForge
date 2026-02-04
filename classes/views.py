@@ -9,6 +9,8 @@ def all_classes(request):
     categories = ClassCategory.objects.all()
     current_category = None
     search_query = None
+    sort = None
+    direction = None
     
     if request.GET:
         if 'category' in request.GET:
@@ -21,12 +23,29 @@ def all_classes(request):
             if search_query:
                 queries = Q(name__icontains=search_query) | Q(description__icontains=search_query) | Q(instructor__icontains=search_query)
                 classes = classes.filter(queries)
+        
+        if 'sort' in request.GET:
+            sort = request.GET['sort']
+            sortkey = sort
+            
+            if sortkey == 'name':
+                sortkey = 'name'
+            
+            if 'direction' in request.GET:
+                direction = request.GET['direction']
+                if direction == 'desc':
+                    sortkey = f'-{sortkey}'
+            
+            classes = classes.order_by(sortkey)
+    
+    current_sorting = f'{sort}_{direction}'
     
     context = {
         'classes': classes,
         'categories': categories,
         'current_category': current_category,
         'search_query': search_query,
+        'current_sorting': current_sorting,
     }
     
     return render(request, 'classes/all_classes.html', context)

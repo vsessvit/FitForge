@@ -326,3 +326,59 @@ a:hover {
 .class-details strong {
     color: var(--gold);
 }
+
+/* Membership Pricing Cards */
+.membership-plans .card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.membership-plans .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(14, 14, 14, 0.15);
+}
+
+.membership-plans .card.border-primary {
+    border: 3px solid var(--gold) !important;
+    position: relative;
+}
+
+.membership-plans .card-header {
+    background-color: var(--gold) !important;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    padding: 0.5rem;
+}
+
+.membership-plans .badge-light {
+    background-color: var(--black);
+    color: var(--gold);
+    font-weight: 600;
+}
+
+.membership-plans .display-4 {
+    color: var(--gold);
+    font-weight: 700;
+}
+
+.membership-plans .card-title {
+    color: var(--black);
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.membership-plans .list-unstyled li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--beige);
+}
+
+.membership-plans .list-unstyled li:last-child {
+    border-bottom: none;
+}
+
+.membership-plans .list-unstyled i {
+    margin-right: 0.5rem;
+}
+
+.membership-plans .btn-block {
+    margin-top: 1rem;
+}

@@ -139,3 +139,122 @@ a {
 a:hover {
     color: var(--light-gold);
 }
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(rgba(14, 14, 14, 0.7), rgba(14, 14, 14, 0.7)), 
+                url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    color: var(--off-white);
+    text-align: center;
+    padding: 100px 0;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--gold);
+}
+
+.hero p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    color: var(--off-white);
+}
+
+.hero .btn {
+    margin: 0.5rem;
+    padding: 12px 40px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Features Section */
+.features {
+    padding: 80px 0;
+    background-color: var(--off-white);
+}
+
+.features h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--black);
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.feature-box {
+    text-align: center;
+    padding: 2rem;
+}
+
+.feature-box i {
+    font-size: 3.5rem;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+}
+
+.feature-box h3 {
+    color: var(--black);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.feature-box p {
+    color: #666;
+    font-size: 1rem;
+}
+
+/* Testimonials Section */
+.testimonials {
+    padding: 80px 0;
+    background-color: var(--black);
+}
+
+.testimonials h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--gold);
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+.testimonial-card {
+    background-color: #1a1a1a;
+    border: 2px solid var(--gold);
+    border-radius: 10px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    transition: transform 0.3s ease;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+}
+
+.testimonial-card p {
+    color: var(--off-white);
+    font-style: italic;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+.testimonial-author {
+    color: var(--gold);
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.testimonial-role {
+    color: var(--beige);
+    font-size: 0.9rem;
+}

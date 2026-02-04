@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1>Transform Your Body, Transform Your Life</h1>
+                <p>Join FitForge - Where Champions Are Made</p>
+                <a href="{% url 'account_signup' %}" class="btn btn-primary">Start Your Journey</a>
+                <a href="#features" class="btn btn-outline-light">Learn More</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features" id="features">
+    <div class="container">
+        <h2>Why Choose FitForge?</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="feature-box">
+                    <i class="fas fa-dumbbell"></i>
+                    <h3>Expert Training</h3>
+                    <p>World-class instructors with years of experience in fitness and nutrition to guide you every step of the way.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-box">
+                    <i class="fas fa-users"></i>
+                    <h3>Community Support</h3>
+                    <p>Join a vibrant community of fitness enthusiasts who motivate and inspire each other to reach new heights.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-box">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>Flexible Scheduling</h3>
+                    <p>Wide range of class times and membership options to fit your busy lifestyle and fitness goals.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials">
+    <div class="container">
+        <h2>What Our Members Say</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="testimonial-card">
+                    <p>"FitForge completely changed my life! The trainers are incredible and the community is so supportive. I've never felt stronger!"</p>
+                    <div class="testimonial-author">Sarah Mitchell</div>
+                    <div class="testimonial-role">Premium Member</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="testimonial-card">
+                    <p>"Best gym I've ever been to. The variety of classes keeps things interesting and the results speak for themselves."</p>
+                    <div class="testimonial-author">James Rodriguez</div>
+                    <div class="testimonial-role">Elite Member</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="testimonial-card">
+                    <p>"As a beginner, I was nervous, but everyone at FitForge made me feel welcome. Now I can't imagine my life without it!"</p>
+                    <div class="testimonial-author">Emma Thompson</div>
+                    <div class="testimonial-role">Basic Member</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

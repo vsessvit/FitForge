@@ -258,3 +258,62 @@ a:hover {
     color: var(--beige);
     font-size: 0.9rem;
 }
+
+/* Class Cards */
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(14, 14, 14, 0.15);
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-title {
+    color: var(--black);
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
+.card-text {
+    color: #666;
+}
+
+.card-footer {
+    background-color: transparent;
+    border-top: 1px solid var(--beige);
+}
+
+.badge-difficulty {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.badge-beginner {
+    background-color: var(--beige);
+    color: var(--black);
+}
+
+.badge-intermediate {
+    background-color: var(--light-gold);
+    color: var(--black);
+}
+
+.badge-advanced {
+    background-color: var(--gold);
+    color: var(--black);
+}
+
+.badge-all_levels {
+    background-color: var(--black);
+    color: var(--gold);
+    border: 1px solid var(--gold);
+}

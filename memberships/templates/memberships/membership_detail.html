@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ plan.name }} Membership - FitForge{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'home:index' %}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'memberships:membership_plans' %}">Membership Plans</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ plan.name }}</li>
+                </ol>
+            </nav>
+
+            <div class="card membership-detail-card">
+                <div class="card-header bg-gold text-center">
+                    <h1 class="mb-0">{{ plan.name }} Membership</h1>
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        <h2 class="display-3 text-gold">${{ plan.price }}</h2>
+                        <p class="lead">per {{ plan.get_duration_display|lower }}</p>
+                    </div>
+
+                    <div class="plan-description mb-4">
+                        <h3>About This Plan</h3>
+                        <p class="lead">{{ plan.description }}</p>
+                    </div>
+
+                    <div class="plan-benefits mb-4">
+                        <h3>What's Included</h3>
+                        <ul class="benefits-list">
+                            <li>
+                                <i class="fas fa-dumbbell text-success"></i>
+                                <strong>{{ plan.classes_per_week }} Classes Per Week</strong>
+                                <p>Access to {{ plan.classes_per_week }} fitness classes every week</p>
+                            </li>
+                            
+                            {% if plan.has_personal_training %}
+                            <li>
+                                <i class="fas fa-user-tie text-success"></i>
+                                <strong>Personal Training Sessions</strong>
+                                <p>One-on-one training with certified professionals</p>
+                            </li>
+                            {% else %}
+                            <li class="text-muted">
+                                <i class="fas fa-times text-secondary"></i>
+                                <strong>Personal Training Sessions</strong>
+                                <p>Not included in this plan</p>
+                            </li>
+                            {% endif %}
+
+                            {% if plan.has_nutrition_plan %}
+                            <li>
+                                <i class="fas fa-apple-alt text-success"></i>
+                                <strong>Personalized Nutrition Plan</strong>
+                                <p>Custom meal plans tailored to your goals</p>
+                            </li>
+                            {% else %}
+                            <li class="text-muted">
+                                <i class="fas fa-times text-secondary"></i>
+                                <strong>Personalized Nutrition Plan</strong>
+                                <p>Not included in this plan</p>
+                            </li>
+                            {% endif %}
+
+                            {% if plan.discount_percentage > 0 %}
+                            <li>
+                                <i class="fas fa-tag text-success"></i>
+                                <strong>{{ plan.discount_percentage }}% Discount on Products</strong>
+                                <p>Save on all FitForge merchandise and supplements</p>
+                            </li>
+                            {% endif %}
+
+                            <li>
+                                <i class="fas fa-mobile-alt text-success"></i>
+                                <strong>Mobile App Access</strong>
+                                <p>Book classes and track progress on the go</p>
+                            </li>
+
+                            <li>
+                                <i class="fas fa-wifi text-success"></i>
+                                <strong>Free WiFi</strong>
+                                <p>Stay connected during your workout</p>
+                            </li>
+
+                            <li>
+                                <i class="fas fa-shower text-success"></i>
+                                <strong>Locker & Shower Access</strong>
+                                <p>Full access to changing facilities</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="text-center mt-5">
+                        {% if user.is_authenticated %}
+                            <a href="#" class="btn btn-primary btn-lg px-5">
+                                Purchase {{ plan.name }} Membership
+                            </a>
+                        {% else %}
+                            <a href="{% url 'account_login' %}?next={{ request.path }}" class="btn btn-primary btn-lg px-5">
+                                Sign In to Purchase
+                            </a>
+                        {% endif %}
+                        <p class="text-muted mt-3">
+                            <small>By purchasing, you agree to our terms and conditions</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4 text-center">
+                <a href="{% url 'memberships:membership_plans' %}" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left"></i> Back to All Plans
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

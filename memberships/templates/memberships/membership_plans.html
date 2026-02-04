@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Membership Plans - FitForge{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4">Membership Plans</h1>
+        <p class="lead">Choose the plan that fits your fitness journey</p>
+    </div>
+
+    <div class="row">
+        {% for plan in plans %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 {% if plan.name == 'Premium' %}border-primary{% endif %}">
+                {% if plan.name == 'Premium' %}
+                <div class="card-header bg-primary text-white text-center">
+                    <span class="badge badge-light">Most Popular</span>
+                </div>
+                {% endif %}
+                <div class="card-body d-flex flex-column">
+                    <h3 class="card-title text-center">{{ plan.name }}</h3>
+                    <div class="text-center mb-3">
+                        <h2 class="display-4">${{ plan.price }}</h2>
+                        <p class="text-muted">per {{ plan.get_duration_display|lower }}</p>
+                    </div>
+                    <p class="card-text">{{ plan.description }}</p>
+                    <ul class="list-unstyled mt-3">
+                        <li><i class="fas fa-check text-success"></i> {{ plan.classes_per_week }} classes per week</li>
+                        {% if plan.has_personal_training %}
+                        <li><i class="fas fa-check text-success"></i> Personal training sessions</li>
+                        {% endif %}
+                        {% if plan.has_nutrition_plan %}
+                        <li><i class="fas fa-check text-success"></i> Nutrition plan included</li>
+                        {% endif %}
+                        {% if plan.discount_percentage > 0 %}
+                        <li><i class="fas fa-check text-success"></i> {{ plan.discount_percentage }}% discount on products</li>
+                        {% endif %}
+                    </ul>
+                    <div class="mt-auto">
+                        <a href="{% url 'memberships:membership_detail' plan.id %}" class="btn btn-{% if plan.name == 'Premium' %}primary{% else %}outline-primary{% endif %} btn-block">
+                            Choose Plan
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info text-center">
+                No membership plans available at this time.
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

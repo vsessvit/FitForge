@@ -46,14 +46,15 @@ def all_products(request):
         
         # Apply sorting
         if sortkey == 'price':
-            sortkey = 'price'
+            if direction == 'desc':
+                sortkey = '-price'
+            else:
+                sortkey = 'price'
         elif sortkey == 'rating':
-            sortkey = '-rating'  # Default to high to low for popularity
-            if direction and direction == 'asc':
+            if direction == 'desc':
+                sortkey = '-rating'
+            else:
                 sortkey = 'rating'
-        
-        if sortkey != 'rating' and direction == 'desc':
-            sortkey = f'-{sortkey}'
         
         products = products.order_by(sortkey)
     

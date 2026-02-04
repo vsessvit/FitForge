@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import FitnessClass, ClassCategory
 
 
@@ -21,3 +21,14 @@ def all_classes(request):
     }
     
     return render(request, 'classes/all_classes.html', context)
+
+
+def class_detail(request, class_id):
+    """View to show individual class details"""
+    fitness_class = get_object_or_404(FitnessClass, pk=class_id)
+    
+    context = {
+        'fitness_class': fitness_class,
+    }
+    
+    return render(request, 'classes/class_detail.html', context)

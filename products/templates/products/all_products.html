@@ -49,27 +49,30 @@
             </div>
         </div>
         <div class="col-md-6 text-right">
-            <form method="GET" action="{% url 'products:all_products' %}" class="form-inline justify-content-end">
-                {% if search_query %}
-                <input type="hidden" name="q" value="{{ search_query }}">
-                {% endif %}
-                {% if current_category %}
-                <input type="hidden" name="category" value="{{ current_category.name }}">
-                {% endif %}
-                <label class="mr-2">Sort by:</label>
-                <select name="sort" class="form-control mr-2" onchange="this.form.submit()">
-                    <option value="" {% if current_sorting == 'None_None' %}selected{% endif %}>Default</option>
-                    <option value="price" {% if current_sorting == 'price_None' or current_sorting == 'price_asc' %}selected{% endif %}>Price (Low to High)</option>
-                    <option value="price" data-direction="desc" {% if current_sorting == 'price_desc' %}selected{% endif %}>Price (High to Low)</option>
-                    <option value="name" {% if current_sorting == 'name_None' or current_sorting == 'name_asc' %}selected{% endif %}>Name (A-Z)</option>
-                    <option value="name" data-direction="desc" {% if current_sorting == 'name_desc' %}selected{% endif %}>Name (Z-A)</option>
-                    <option value="category" {% if current_sorting == 'category_None' or current_sorting == 'category_asc' %}selected{% endif %}>Category (A-Z)</option>
-                </select>
-                <select name="direction" class="form-control" style="display:none;">
-                    <option value="asc">Ascending</option>
-                    <option value="desc">Descending</option>
-                </select>
-            </form>
+            <div class="d-flex justify-content-end align-items-center">
+                <form method="GET" action="{% url 'products:all_products' %}" class="form-inline">
+                    {% if search_query %}
+                    <input type="hidden" name="q" value="{{ search_query }}">
+                    {% endif %}
+                    {% if current_category %}
+                    <input type="hidden" name="category" value="{{ current_category.name }}">
+                    {% endif %}
+                    <label class="mr-2 mb-0">Sort by:</label>
+                    <select name="sort" class="form-control mr-2" onchange="this.form.submit()">
+                        <option value="" {% if current_sorting == 'None_None' %}selected{% endif %}>Default</option>
+                        <option value="price" {% if current_sorting == 'price_None' or current_sorting == 'price_asc' %}selected{% endif %}>Price (Low to High)</option>
+                        <option value="price&direction=desc" {% if current_sorting == 'price_desc' %}selected{% endif %}>Price (High to Low)</option>
+                        <option value="rating&direction=desc" {% if current_sorting == 'rating_desc' %}selected{% endif %}>Popularity</option>
+                    </select>
+                    <select name="direction" class="form-control" style="display:none;">
+                        <option value="asc">Ascending</option>
+                        <option value="desc">Descending</option>
+                    </select>
+                </form>
+                <a href="{% url 'products:all_products' %}{% if current_category %}?category={{ current_category.name }}{% endif %}" class="btn btn-outline-secondary btn-sm ml-2" title="Reset filters">
+                    <i class="fas fa-redo"></i> Reset
+                </a>
+            </div>
         </div>
     </div>
 

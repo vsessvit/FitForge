@@ -30,19 +30,30 @@ def all_products(request):
     # Sorting functionality
     if 'sort' in request.GET:
         sortkey = request.GET['sort']
+        
+        # Handle combined sort&direction parameters (e.g., "price&direction=desc")
+        if '&' in sortkey:
+            parts = sortkey.split('&')
+            sortkey = parts[0]
+            if len(parts) > 1 and 'direction=' in parts[1]:
+                direction = parts[1].split('=')[1]
+        
         sort = sortkey
         
-        if sortkey == 'name':
-            sortkey = 'name'
-        elif sortkey == 'price':
-            sortkey = 'price'
-        elif sortkey == 'category':
-            sortkey = 'category__name'
-        
-        if 'direction' in request.GET:
+        # Check for separate direction parameter
+        if 'direction' in request.GET and not direction:
             direction = request.GET['direction']
-            if direction == 'desc':
-                sortkey = f'-{sortkey}'
+        
+        # Apply sorting
+        if sortkey == 'price':
+            sortkey = 'price'
+        elif sortkey == 'rating':
+            sortkey = '-rating'  # Default to high to low for popularity
+            if direction and direction == 'asc':
+                sortkey = 'rating'
+        
+        if sortkey != 'rating' and direction == 'desc':
+            sortkey = f'-{sortkey}'
         
         products = products.order_by(sortkey)
     

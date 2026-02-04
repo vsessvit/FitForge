@@ -54,5 +54,125 @@
         </div>
         {% endfor %}
     </div>
+
+    <!-- Membership Comparison Table -->
+    <div class="comparison-section mt-5">
+        <h2 class="text-center mb-4">Compare Membership Plans</h2>
+        <div class="table-responsive">
+            <table class="table table-hover comparison-table">
+                <thead>
+                    <tr>
+                        <th scope="col">Features</th>
+                        {% for plan in plans %}
+                        {% if plan.duration == 'monthly' %}
+                        <th scope="col" class="text-center {% if plan.name == 'Premium' %}table-highlight{% endif %}">
+                            {{ plan.name }}
+                            {% if plan.name == 'Premium' %}
+                            <br><span class="badge badge-primary">Popular</span>
+                            {% endif %}
+                        </th>
+                        {% endif %}
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Monthly Price</strong></td>
+                        {% for plan in plans %}
+                        {% if plan.duration == 'monthly' %}
+                        <td class="text-center {% if plan.name == 'Premium' %}table-highlight{% endif %}">
+                            <strong>${{ plan.price }}</strong>
+                        </td>
+                        {% endif %}
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>Classes per Week</td>
+                        {% for plan in plans %}
+                        {% if plan.duration == 'monthly' %}
+                        <td class="text-center {% if plan.name == 'Premium' %}table-highlight{% endif %}">
+                            {{ plan.classes_per_week }}
+                        </td>
+                        {% endif %}
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>Personal Training</td>
+                        {% for plan in plans %}
+                        {% if plan.duration == 'monthly' %}
+                        <td class="text-center {% if plan.name == 'Premium' %}table-highlight{% endif %}">
+                            {% if plan.has_personal_training %}
+                            <i class="fas fa-check text-success"></i>
+                            {% else %}
+                            <i class="fas fa-times text-muted"></i>
+                            {% endif %}
+                        </td>
+                        {% endif %}
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>Nutrition Plan</td>
+                        {% for plan in plans %}
+                        {% if plan.duration == 'monthly' %}
+                        <td class="text-center {% if plan.name == 'Premium' %}table-highlight{% endif %}">
+                            {% if plan.has_nutrition_plan %}
+                            <i class="fas fa-check text-success"></i>
+                            {% else %}
+                            <i class="fas fa-times text-muted"></i>
+                            {% endif %}
+                        </td>
+                        {% endif %}
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>Product Discount</td>
+                        {% for plan in plans %}
+                        {% if plan.duration == 'monthly' %}
+                        <td class="text-center {% if plan.name == 'Premium' %}table-highlight{% endif %}">
+                            {% if plan.discount_percentage > 0 %}
+                            {{ plan.discount_percentage }}%
+                            {% else %}
+                            <i class="fas fa-times text-muted"></i>
+                            {% endif %}
+                        </td>
+                        {% endif %}
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>Mobile App Access</td>
+                        {% for plan in plans %}
+                        {% if plan.duration == 'monthly' %}
+                        <td class="text-center {% if plan.name == 'Premium' %}table-highlight{% endif %}">
+                            <i class="fas fa-check text-success"></i>
+                        </td>
+                        {% endif %}
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td>Locker & Shower Access</td>
+                        {% for plan in plans %}
+                        {% if plan.duration == 'monthly' %}
+                        <td class="text-center {% if plan.name == 'Premium' %}table-highlight{% endif %}">
+                            <i class="fas fa-check text-success"></i>
+                        </td>
+                        {% endif %}
+                        {% endfor %}
+                    </tr>
+                    <tr>
+                        <td></td>
+                        {% for plan in plans %}
+                        {% if plan.duration == 'monthly' %}
+                        <td class="text-center {% if plan.name == 'Premium' %}table-highlight{% endif %}">
+                            <a href="{% url 'memberships:membership_detail' plan.id %}" class="btn btn-{% if plan.name == 'Premium' %}primary{% else %}outline-primary{% endif %} btn-sm">
+                                Select
+                            </a>
+                        </td>
+                        {% endif %}
+                        {% endfor %}
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 {% endblock %}

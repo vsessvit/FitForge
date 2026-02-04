@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center mb-4">Fitness Classes</h1>
+        </div>
+    </div>
+    
+    <div class="row">
+        {% for class in classes %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100">
+                {% if class.image %}
+                <img src="{{ class.image.url }}" class="card-img-top" alt="{{ class.name }}">
+                {% else %}
+                <img src="https://via.placeholder.com/350x200?text={{ class.name }}" class="card-img-top" alt="{{ class.name }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ class.name }}</h5>
+                    <p class="card-text">{{ class.description|truncatewords:20 }}</p>
+                    <p class="mb-1"><strong>Instructor:</strong> {{ class.instructor }}</p>
+                    <p class="mb-1"><strong>Duration:</strong> {{ class.duration }} minutes</p>
+                    <p class="mb-1"><strong>Difficulty:</strong> {{ class.get_difficulty_display }}</p>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="btn btn-primary btn-block">View Details</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p class="text-center">No classes available at the moment.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

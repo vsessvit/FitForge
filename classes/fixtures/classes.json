@@ -1,0 +1,198 @@
+[
+    {
+        "model": "classes.classcategory",
+        "pk": 1,
+        "fields": {
+            "name": "yoga",
+            "friendly_name": "Yoga"
+        }
+    },
+    {
+        "model": "classes.classcategory",
+        "pk": 2,
+        "fields": {
+            "name": "strength",
+            "friendly_name": "Strength Training"
+        }
+    },
+    {
+        "model": "classes.classcategory",
+        "pk": 3,
+        "fields": {
+            "name": "cardio",
+            "friendly_name": "Cardio"
+        }
+    },
+    {
+        "model": "classes.classcategory",
+        "pk": 4,
+        "fields": {
+            "name": "hiit",
+            "friendly_name": "HIIT"
+        }
+    },
+    {
+        "model": "classes.classcategory",
+        "pk": 5,
+        "fields": {
+            "name": "pilates",
+            "friendly_name": "Pilates"
+        }
+    },
+    {
+        "model": "classes.fitnessclass",
+        "pk": 1,
+        "fields": {
+            "name": "Morning Vinyasa Flow",
+            "description": "Start your day with an energizing vinyasa flow that synchronizes breath with movement. Perfect for building strength and flexibility while finding your inner calm.",
+            "instructor": "Sarah Johnson",
+            "category": 1,
+            "difficulty": "intermediate",
+            "duration": 60,
+            "max_capacity": 20
+        }
+    },
+    {
+        "model": "classes.fitnessclass",
+        "pk": 2,
+        "fields": {
+            "name": "Power Strength Circuit",
+            "description": "High-intensity strength training circuit designed to build muscle and boost metabolism. Uses a combination of free weights and bodyweight exercises.",
+            "instructor": "Mike Thompson",
+            "category": 2,
+            "difficulty": "advanced",
+            "duration": 45,
+            "max_capacity": 15
+        }
+    },
+    {
+        "model": "classes.fitnessclass",
+        "pk": 3,
+        "fields": {
+            "name": "Beginner Yoga Basics",
+            "description": "Learn the fundamentals of yoga in a welcoming, supportive environment. Focus on proper alignment, breathing techniques, and foundational poses.",
+            "instructor": "Emma Martinez",
+            "category": 1,
+            "difficulty": "beginner",
+            "duration": 50,
+            "max_capacity": 25
+        }
+    },
+    {
+        "model": "classes.fitnessclass",
+        "pk": 4,
+        "fields": {
+            "name": "HIIT Burn",
+            "description": "Maximum calorie burn in minimum time! This high-intensity interval training class alternates between intense bursts of activity and short recovery periods.",
+            "instructor": "Chris Davis",
+            "category": 4,
+            "difficulty": "advanced",
+            "duration": 30,
+            "max_capacity": 20
+        }
+    },
+    {
+        "model": "classes.fitnessclass",
+        "pk": 5,
+        "fields": {
+            "name": "Spin & Burn",
+            "description": "Indoor cycling class with energizing music and motivating instructors. Suitable for all fitness levels with adjustable resistance.",
+            "instructor": "Jessica Lee",
+            "category": 3,
+            "difficulty": "all_levels",
+            "duration": 45,
+            "max_capacity": 30
+        }
+    },
+    {
+        "model": "classes.fitnessclass",
+        "pk": 6,
+        "fields": {
+            "name": "Core Pilates",
+            "description": "Strengthen your core and improve posture with this mat-based Pilates class. Focus on controlled movements and proper breathing.",
+            "instructor": "Amanda White",
+            "category": 5,
+            "difficulty": "intermediate",
+            "duration": 55,
+            "max_capacity": 18
+        }
+    },
+    {
+        "model": "classes.fitnessclass",
+        "pk": 7,
+        "fields": {
+            "name": "Functional Fitness",
+            "description": "Train movements, not muscles. This class focuses on exercises that help you perform daily activities more efficiently and safely.",
+            "instructor": "David Brown",
+            "category": 2,
+            "difficulty": "all_levels",
+            "duration": 50,
+            "max_capacity": 20
+        }
+    },
+    {
+        "model": "classes.fitnessclass",
+        "pk": 8,
+        "fields": {
+            "name": "Evening Yoga Restore",
+            "description": "Wind down your day with gentle, restorative yoga poses. Focus on relaxation, stress relief, and deep stretching.",
+            "instructor": "Lisa Anderson",
+            "category": 1,
+            "difficulty": "beginner",
+            "duration": 60,
+            "max_capacity": 22
+        }
+    },
+    {
+        "model": "classes.fitnessclass",
+        "pk": 9,
+        "fields": {
+            "name": "Cardio Kickboxing",
+            "description": "Channel your inner fighter with this high-energy kickboxing class. Burn calories while learning basic boxing and martial arts techniques.",
+            "instructor": "Ryan Torres",
+            "category": 3,
+            "difficulty": "intermediate",
+            "duration": 45,
+            "max_capacity": 25
+        }
+    },
+    {
+        "model": "classes.fitnessclass",
+        "pk": 10,
+        "fields": {
+            "name": "Tabata Intensity",
+            "description": "Experience the ultimate 20-second work, 10-second rest interval training. Short but incredibly effective for building endurance and strength.",
+            "instructor": "Alex Kim",
+            "category": 4,
+            "difficulty": "advanced",
+            "duration": 25,
+            "max_capacity": 18
+        }
+    },
+    {
+        "model": "classes.fitnessclass",
+        "pk": 11,
+        "fields": {
+            "name": "Pilates Reformer",
+            "description": "Take your Pilates practice to the next level with specialized reformer equipment. Improve flexibility, strength, and body awareness.",
+            "instructor": "Sophie Chen",
+            "category": 5,
+            "difficulty": "intermediate",
+            "duration": 55,
+            "max_capacity": 12
+        }
+    },
+    {
+        "model": "classes.fitnessclass",
+        "pk": 12,
+        "fields": {
+            "name": "Beginner Strength Foundations",
+            "description": "New to strength training? Learn proper form and technique with basic exercises. Build confidence and a solid foundation for your fitness journey.",
+            "instructor": "Mark Wilson",
+            "category": 2,
+            "difficulty": "beginner",
+            "duration": 45,
+            "max_capacity": 16
+        }
+    }
+]

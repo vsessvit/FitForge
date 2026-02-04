@@ -1,0 +1,329 @@
+[
+    {
+        "model": "products.productcategory",
+        "pk": 1,
+        "fields": {
+            "name": "apparel",
+            "friendly_name": "Apparel",
+            "description": "Fitness clothing and workout gear"
+        }
+    },
+    {
+        "model": "products.productcategory",
+        "pk": 2,
+        "fields": {
+            "name": "equipment",
+            "friendly_name": "Equipment",
+            "description": "Fitness equipment and training tools"
+        }
+    },
+    {
+        "model": "products.productcategory",
+        "pk": 3,
+        "fields": {
+            "name": "accessories",
+            "friendly_name": "Accessories",
+            "description": "Workout accessories and supplements"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 1,
+        "fields": {
+            "category": 1,
+            "sku": "FF-APP-001",
+            "name": "FitForge Performance T-Shirt",
+            "description": "High-performance moisture-wicking t-shirt designed for intense workouts. Made from breathable fabric that keeps you cool and dry.",
+            "price": "29.99",
+            "stock_quantity": 50,
+            "image_url": "",
+            "image": null,
+            "rating": "4.50"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 2,
+        "fields": {
+            "category": 1,
+            "sku": "FF-APP-002",
+            "name": "Premium Training Shorts",
+            "description": "Comfortable training shorts with four-way stretch fabric. Perfect for squats, lunges, and high-intensity training.",
+            "price": "39.99",
+            "stock_quantity": 45,
+            "image_url": "",
+            "image": null,
+            "rating": "4.70"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 3,
+        "fields": {
+            "category": 1,
+            "sku": "FF-APP-003",
+            "name": "Women's Sports Bra",
+            "description": "High-support sports bra for maximum comfort during intense workouts. Features moisture-wicking technology.",
+            "price": "34.99",
+            "stock_quantity": 40,
+            "image_url": "",
+            "image": null,
+            "rating": "4.80"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 4,
+        "fields": {
+            "category": 1,
+            "sku": "FF-APP-004",
+            "name": "Compression Leggings",
+            "description": "Premium compression leggings that support your muscles and improve blood flow during workouts.",
+            "price": "49.99",
+            "stock_quantity": 35,
+            "image_url": "",
+            "image": null,
+            "rating": "4.60"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 5,
+        "fields": {
+            "category": 1,
+            "sku": "FF-APP-005",
+            "name": "Lightweight Running Tank",
+            "description": "Ultra-lightweight tank top perfect for running and cardio workouts. Features reflective details for safety.",
+            "price": "24.99",
+            "stock_quantity": 60,
+            "image_url": "",
+            "image": null,
+            "rating": "4.40"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 6,
+        "fields": {
+            "category": 2,
+            "sku": "FF-EQP-001",
+            "name": "Adjustable Dumbbells Set",
+            "description": "Space-saving adjustable dumbbells ranging from 5 to 50 lbs. Perfect for home workouts and progressive training.",
+            "price": "299.99",
+            "stock_quantity": 15,
+            "image_url": "",
+            "image": null,
+            "rating": "4.90"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 7,
+        "fields": {
+            "category": 2,
+            "sku": "FF-EQP-002",
+            "name": "Resistance Bands Set",
+            "description": "Complete set of 5 resistance bands with different resistance levels. Includes door anchor and carrying bag.",
+            "price": "34.99",
+            "stock_quantity": 80,
+            "image_url": "",
+            "image": null,
+            "rating": "4.50"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 8,
+        "fields": {
+            "category": 2,
+            "sku": "FF-EQP-003",
+            "name": "Yoga Mat Premium",
+            "description": "Extra-thick yoga mat with non-slip surface. Eco-friendly and durable, perfect for yoga, pilates, and stretching.",
+            "price": "44.99",
+            "stock_quantity": 50,
+            "image_url": "",
+            "image": null,
+            "rating": "4.70"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 9,
+        "fields": {
+            "category": 2,
+            "sku": "FF-EQP-004",
+            "name": "Kettlebell 20kg",
+            "description": "Cast iron kettlebell with comfortable grip. Ideal for building strength and conditioning.",
+            "price": "59.99",
+            "stock_quantity": 25,
+            "image_url": "",
+            "image": null,
+            "rating": "4.80"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 10,
+        "fields": {
+            "category": 2,
+            "sku": "FF-EQP-005",
+            "name": "Foam Roller",
+            "description": "High-density foam roller for muscle recovery and myofascial release. Essential for post-workout recovery.",
+            "price": "24.99",
+            "stock_quantity": 70,
+            "image_url": "",
+            "image": null,
+            "rating": "4.40"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 11,
+        "fields": {
+            "category": 2,
+            "sku": "FF-EQP-006",
+            "name": "Jump Rope Speed",
+            "description": "Professional speed jump rope with adjustable length. Perfect for cardio workouts and improving coordination.",
+            "price": "19.99",
+            "stock_quantity": 90,
+            "image_url": "",
+            "image": null,
+            "rating": "4.30"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 12,
+        "fields": {
+            "category": 3,
+            "sku": "FF-ACC-001",
+            "name": "Gym Water Bottle",
+            "description": "1-liter BPA-free water bottle with time markers to track your daily water intake. Leak-proof design.",
+            "price": "14.99",
+            "stock_quantity": 100,
+            "image_url": "",
+            "image": null,
+            "rating": "4.50"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 13,
+        "fields": {
+            "category": 3,
+            "sku": "FF-ACC-002",
+            "name": "Workout Gloves",
+            "description": "Premium leather workout gloves with wrist support. Protects your hands during heavy lifting.",
+            "price": "24.99",
+            "stock_quantity": 55,
+            "image_url": "",
+            "image": null,
+            "rating": "4.60"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 14,
+        "fields": {
+            "category": 3,
+            "sku": "FF-ACC-003",
+            "name": "Protein Shaker Bottle",
+            "description": "Leak-proof shaker bottle with built-in mixing ball. Perfect for protein shakes and supplements.",
+            "price": "12.99",
+            "stock_quantity": 120,
+            "image_url": "",
+            "image": null,
+            "rating": "4.40"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 15,
+        "fields": {
+            "category": 3,
+            "sku": "FF-ACC-004",
+            "name": "Gym Towel Set",
+            "description": "Set of 2 quick-dry microfiber towels. Lightweight, absorbent, and perfect for gym sessions.",
+            "price": "19.99",
+            "stock_quantity": 75,
+            "image_url": "",
+            "image": null,
+            "rating": "4.30"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 16,
+        "fields": {
+            "category": 3,
+            "sku": "FF-ACC-005",
+            "name": "Lifting Straps",
+            "description": "Heavy-duty lifting straps for improved grip during deadlifts and rows. Comfortable padded design.",
+            "price": "16.99",
+            "stock_quantity": 65,
+            "image_url": "",
+            "image": null,
+            "rating": "4.50"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 17,
+        "fields": {
+            "category": 3,
+            "sku": "FF-ACC-006",
+            "name": "Fitness Tracker Watch",
+            "description": "Smart fitness tracker with heart rate monitor, step counter, and calorie tracking. Water-resistant design.",
+            "price": "89.99",
+            "stock_quantity": 30,
+            "image_url": "",
+            "image": null,
+            "rating": "4.70"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 18,
+        "fields": {
+            "category": 1,
+            "sku": "FF-APP-006",
+            "name": "Training Hoodie",
+            "description": "Comfortable cotton-blend hoodie perfect for warming up or casual wear. FitForge logo embroidered.",
+            "price": "54.99",
+            "stock_quantity": 40,
+            "image_url": "",
+            "image": null,
+            "rating": "4.60"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 19,
+        "fields": {
+            "category": 2,
+            "sku": "FF-EQP-007",
+            "name": "Ab Roller Wheel",
+            "description": "Dual-wheel ab roller with knee pad. Perfect for core strengthening and stability training.",
+            "price": "22.99",
+            "stock_quantity": 55,
+            "image_url": "",
+            "image": null,
+            "rating": "4.50"
+        }
+    },
+    {
+        "model": "products.product",
+        "pk": 20,
+        "fields": {
+            "category": 3,
+            "sku": "FF-ACC-007",
+            "name": "Gym Bag Premium",
+            "description": "Large capacity gym bag with separate shoe compartment and multiple pockets. Durable and water-resistant.",
+            "price": "64.99",
+            "stock_quantity": 35,
+            "image_url": "",
+            "image": null,
+            "rating": "4.80"
+        }
+    }
+]

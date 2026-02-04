@@ -121,6 +121,15 @@ form input[type="password"]:focus {
     box-shadow: 0 5px 15px rgba(223, 176, 17, 0.3);
 }
 
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active {
+    background-color: var(--gold) !important;
+    border-color: var(--gold) !important;
+    color: var(--black) !important;
+    box-shadow: 0 0 0 0.2rem rgba(223, 176, 17, 0.25) !important;
+}
+
 .btn-link {
     color: var(--gold);
     text-decoration: none;
@@ -129,6 +138,55 @@ form input[type="password"]:focus {
 .btn-link:hover {
     color: var(--light-gold);
     text-decoration: underline;
+}
+
+/* Button overrides for consistent active states */
+.btn-outline-secondary.active {
+    background-color: #343a40;
+    border-color: #343a40;
+    color: #fff;
+}
+
+.btn-outline-secondary.active:hover {
+    background-color: #23272b;
+    border-color: #1d2124;
+}
+
+/* Checkbox styling */
+input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--beige);
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    vertical-align: middle;
+    margin-right: 8px;
+    transition: all 0.3s ease;
+}
+
+input[type="checkbox"]:checked {
+    background-color: var(--gold);
+    border-color: var(--gold);
+}
+
+input[type="checkbox"]:checked::after {
+    content: '\2713';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--black);
+    font-size: 14px;
+    font-weight: bold;
+}
+
+input[type="checkbox"]:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 0.2rem rgba(223, 176, 17, 0.25);
 }
 
 footer {
@@ -349,8 +407,8 @@ a:hover {
     box-shadow: 0 15px 40px rgba(14, 14, 14, 0.15);
 }
 
-.membership-plans .card.border-primary {
-    border: 3px solid var(--gold) !important;
+.membership-plans .card.border-dark-custom {
+    border: 3px solid #343a40 !important;
     position: relative;
 }
 
@@ -439,9 +497,9 @@ a:hover {
     background-color: var(--off-white);
 }
 
-.comparison-table .badge-primary {
-    background-color: var(--gold);
-    color: var(--black);
+.comparison-table .badge-dark {
+    background-color: #343a40;
+    color: #fff;
 }
 
 /* Mobile Responsive Table */

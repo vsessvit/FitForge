@@ -13,9 +13,9 @@
     <div class="row">
         {% for plan in plans %}
         <div class="col-md-4 mb-4">
-            <div class="card h-100 {% if plan.name == 'Premium' %}border-primary{% endif %}">
+            <div class="card h-100 {% if plan.name == 'Premium' %}border-dark-custom{% endif %}">
                 {% if plan.name == 'Premium' %}
-                <div class="card-header bg-primary text-white text-center">
+                <div class="card-header text-white text-center" style="background-color: #DBBB5F;">
                     <span class="badge badge-light">Most Popular</span>
                 </div>
                 {% endif %}
@@ -39,7 +39,7 @@
                         {% endif %}
                     </ul>
                     <div class="mt-auto">
-                        <a href="{% url 'memberships:membership_detail' plan.id %}" class="btn btn-{% if plan.name == 'Premium' %}primary{% else %}outline-primary{% endif %} btn-block">
+                        <a href="{% url 'memberships:membership_detail' plan.id %}" class="btn btn-{% if plan.name == 'Premium' %}dark{% else %}outline-dark{% endif %} btn-block">
                             Choose Plan
                         </a>
                     </div>
@@ -68,7 +68,7 @@
                         <th scope="col" class="text-center {% if plan.name == 'Premium' %}table-highlight{% endif %}">
                             {{ plan.name }}
                             {% if plan.name == 'Premium' %}
-                            <br><span class="badge badge-primary">Popular</span>
+                            <br><span class="badge badge-dark">Popular</span>
                             {% endif %}
                         </th>
                         {% endif %}
@@ -163,7 +163,7 @@
                         {% for plan in plans %}
                         {% if plan.duration == 'monthly' %}
                         <td class="text-center {% if plan.name == 'Premium' %}table-highlight{% endif %}">
-                            <a href="{% url 'memberships:membership_detail' plan.id %}" class="btn btn-{% if plan.name == 'Premium' %}primary{% else %}outline-primary{% endif %} btn-sm">
+                            <a href="{% url 'memberships:membership_detail' plan.id %}" class="btn btn-{% if plan.name == 'Premium' %}dark{% else %}outline-dark{% endif %} btn-sm">
                                 Select
                             </a>
                         </td>

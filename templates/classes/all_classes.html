@@ -9,6 +9,21 @@
         </div>
     </div>
     
+    <!-- Category Navigation -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="btn-group d-flex flex-wrap justify-content-center" role="group">
+                <a href="{% url 'all_classes' %}" class="btn btn-outline-dark {% if not current_category %}active{% endif %}">All Classes</a>
+                {% for category in categories %}
+                <a href="{% url 'all_classes' %}?category={{ category.name }}" 
+                   class="btn btn-outline-dark {% if current_category.name == category.name %}active{% endif %}">
+                    {{ category.friendly_name|default:category.name }}
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
     <div class="row">
         {% for class in classes %}
         <div class="col-md-6 col-lg-4 mb-4">

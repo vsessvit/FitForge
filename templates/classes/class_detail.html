@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            {% if fitness_class.image %}
+            <img src="{{ fitness_class.image.url }}" class="img-fluid rounded" alt="{{ fitness_class.name }}">
+            {% else %}
+            <img src="https://via.placeholder.com/600x400?text={{ fitness_class.name }}" class="img-fluid rounded" alt="{{ fitness_class.name }}">
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            <h1 class="mb-3">{{ fitness_class.name }}</h1>
+            
+            <div class="mb-3">
+                <span class="badge-difficulty badge-{{ fitness_class.difficulty }}">
+                    {{ fitness_class.get_difficulty_display }}
+                </span>
+            </div>
+            
+            <p class="lead">{{ fitness_class.description }}</p>
+            
+            <div class="class-details mb-4">
+                <p><strong>Instructor:</strong> {{ fitness_class.instructor }}</p>
+                <p><strong>Duration:</strong> {{ fitness_class.duration }} minutes</p>
+                <p><strong>Max Capacity:</strong> {{ fitness_class.max_capacity }} people</p>
+                {% if fitness_class.category %}
+                <p><strong>Category:</strong> {{ fitness_class.category.friendly_name|default:fitness_class.category.name }}</p>
+                {% endif %}
+            </div>
+            
+            <div class="mt-4">
+                <a href="#" class="btn btn-primary btn-lg">Book This Class</a>
+                <a href="{% url 'all_classes' %}" class="btn btn-outline-dark btn-lg">Back to Classes</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

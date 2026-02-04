@@ -41,7 +41,7 @@
                     <p class="mb-1"><strong>Difficulty:</strong> {{ class.get_difficulty_display }}</p>
                 </div>
                 <div class="card-footer">
-                    <a href="#" class="btn btn-primary btn-block">View Details</a>
+                    <a href="{% url 'class_detail' class.id %}" class="btn btn-primary btn-block">View Details</a>
                 </div>
             </div>
         </div>

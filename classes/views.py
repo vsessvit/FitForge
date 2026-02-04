@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.db.models import Q
 from .models import FitnessClass, ClassCategory
 
 
@@ -7,17 +8,25 @@ def all_classes(request):
     classes = FitnessClass.objects.all()
     categories = ClassCategory.objects.all()
     current_category = None
+    search_query = None
     
     if request.GET:
         if 'category' in request.GET:
             category_name = request.GET['category']
             classes = classes.filter(category__name=category_name)
             current_category = ClassCategory.objects.get(name=category_name)
+        
+        if 'q' in request.GET:
+            search_query = request.GET['q']
+            if search_query:
+                queries = Q(name__icontains=search_query) | Q(description__icontains=search_query) | Q(instructor__icontains=search_query)
+                classes = classes.filter(queries)
     
     context = {
         'classes': classes,
         'categories': categories,
         'current_category': current_category,
+        'search_query': search_query,
     }
     
     return render(request, 'classes/all_classes.html', context)

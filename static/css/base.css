@@ -317,3 +317,12 @@ a:hover {
     color: var(--gold);
     border: 1px solid var(--gold);
 }
+/* Class Detail Page */
+.class-details p {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+}
+
+.class-details strong {
+    color: var(--gold);
+}

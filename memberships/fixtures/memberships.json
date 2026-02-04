@@ -1,0 +1,62 @@
+[
+    {
+        "model": "memberships.membershiptier",
+        "pk": 1,
+        "fields": {
+            "name": "Basic",
+            "description": "Perfect for getting started on your fitness journey. Access to essential classes and facilities.",
+            "price": "29.99",
+            "duration": "monthly",
+            "classes_per_week": 3,
+            "has_personal_training": false,
+            "has_nutrition_plan": false,
+            "discount_percentage": "0.00",
+            "is_active": true
+        }
+    },
+    {
+        "model": "memberships.membershiptier",
+        "pk": 2,
+        "fields": {
+            "name": "Premium",
+            "description": "Our most popular plan! Unlimited classes, personal training sessions, and nutrition support.",
+            "price": "59.99",
+            "duration": "monthly",
+            "classes_per_week": 10,
+            "has_personal_training": true,
+            "has_nutrition_plan": true,
+            "discount_percentage": "10.00",
+            "is_active": true
+        }
+    },
+    {
+        "model": "memberships.membershiptier",
+        "pk": 3,
+        "fields": {
+            "name": "Elite",
+            "description": "The ultimate fitness experience. Includes everything Premium offers plus priority booking and exclusive events.",
+            "price": "99.99",
+            "duration": "monthly",
+            "classes_per_week": 20,
+            "has_personal_training": true,
+            "has_nutrition_plan": true,
+            "discount_percentage": "20.00",
+            "is_active": true
+        }
+    },
+    {
+        "model": "memberships.membershiptier",
+        "pk": 4,
+        "fields": {
+            "name": "Basic Annual",
+            "description": "Save with our annual plan! Get 2 months free when you pay for the full year upfront.",
+            "price": "299.99",
+            "duration": "annually",
+            "classes_per_week": 3,
+            "has_personal_training": false,
+            "has_nutrition_plan": false,
+            "discount_percentage": "5.00",
+            "is_active": true
+        }
+    }
+]

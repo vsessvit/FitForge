@@ -382,3 +382,124 @@ a:hover {
 .membership-plans .btn-block {
     margin-top: 1rem;
 }
+
+/* Membership Comparison Table */
+.comparison-section {
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 2px solid var(--beige);
+}
+
+.comparison-table {
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(14, 14, 14, 0.1);
+}
+
+.comparison-table thead {
+    background-color: var(--black);
+    color: var(--off-white);
+}
+
+.comparison-table thead th {
+    padding: 1.25rem;
+    font-weight: 600;
+    border: none;
+}
+
+.comparison-table tbody td {
+    padding: 1rem;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--beige);
+}
+
+.comparison-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.comparison-table .table-highlight {
+    background-color: rgba(223, 176, 17, 0.1);
+}
+
+.comparison-table tbody td:first-child {
+    font-weight: 500;
+    background-color: var(--off-white);
+}
+
+.comparison-table .badge-primary {
+    background-color: var(--gold);
+    color: var(--black);
+}
+
+/* Mobile Responsive Table */
+@media (max-width: 768px) {
+    .comparison-table {
+        font-size: 0.85rem;
+    }
+    
+    .comparison-table thead th,
+    .comparison-table tbody td {
+        padding: 0.75rem 0.5rem;
+    }
+    
+    .comparison-table .btn-sm {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+    }
+}
+
+/* Membership Detail Page */
+.membership-detail-card {
+    border: none;
+    box-shadow: 0 10px 40px rgba(14, 14, 14, 0.15);
+}
+
+.membership-detail-card .card-header {
+    background-color: var(--gold);
+    color: var(--black);
+    padding: 1.5rem;
+}
+
+.membership-detail-card .text-gold {
+    color: var(--gold);
+}
+
+.membership-detail-card .bg-gold {
+    background-color: var(--gold);
+}
+
+.benefits-list {
+    list-style: none;
+    padding: 0;
+}
+
+.benefits-list li {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: var(--off-white);
+    border-radius: 8px;
+    border-left: 4px solid var(--gold);
+}
+
+.benefits-list li.text-muted {
+    border-left-color: #ccc;
+    opacity: 0.6;
+}
+
+.benefits-list i {
+    font-size: 1.25rem;
+    margin-right: 0.75rem;
+}
+
+.benefits-list strong {
+    display: block;
+    margin-bottom: 0.25rem;
+    color: var(--black);
+}
+
+.benefits-list p {
+    margin: 0;
+    color: #666;
+    font-size: 0.9rem;
+}

@@ -573,9 +573,11 @@ a:hover {
 }
 
 .product-card .badge-secondary {
-    background-color: var(--beige);
+    background-color: var(--light-gold);
     color: var(--black);
-    font-weight: 500;
+    font-weight: 600;
+    border-radius: 20px;
+    padding: 0.25rem 0.75rem;
 }
 
 /* Product Detail Page */

@@ -8,6 +8,26 @@
     <div class="row">
         <div class="col-12">
             <h1 class="display-4 mb-4">Shop</h1>
+            {% if current_category %}
+            <p class="lead">Category: {{ current_category.get_friendly_name }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Category Filter -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="btn-group" role="group" aria-label="Category filter">
+                <a href="{% url 'products:all_products' %}" class="btn btn-outline-secondary {% if not current_category %}active{% endif %}">
+                    All Products
+                </a>
+                {% for category in categories %}
+                <a href="{% url 'products:all_products' %}?category={{ category.name }}" 
+                   class="btn btn-outline-secondary {% if current_category.name == category.name %}active{% endif %}">
+                    {{ category.get_friendly_name }}
+                </a>
+                {% endfor %}
+            </div>
         </div>
     </div>
 
@@ -28,7 +48,9 @@
                     <h5 class="card-title">{{ product.name }}</h5>
                     {% if product.category %}
                     <p class="text-muted small mb-2">
-                        <span class="badge badge-secondary">{{ product.category.get_friendly_name }}</span>
+                        <a href="{% url 'products:all_products' %}?category={{ product.category.name }}" class="badge badge-secondary">
+                            {{ product.category.get_friendly_name }}
+                        </a>
                     </p>
                     {% endif %}
                     <p class="card-text flex-grow-1">{{ product.description|truncatewords:15 }}</p>

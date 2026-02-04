@@ -9,6 +9,20 @@
         </div>
     </div>
     
+    <!-- Search Bar -->
+    <div class="row mb-4">
+        <div class="col-md-6 mx-auto">
+            <form method="GET" action="{% url 'all_classes' %}">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="q" placeholder="Search classes..." value="{{ search_query|default:'' }}">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    
     <!-- Category Navigation -->
     <div class="row mb-4">
         <div class="col-12">

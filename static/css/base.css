@@ -50,6 +50,18 @@ main {
     color: var(--gold) !important;
 }
 
+.nav-link.membership-badge {
+    background-color: rgba(223, 176, 17, 0.2);
+    border-radius: 5px;
+    padding: 0.5rem 1rem !important;
+    color: var(--gold) !important;
+    font-weight: 600;
+}
+
+.nav-link.membership-badge:hover {
+    background-color: rgba(223, 176, 17, 0.3);
+}
+
 .card {
     border: none;
     border-radius: 15px;

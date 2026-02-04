@@ -35,12 +35,25 @@
                             <a class="nav-link" href="{% url 'all_classes' %}">Classes</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Memberships</a>
+                            <a class="nav-link" href="{% url 'memberships:membership_plans' %}">Memberships</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Shop</a>
                         </li>
                         {% if user.is_authenticated %}
+                        {% if user_membership %}
+                        <li class="nav-item">
+                            <a class="nav-link membership-badge" href="#" title="Your active membership">
+                                <i class="fas fa-id-card"></i> {{ user_membership.membership_tier.name }}
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'memberships:membership_plans' %}">
+                                <i class="fas fa-shopping-cart"></i> Get Membership
+                            </a>
+                        </li>
+                        {% endif %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'account_logout' %}">Logout</a>
                         </li>

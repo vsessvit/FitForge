@@ -100,6 +100,51 @@
                     {% endif %}
                 </div>
             </div>
+
+            <div class="card profile-card mt-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Booking History</h5>
+                </div>
+                <div class="card-body">
+                    {% if bookings %}
+                    <div class="table-responsive">
+                        <table class="table table-sm table-borderless">
+                            <thead>
+                                <tr>
+                                    <th>Class</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for booking in bookings %}
+                                <tr>
+                                    <td>{{ booking.class_schedule.fitness_class.name }}</td>
+                                    <td>{{ booking.class_schedule.date|date:"M d, Y" }}</td>
+                                    <td>{{ booking.class_schedule.start_time|time:"H:i" }}</td>
+                                    <td>
+                                        {% if booking.status == 'confirmed' %}
+                                        <span class="badge badge-success">Confirmed</span>
+                                        {% elif booking.status == 'cancelled' %}
+                                        <span class="badge badge-danger">Cancelled</span>
+                                        {% else %}
+                                        <span class="badge badge-warning">Pending</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <p class="text-muted">You haven't booked any classes yet.</p>
+                    <a href="{% url 'all_classes' %}" class="btn btn-primary">
+                        <i class="fas fa-calendar"></i> View Classes
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
 </div>

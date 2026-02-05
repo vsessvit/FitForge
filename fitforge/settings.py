@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'bookings',
     'products',
     'profiles',
+    'bag',
 ]
 
 MIDDLEWARE = [

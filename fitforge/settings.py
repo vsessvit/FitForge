@@ -159,6 +159,10 @@ ACCOUNT_USERNAME_MIN_LENGTH = 4
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 
+# Delivery settings
+FREE_DELIVERY_THRESHOLD = 50
+STANDARD_DELIVERY_COST = 5.99
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 

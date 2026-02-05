@@ -22,10 +22,27 @@ def bag_contents(request):
             'product': product,
         })
 
+    # Delivery calculation
+    delivery_threshold = Decimal(settings.FREE_DELIVERY_THRESHOLD)
+    delivery_cost = Decimal(settings.STANDARD_DELIVERY_COST)
+    
+    if total < delivery_threshold:
+        delivery = delivery_cost
+        free_delivery_delta = delivery_threshold - total
+    else:
+        delivery = 0
+        free_delivery_delta = 0
+    
+    grand_total = total + delivery
+
     context = {
         'bag_items': bag_items,
         'total': total,
         'product_count': product_count,
+        'delivery': delivery,
+        'free_delivery_delta': free_delivery_delta,
+        'free_delivery_threshold': delivery_threshold,
+        'grand_total': grand_total,
     }
 
     return context

@@ -65,7 +65,39 @@
                     <h5 class="mb-0">Order History</h5>
                 </div>
                 <div class="card-body">
-                    <p class="text-muted">Your order history will appear here.</p>
+                    {% if orders %}
+                    <div class="table-responsive">
+                        <table class="table table-sm table-borderless">
+                            <thead>
+                                <tr>
+                                    <th>Order Number</th>
+                                    <th>Date</th>
+                                    <th>Items</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for order in orders %}
+                                <tr>
+                                    <td>
+                                        <a href="#" class="text-info">
+                                            {{ order.order_number|truncatechars:15 }}
+                                        </a>
+                                    </td>
+                                    <td>{{ order.date|date:"M d, Y" }}</td>
+                                    <td>{{ order.lineitems.count }}</td>
+                                    <td>${{ order.grand_total }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <p class="text-muted">You haven't placed any orders yet.</p>
+                    <a href="{% url 'all_products' %}" class="btn btn-primary">
+                        <i class="fas fa-shopping-cart"></i> Start Shopping
+                    </a>
+                    {% endif %}
                 </div>
             </div>
         </div>

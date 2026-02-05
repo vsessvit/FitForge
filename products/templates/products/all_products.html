@@ -108,9 +108,25 @@
                             </span>
                             {% endif %}
                         </div>
-                        <a href="{% url 'products:product_detail' product.id %}" class="btn btn-primary btn-block mt-2">
-                            View Details
-                        </a>
+                        <div class="d-flex mt-2">
+                            <a href="{% url 'products:product_detail' product.id %}" class="btn btn-primary flex-grow-1 mr-1">
+                                View Details
+                            </a>
+                            {% if product.stock_quantity > 0 %}
+                            <form method="POST" action="{% url 'bag:add_to_bag' product.id %}" class="d-inline">
+                                {% csrf_token %}
+                                <input type="hidden" name="quantity" value="1">
+                                <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                                <button type="submit" class="btn btn-primary" title="Add to cart">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                            </form>
+                            {% else %}
+                            <button class="btn btn-secondary" disabled title="Out of stock">
+                                <i class="fas fa-ban"></i>
+                            </button>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>

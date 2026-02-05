@@ -729,3 +729,81 @@ a:hover {
     font-weight: 700;
     color: var(--black);
 }
+
+/* Shopping Bag Styles */
+.bag-item-image {
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.bag-item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.no-image-placeholder {
+    width: 80px;
+    height: 80px;
+    background-color: var(--beige);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: var(--black);
+    opacity: 0.3;
+    border-radius: 8px;
+}
+
+.bag-item-image a {
+    text-decoration: none;
+    color: var(--black);
+}
+
+.bag-item-image a:hover {
+    color: var(--gold);
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quantity-control input {
+    width: 60px;
+    text-align: center;
+    border: 2px solid var(--beige);
+    border-radius: 5px;
+}
+
+.text-gold {
+    color: var(--gold);
+}
+
+/* Bag Summary Card */
+.card {
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(14, 14, 14, 0.1);
+}
+
+.card-title {
+    font-weight: 700;
+    color: var(--black);
+}
+
+/* Responsive Bag Table */
+@media (max-width: 768px) {
+    .bag-item-image {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .no-image-placeholder {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+}

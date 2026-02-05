@@ -913,3 +913,35 @@ a:hover {
     min-height: 100px;
 }
 
+.profile-card .table th {
+    color: var(--black);
+    font-weight: 600;
+    border-top: none;
+    font-size: 0.9rem;
+}
+
+.profile-card .table td {
+    vertical-align: middle;
+    font-size: 0.9rem;
+}
+
+.profile-card .table-sm td,
+.profile-card .table-sm th {
+    padding: 0.5rem;
+}
+
+.profile-card .badge {
+    padding: 0.35em 0.65em;
+    font-weight: 500;
+}
+
+.profile-card .text-info {
+    color: var(--gold) !important;
+    text-decoration: none;
+}
+
+.profile-card .text-info:hover {
+    color: var(--black) !important;
+    text-decoration: underline;
+}
+

@@ -63,24 +63,41 @@
         </div>
 
         <div class="col-lg-4">
-            <div class="card">
+            <div class="card bag-summary-card">
                 <div class="card-body">
-                    <h5 class="card-title">Order Summary</h5>
-                    <hr>
+                    <h5 class="card-title mb-4">Order Summary</h5>
                     <div class="d-flex justify-content-between mb-2">
                         <span>Subtotal ({{ product_count }} items):</span>
                         <span>${{ total|floatformat:2 }}</span>
                     </div>
-                    <hr>
                     <div class="d-flex justify-content-between mb-3">
-                        <strong>Total:</strong>
-                        <strong class="text-gold">${{ total|floatformat:2 }}</strong>
+                        <span>Delivery:</span>
+                        <span>
+                            {% if delivery > 0 %}
+                                ${{ delivery|floatformat:2 }}
+                            {% else %}
+                                <span class="text-success">FREE</span>
+                            {% endif %}
+                        </span>
                     </div>
-                    <a href="#" class="btn btn-primary btn-block btn-lg">
-                        Proceed to Checkout
+                    {% if free_delivery_delta > 0 %}
+                    <div class="alert alert-warning mb-3">
+                        <small>
+                            <i class="fas fa-shipping-fast"></i>
+                            Spend <strong>${{ free_delivery_delta|floatformat:2 }}</strong> more for free delivery!
+                        </small>
+                    </div>
+                    {% endif %}
+                    <hr class="my-3">
+                    <div class="d-flex justify-content-between mb-4 grand-total">
+                        <strong>Grand Total:</strong>
+                        <strong class="text-gold">${{ grand_total|floatformat:2 }}</strong>
+                    </div>
+                    <a href="#" class="btn btn-primary btn-block btn-lg checkout-btn mb-3">
+                        <i class="fas fa-lock"></i> Secure Checkout
                     </a>
-                    <a href="{% url 'products:all_products' %}" class="btn btn-outline-secondary btn-block mt-2">
-                        Continue Shopping
+                    <a href="{% url 'products:all_products' %}" class="btn btn-outline-secondary btn-block">
+                        <i class="fas fa-arrow-left"></i> Continue Shopping
                     </a>
                 </div>
             </div>

@@ -784,6 +784,53 @@ a:hover {
 }
 
 /* Bag Summary Card */
+.bag-summary-card {
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(14, 14, 14, 0.1);
+    position: sticky;
+    top: 20px;
+}
+
+.bag-summary-card .card-body {
+    padding: 1.5rem;
+}
+
+.bag-summary-card .card-title {
+    font-weight: 700;
+    color: var(--black);
+    font-size: 1.5rem;
+}
+
+.grand-total {
+    font-size: 1.25rem;
+}
+
+.grand-total .text-gold {
+    font-size: 1.5rem;
+}
+
+.checkout-btn {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+}
+
+.checkout-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(223, 176, 17, 0.4);
+}
+
+.alert-warning {
+    background-color: rgba(223, 176, 17, 0.1);
+    border-color: var(--gold);
+    color: var(--black);
+}
+
+.alert-warning i {
+    color: var(--gold);
+}
+
 .card {
     border-radius: 10px;
     box-shadow: 0 5px 20px rgba(14, 14, 14, 0.1);
@@ -805,5 +852,11 @@ a:hover {
         width: 60px;
         height: 60px;
         font-size: 1.5rem;
+    }
+    
+    .bag-summary-card {
+        position: relative;
+        top: 0;
+        margin-top: 2rem;
     }
 }

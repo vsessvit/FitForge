@@ -860,3 +860,56 @@ a:hover {
         margin-top: 2rem;
     }
 }
+
+/* Profile Page Styles */
+.profile-card {
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(14, 14, 14, 0.1);
+    margin-bottom: 2rem;
+}
+
+.profile-card .card-header {
+    background-color: var(--black);
+    color: var(--gold);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 1rem 1.5rem;
+}
+
+.profile-card .card-header h5 {
+    margin: 0;
+    font-weight: 700;
+}
+
+.profile-card .card-body {
+    padding: 1.5rem;
+}
+
+.form-control-plaintext {
+    color: var(--black);
+    font-weight: 500;
+}
+
+.profile-card .form-group label {
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 0.5rem;
+}
+
+.profile-card .form-control {
+    border: 2px solid var(--beige);
+    border-radius: 8px;
+    padding: 10px;
+    transition: border-color 0.3s ease;
+}
+
+.profile-card .form-control:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 0.2rem rgba(223, 176, 17, 0.25);
+}
+
+.profile-card textarea.form-control {
+    resize: vertical;
+    min-height: 100px;
+}
+

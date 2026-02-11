@@ -29,6 +29,7 @@
                         <tr>
                             <td class="py-3">
                                 <div class="d-flex align-items-center">
+                                    {% if item.item_type == 'product' %}
                                     <div class="bag-item-image mr-3">
                                         {% if item.product.image %}
                                         <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="img-fluid">
@@ -44,16 +45,72 @@
                                         </h5>
                                         <p class="text-muted mb-0">SKU: {{ item.product.sku }}</p>
                                     </div>
+                                    {% else %}
+                                    <div class="bag-item-image mr-3">
+                                        <div class="membership-badge">
+                                            <i class="fas fa-crown"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h5 class="mb-1">
+                                            <a href="{% url 'memberships:membership_detail' item.membership.id %}">{{ item.membership.name }}</a>
+                                        </h5>
+                                        <p class="text-muted mb-0">Membership Plan</p>
+                                    </div>
+                                    {% endif %}
                                 </div>
                             </td>
-                            <td class="py-3">${{ item.product.price }}</td>
                             <td class="py-3">
-                                <div class="quantity-control">
-                                    {{ item.quantity }}
-                                </div>
+                                {% if item.item_type == 'product' %}
+                                    ${{ item.product.price }}
+                                {% else %}
+                                    ${{ item.membership.price }}
+                                {% endif %}
                             </td>
                             <td class="py-3">
-                                <strong>${{ item.product.price|floatformat:2 }}</strong>
+                                {% if item.item_type == 'product' %}
+                                <form class="form update-form" method="POST" action="{% url 'bag:adjust_bag' item.item_id %}">
+                                    {% csrf_token %}
+                                    <div class="d-flex align-items-center">
+                                        <div class="input-group input-group-sm" style="max-width: 150px;">
+                                            <div class="input-group-prepend">
+                                                <button class="btn btn-outline-secondary decrement-qty" type="button" 
+                                                        data-item_id="{{ item.item_id }}">
+                                                    <i class="fas fa-minus"></i>
+                                                </button>
+                                            </div>
+                                            <input class="form-control qty_input text-center" type="number" 
+                                                   name="quantity" value="{{ item.quantity }}" min="1" max="99"
+                                                   data-item_id="{{ item.item_id }}" id="id_qty_{{ item.item_id }}">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary increment-qty" type="button"
+                                                        data-item_id="{{ item.item_id }}">
+                                                    <i class="fas fa-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <a class="remove-item text-dark ml-3" href="#" id="remove_{{ item.item_id }}" title="Remove item">
+                                            <i class="fas fa-trash-alt fa-lg"></i>
+                                        </a>
+                                    </div>
+                                </form>
+                                {% else %}
+                                <div class="d-flex align-items-center">
+                                    <div class="quantity-control">
+                                        1 <span class="text-muted">(per month)</span>
+                                    </div>
+                                    <a class="remove-membership text-dark ml-3" href="#" title="Remove membership">
+                                        <i class="fas fa-trash-alt fa-lg"></i>
+                                    </a>
+                                </div>
+                                {% endif %}
+                            </td>
+                            <td class="py-3">
+                                {% if item.item_type == 'product' %}
+                                    <strong>${{ item.product.price|floatformat:2 }}</strong>
+                                {% else %}
+                                    <strong>${{ item.membership.price|floatformat:2 }}</strong>
+                                {% endif %}
                             </td>
                         </tr>
                         {% endfor %}
@@ -119,4 +176,31 @@
     </div>
     {% endif %}
 </div>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+<script src="{% static 'js/bag.js' %}"></script>
+
+<script type="text/javascript">
+    // Auto-submit form when quantity changes
+    $('.qty_input').change(function() {
+        $(this).closest('form').submit();
+    });
+
+    // Remove item from bag
+    $('.remove-item').click(function(e) {
+        e.preventDefault();
+        var itemId = $(this).attr('id').split('remove_')[1];
+        var url = `/bag/remove/${itemId}/`;
+        window.location.href = url;
+    });
+
+    // Remove membership from bag
+    $('.remove-membership').click(function(e) {
+        e.preventDefault();
+        var url = "{% url 'bag:remove_membership_from_bag' %}";
+        window.location.href = url;
+    });
+</script>
 {% endblock %}

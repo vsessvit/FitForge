@@ -1,9 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
+import uuid
 
 
 class Order(models.Model):
     """Model for customer orders"""
+    order_number = models.CharField(
+        max_length=32, null=False, editable=False, unique=True
+    )
     user = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True, blank=True,
         related_name='orders'
@@ -28,5 +32,9 @@ class Order(models.Model):
         max_digits=10, decimal_places=2, null=False, default=0
     )
 
+    def _generate_order_number(self):
+        """Generate a random, unique order number using UUID"""
+        return uuid.uuid4().hex.upper()
+
     def __str__(self):
-        return f'Order {self.id}'
+        return self.order_number

@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models import Sum
+from django.conf import settings
 from products.models import Product
 from memberships.models import Membership
 import uuid
@@ -37,6 +39,17 @@ class Order(models.Model):
     def _generate_order_number(self):
         """Generate a random, unique order number using UUID"""
         return uuid.uuid4().hex.upper()
+
+    def update_total(self):
+        """Update grand total each time a line item is added"""
+        self.order_total = self.lineitems.aggregate(
+            Sum('lineitem_total'))['lineitem_total__sum'] or 0
+        if self.order_total < settings.FREE_DELIVERY_THRESHOLD:
+            self.delivery_cost = settings.STANDARD_DELIVERY_COST
+        else:
+            self.delivery_cost = 0
+        self.grand_total = self.order_total + self.delivery_cost
+        self.save()
 
     def __str__(self):
         return self.order_number

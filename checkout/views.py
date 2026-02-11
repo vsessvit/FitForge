@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.conf import settings
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from bag.contexts import bag_contents
 from .forms import OrderForm
+from .models import Order
 import stripe
 
 
@@ -52,3 +53,24 @@ def create_payment_intent(request):
         })
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=400)
+
+
+def checkout_success(request, order_number):
+    """Handle successful checkouts"""
+    order = get_object_or_404(Order, order_number=order_number)
+    
+    messages.success(request, f'Order successfully processed! \
+        Your order number is {order_number}. A confirmation \
+        email will be sent to {order.email}.')
+    
+    # Clear the bag from session
+    if 'bag' in request.session:
+        del request.session['bag']
+    if 'membership_in_bag' in request.session:
+        del request.session['membership_in_bag']
+    
+    context = {
+        'order': order,
+    }
+    
+    return render(request, 'checkout/checkout_success.html', context)

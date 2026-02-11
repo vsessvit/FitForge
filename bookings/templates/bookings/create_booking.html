@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Book Your Class</h3>
+                </div>
+                <div class="card-body">
+                    <h4 class="mb-4">Class Details</h4>
+                    
+                    <div class="class-info mb-4 p-3 bg-light rounded">
+                        <div class="row mb-2">
+                            <div class="col-md-4"><strong>Class:</strong></div>
+                            <div class="col-md-8">{{ schedule.fitness_class.name }}</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-4"><strong>Date:</strong></div>
+                            <div class="col-md-8">{{ schedule.date|date:"l, F j, Y" }}</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-4"><strong>Time:</strong></div>
+                            <div class="col-md-8">{{ schedule.start_time|time:"g:i A" }} - {{ schedule.end_time|time:"g:i A" }}</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-4"><strong>Instructor:</strong></div>
+                            <div class="col-md-8">{{ schedule.fitness_class.instructor }}</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-4"><strong>Duration:</strong></div>
+                            <div class="col-md-8">{{ schedule.fitness_class.duration }} minutes</div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-4"><strong>Difficulty:</strong></div>
+                            <div class="col-md-8">{{ schedule.fitness_class.get_difficulty_display }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4"><strong>Spots Available:</strong></div>
+                            <div class="col-md-8">
+                                <span class="badge badge-success">{{ schedule.available_spots }} spots remaining</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <form method="POST">
+                        {% csrf_token %}
+                        
+                        {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {{ form.non_field_errors }}
+                        </div>
+                        {% endif %}
+                        
+                        <div class="form-group">
+                            {{ form.notes.label_tag }}
+                            {{ form.notes }}
+                            {% if form.notes.errors %}
+                            <div class="invalid-feedback d-block">
+                                {{ form.notes.errors }}
+                            </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle"></i>
+                            <strong>Note:</strong> By booking this class, you confirm that you have an active membership and agree to arrive on time.
+                        </div>
+                        
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="fas fa-check"></i> Confirm Booking
+                            </button>
+                            <a href="{% url 'class_schedule_list' %}" class="btn btn-outline-secondary btn-lg">
+                                <i class="fas fa-times"></i> Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card booking-confirmation-card">
+                <div class="card-header bg-success text-white text-center py-4">
+                    <i class="fas fa-check-circle fa-3x mb-3"></i>
+                    <h2 class="mb-0">Booking Confirmed!</h2>
+                </div>
+                <div class="card-body p-4">
+                    <div class="alert alert-success">
+                        <i class="fas fa-info-circle"></i> Your spot has been successfully reserved!
+                    </div>
+                    
+                    <h4 class="mb-3">Booking Details</h4>
+                    
+                    <div class="booking-details">
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <strong><i class="fas fa-dumbbell text-primary"></i> Class:</strong>
+                            </div>
+                            <div class="col-md-8">
+                                {{ booking.class_schedule.fitness_class.name }}
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <strong><i class="far fa-calendar-alt text-primary"></i> Date:</strong>
+                            </div>
+                            <div class="col-md-8">
+                                {{ booking.class_schedule.date|date:"l, F j, Y" }}
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <strong><i class="far fa-clock text-primary"></i> Time:</strong>
+                            </div>
+                            <div class="col-md-8">
+                                {{ booking.class_schedule.start_time|time:"g:i A" }} - {{ booking.class_schedule.end_time|time:"g:i A" }}
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <strong><i class="fas fa-user text-primary"></i> Instructor:</strong>
+                            </div>
+                            <div class="col-md-8">
+                                {{ booking.class_schedule.fitness_class.instructor }}
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <strong><i class="fas fa-clock text-primary"></i> Duration:</strong>
+                            </div>
+                            <div class="col-md-8">
+                                {{ booking.class_schedule.fitness_class.duration }} minutes
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <strong><i class="fas fa-signal text-primary"></i> Difficulty:</strong>
+                            </div>
+                            <div class="col-md-8">
+                                {{ booking.class_schedule.fitness_class.get_difficulty_display }}
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <strong><i class="fas fa-hashtag text-primary"></i> Booking ID:</strong>
+                            </div>
+                            <div class="col-md-8">
+                                #{{ booking.id }}
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <strong><i class="fas fa-tag text-primary"></i> Status:</strong>
+                            </div>
+                            <div class="col-md-8">
+                                <span class="badge badge-success">{{ booking.get_status_display }}</span>
+                            </div>
+                        </div>
+                        
+                        {% if booking.notes %}
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <strong><i class="fas fa-sticky-note text-primary"></i> Notes:</strong>
+                            </div>
+                            <div class="col-md-8">
+                                {{ booking.notes }}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <hr class="my-4">
+                    
+                    <div class="next-steps">
+                        <h5 class="mb-3"><i class="fas fa-arrow-right"></i> Next Steps</h5>
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success"></i> 
+                                Arrive 10 minutes early to check in
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success"></i> 
+                                Bring water and a towel
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success"></i> 
+                                Wear comfortable workout clothes
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success"></i> 
+                                Check your bookings anytime from "My Bookings"
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <a href="#" class="btn btn-outline-primary mr-2">
+                            <i class="far fa-calendar-plus"></i> Add to Calendar
+                        </a>
+                        <span class="text-muted">(Coming Soon)</span>
+                    </div>
+                </div>
+                <div class="card-footer bg-light text-center">
+                    <a href="{% url 'bookings:my_bookings' %}" class="btn btn-primary mr-2">
+                        <i class="fas fa-list"></i> View My Bookings
+                    </a>
+                    <a href="{% url 'class_schedule_list' %}" class="btn btn-outline-secondary">
+                        <i class="fas fa-calendar"></i> Book Another Class
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

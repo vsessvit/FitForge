@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models import Sum
 from django.conf import settings
 from products.models import Product
-from memberships.models import Membership
+from memberships.models import MembershipTier
 import uuid
 
 
@@ -51,6 +51,12 @@ class Order(models.Model):
         self.grand_total = self.order_total + self.delivery_cost
         self.save()
 
+    def save(self, *args, **kwargs):
+        """Override save to generate order_number if not set"""
+        if not self.order_number:
+            self.order_number = self._generate_order_number()
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return self.order_number
 
@@ -65,7 +71,7 @@ class OrderLineItem(models.Model):
         Product, null=True, blank=True, on_delete=models.SET_NULL
     )
     membership = models.ForeignKey(
-        Membership, null=True, blank=True, on_delete=models.SET_NULL
+        MembershipTier, null=True, blank=True, on_delete=models.SET_NULL
     )
     quantity = models.IntegerField(null=False, blank=False, default=1)
     lineitem_total = models.DecimalField(

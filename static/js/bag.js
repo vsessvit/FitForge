@@ -5,12 +5,14 @@ document.addEventListener('DOMContentLoaded', function() {
     incrementButtons.forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
-            const input = this.closest('.quantity-control').querySelector('.qty_input');
+            const input = this.closest('.input-group').querySelector('.qty_input');
             const currentValue = parseInt(input.value);
             const maxValue = parseInt(input.getAttribute('max'));
             
             if (currentValue < maxValue) {
                 input.value = currentValue + 1;
+                // Auto-submit the form
+                input.closest('form').submit();
             }
         });
     });
@@ -20,12 +22,14 @@ document.addEventListener('DOMContentLoaded', function() {
     decrementButtons.forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
-            const input = this.closest('.quantity-control').querySelector('.qty_input');
+            const input = this.closest('.input-group').querySelector('.qty_input');
             const currentValue = parseInt(input.value);
             const minValue = parseInt(input.getAttribute('min'));
             
             if (currentValue > minValue) {
                 input.value = currentValue - 1;
+                // Auto-submit the form
+                input.closest('form').submit();
             }
         });
     });

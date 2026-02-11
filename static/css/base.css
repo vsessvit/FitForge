@@ -945,3 +945,103 @@ a:hover {
     text-decoration: underline;
 }
 
+/* Membership Badge in Bag */
+.membership-badge {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--gold) 0%, #d4af37 100%);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: var(--black);
+}
+
+/* Schedule Display Styles */
+.schedule-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(14, 14, 14, 0.1);
+}
+
+.schedule-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(14, 14, 14, 0.15);
+}
+
+.schedule-card .card-header {
+    background-color: var(--black) !important;
+    border-bottom: 3px solid var(--gold);
+}
+
+.schedule-card .card-body i {
+    color: var(--gold);
+    margin-right: 5px;
+    width: 20px;
+    text-align: center;
+}
+
+.schedule-card .alert {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.schedule-card .alert-success {
+    background-color: rgba(40, 167, 69, 0.1);
+    border-color: rgba(40, 167, 69, 0.3);
+    color: #155724;
+}
+
+.schedule-card .alert-warning {
+    background-color: rgba(255, 193, 7, 0.1);
+    border-color: rgba(255, 193, 7, 0.3);
+    color: #856404;
+}
+
+.schedule-card .alert-danger {
+    background-color: rgba(220, 53, 69, 0.1);
+    border-color: rgba(220, 53, 69, 0.3);
+    color: #721c24;
+}
+
+.availability-indicator {
+    font-weight: 600;
+}
+
+/* Booking Confirmation Styles */
+.booking-confirmation-card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.booking-confirmation-card .card-header {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+}
+
+.booking-confirmation-card .booking-details {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.booking-confirmation-card .booking-details .row {
+    border-bottom: 1px solid #dee2e6;
+    padding: 10px 0;
+}
+
+.booking-confirmation-card .booking-details .row:last-child {
+    border-bottom: none;
+}
+
+.booking-confirmation-card .next-steps ul li {
+    padding: 5px 0;
+}
+
+.booking-confirmation-card .next-steps ul li i {
+    margin-right: 10px;
+}
+
+.booking-confirmation-card .card-footer {
+    padding: 20px;
+}

@@ -70,3 +70,26 @@ select option {
     background: #000;
     color: white;
 }
+
+/* Checkout Success Page Styles */
+
+.order-confirmation-wrapper {
+    background: #fff;
+    margin-top: 20px;
+}
+
+.order-confirmation-wrapper .row {
+    border-bottom: 1px solid #e9ecef;
+    padding: 10px 0;
+}
+
+.order-confirmation-wrapper .row:last-child {
+    border-bottom: none;
+}
+
+.order-confirmation-wrapper small {
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}

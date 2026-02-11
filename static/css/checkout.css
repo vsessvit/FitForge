@@ -1,0 +1,72 @@
+/* Checkout Page Styles */
+
+.checkout-container {
+    min-height: 100vh;
+}
+
+.fieldset-label {
+    position: relative;
+    width: auto;
+}
+
+.stripe-style-input::placeholder {
+    color: #aab7c4;
+}
+
+.stripe-style-input {
+    background: white;
+    color: #000;
+    border: 1px solid #000;
+    border-radius: 0;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.stripe-style-input:focus {
+    border-color: #000;
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.25);
+}
+
+#card-element {
+    border: 1px solid #000;
+    border-radius: 0;
+    padding: 10px;
+    background: white;
+}
+
+#payment-form .form-control,
+#card-element {
+    color: #000;
+    border: 1px solid #000;
+}
+
+select,
+select option {
+    color: #000;
+}
+
+.btn-black {
+    background: #000;
+    color: white;
+}
+
+.btn-black:hover,
+.btn-black:active,
+.btn-black:focus {
+    background: #222;
+    color: white;
+}
+
+.btn-outline-black {
+    background: white;
+    color: #000;
+    border: 1px solid #000;
+}
+
+.btn-outline-black:hover,
+.btn-outline-black:active,
+.btn-outline-black:focus {
+    background: #000;
+    color: white;
+}

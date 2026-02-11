@@ -11,6 +11,7 @@ from .forms import OrderForm
 from .models import Order, OrderLineItem
 from .webhook_handler import StripeWH_Handler
 import stripe
+import json
 import logging
 
 logger = logging.getLogger(__name__)
@@ -113,6 +114,28 @@ def checkout(request):
     }
     
     return render(request, 'checkout/checkout.html', context)
+
+
+@require_POST
+def cache_checkout_data(request):
+    """Cache checkout data in Payment Intent metadata"""
+    try:
+        pid = request.POST.get('client_secret').split('_secret')[0]
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        
+        # Modify the payment intent with metadata
+        stripe.PaymentIntent.modify(pid, metadata={
+            'bag': json.dumps(request.session.get('bag', {})),
+            'membership_id': request.session.get('membership_in_bag', ''),
+            'save_info': request.POST.get('save_info'),
+            'username': request.user.username if request.user.is_authenticated else 'AnonymousUser',
+        })
+        
+        return JsonResponse({'success': True})
+    except Exception as e:
+        messages.error(request, 'Sorry, your payment cannot be \
+            processed right now. Please try again later.')
+        return JsonResponse({'error': str(e)}, status=400)
 
 
 @require_POST

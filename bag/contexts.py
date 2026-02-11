@@ -1,6 +1,7 @@
 from decimal import Decimal
 from django.conf import settings
 from products.models import Product
+from memberships.models import MembershipTier
 
 
 def bag_contents(request):
@@ -11,7 +12,9 @@ def bag_contents(request):
     total = 0
     product_count = 0
     bag = request.session.get('bag', {})
+    membership_id = request.session.get('membership_in_bag', None)
 
+    # Handle products
     for item_id, quantity in bag.items():
         product = Product.objects.get(pk=item_id)
         total += quantity * product.price
@@ -20,6 +23,19 @@ def bag_contents(request):
             'item_id': item_id,
             'quantity': quantity,
             'product': product,
+            'item_type': 'product',
+        })
+    
+    # Handle membership
+    if membership_id:
+        membership = MembershipTier.objects.get(pk=membership_id)
+        total += membership.price
+        product_count += 1
+        bag_items.append({
+            'item_id': membership_id,
+            'quantity': 1,
+            'membership': membership,
+            'item_type': 'membership',
         })
 
     # Delivery calculation

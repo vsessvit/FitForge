@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.utils import timezone
 from .models import UserProfile
 from .forms import UserProfileForm
 
@@ -22,10 +23,22 @@ def profile(request):
     else:
         form = UserProfileForm(instance=profile)
     
+    # Get user's upcoming bookings
+    from bookings.models import Booking
+    now = timezone.now()
+    bookings = Booking.objects.filter(
+        user=request.user,
+        class_schedule__date__gte=now.date(),
+        status='confirmed'
+    ).select_related('class_schedule', 'class_schedule__fitness_class').order_by('class_schedule__date', 'class_schedule__start_time')[:5]
+    
+    upcoming_count = bookings.count()
+    
     context = {
         'profile': profile,
         'form': form,
+        'bookings': bookings,
+        'upcoming_count': upcoming_count,
     }
     
     return render(request, 'profiles/profile.html', context)
-

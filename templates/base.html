@@ -35,6 +35,9 @@
                             <a class="nav-link" href="{% url 'all_classes' %}">Classes</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="{% url 'class_schedule_list' %}">Schedule</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{% url 'memberships:membership_plans' %}">Memberships</a>
                         </li>
                         <li class="nav-item">
@@ -58,12 +61,6 @@
                                 <i class="fas fa-id-card"></i> {{ user_membership.membership_tier.name }}
                             </a>
                         </li>
-                        {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'memberships:membership_plans' %}">
-                                <i class="fas fa-shopping-cart"></i> Get Membership
-                            </a>
-                        </li>
                         {% endif %}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -72,6 +69,9 @@
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profileDropdown">
                                 <a class="dropdown-item" href="{% url 'profiles:profile' %}">
                                     <i class="fas fa-user-circle"></i> My Profile
+                                </a>
+                                <a class="dropdown-item" href="{% url 'bookings:my_bookings' %}">
+                                    <i class="fas fa-calendar-check"></i> My Bookings
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{% url 'account_logout' %}">

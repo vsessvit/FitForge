@@ -9,6 +9,9 @@ from memberships.models import MembershipTier
 from .forms import OrderForm
 from .models import Order, OrderLineItem
 import stripe
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def checkout(request):
@@ -55,6 +58,11 @@ def checkout(request):
                     )
                     order.delete()
                     return redirect(reverse('bag:view_bag'))
+                except Exception as e:
+                    logger.error(f"Error creating order line item for product {item_id}: {str(e)}")
+                    messages.error(request, "There was an error processing your order. Please try again.")
+                    order.delete()
+                    return redirect(reverse('bag:view_bag'))
             
             # Create order line item for membership if present
             if membership_id:
@@ -73,11 +81,17 @@ def checkout(request):
                     )
                     order.delete()
                     return redirect(reverse('bag:view_bag'))
+                except Exception as e:
+                    logger.error(f"Error creating order line item for membership {membership_id}: {str(e)}")
+                    messages.error(request, "There was an error processing your order. Please try again.")
+                    order.delete()
+                    return redirect(reverse('bag:view_bag'))
             
             return redirect(reverse('checkout:checkout_success', args=[order.order_number]))
         else:
             messages.error(request, 'There was an error with your form. \
                 Please double check your information.')
+            logger.warning(f"Invalid checkout form: {order_form.errors}")
     else:
         bag = request.session.get('bag', {})
         
@@ -86,6 +100,10 @@ def checkout(request):
             return redirect('products:product_list')
         
         order_form = OrderForm()
+    
+    if not stripe_public_key:
+        messages.warning(request, 'Stripe public key is missing. \
+            Did you forget to set it in your environment?')
     
     context = {
         'order_form': order_form,
@@ -118,6 +136,7 @@ def create_payment_intent(request):
             'clientSecret': intent.client_secret
         })
     except Exception as e:
+        logger.error(f"Error creating payment intent: {str(e)}")
         return JsonResponse({'error': str(e)}, status=400)
 
 

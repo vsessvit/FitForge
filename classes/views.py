@@ -1,8 +1,11 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib import messages
 from django.db.models import Q
 from django.utils import timezone
 from datetime import datetime, timedelta
 from .models import FitnessClass, ClassCategory, ClassSchedule
+from .forms import ScheduleCreationForm, BulkScheduleCreationForm
 
 
 def all_classes(request):
@@ -124,3 +127,85 @@ def class_schedule_list(request):
     }
     
     return render(request, 'classes/schedule_list.html', context)
+
+
+@user_passes_test(lambda u: u.is_staff)
+def create_schedule(request):
+    """Admin view to create a single class schedule"""
+    if request.method == 'POST':
+        form = ScheduleCreationForm(request.POST)
+        if form.is_valid():
+            schedule = form.save()
+            messages.success(request, f'Schedule created for {schedule.fitness_class.name} on {schedule.date}')
+            return redirect('admin_schedule_list')
+    else:
+        form = ScheduleCreationForm()
+    
+    context = {
+        'form': form,
+    }
+    
+    return render(request, 'classes/create_schedule.html', context)
+
+
+@user_passes_test(lambda u: u.is_staff)
+def bulk_create_schedules(request):
+    """Admin view to create recurring class schedules"""
+    if request.method == 'POST':
+        form = BulkScheduleCreationForm(request.POST)
+        if form.is_valid():
+            fitness_class = form.cleaned_data['fitness_class']
+            start_date = form.cleaned_data['start_date']
+            end_date = form.cleaned_data['end_date']
+            days_of_week = [int(day) for day in form.cleaned_data['days_of_week']]
+            start_time = form.cleaned_data['start_time']
+            end_time = form.cleaned_data['end_time']
+            
+            # Generate schedules for selected weekdays
+            current_date = start_date
+            created_count = 0
+            
+            while current_date <= end_date:
+                if current_date.weekday() in days_of_week:
+                    # Check if schedule already exists
+                    if not ClassSchedule.objects.filter(
+                        fitness_class=fitness_class,
+                        date=current_date,
+                        start_time=start_time
+                    ).exists():
+                        ClassSchedule.objects.create(
+                            fitness_class=fitness_class,
+                            date=current_date,
+                            start_time=start_time,
+                            end_time=end_time,
+                            available_spots=fitness_class.max_capacity,
+                            is_active=True
+                        )
+                        created_count += 1
+                
+                current_date += timedelta(days=1)
+            
+            messages.success(request, f'Successfully created {created_count} schedule(s) for {fitness_class.name}')
+            return redirect('admin_schedule_list')
+    else:
+        form = BulkScheduleCreationForm()
+    
+    context = {
+        'form': form,
+    }
+    
+    return render(request, 'classes/bulk_create_schedules.html', context)
+
+
+@user_passes_test(lambda u: u.is_staff)
+def admin_schedule_list(request):
+    """Admin view to manage all schedules"""
+    schedules = ClassSchedule.objects.all().select_related(
+        'fitness_class', 'fitness_class__category'
+    ).order_by('-date', 'start_time')[:50]
+    
+    context = {
+        'schedules': schedules,
+    }
+    
+    return render(request, 'classes/admin_schedule_list.html', context)

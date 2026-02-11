@@ -154,7 +154,7 @@ def create_payment_intent(request):
         # Create payment intent
         intent = stripe.PaymentIntent.create(
             amount=stripe_total,
-            currency=settings.STRIPE_CURRENCY if hasattr(settings, 'STRIPE_CURRENCY') else 'usd',
+            currency=settings.STRIPE_CURRENCY,
         )
         
         return JsonResponse({

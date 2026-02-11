@@ -7,7 +7,7 @@
 <div class="container my-5">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{% url 'home:index' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
             <li class="breadcrumb-item"><a href="{% url 'products:all_products' %}">Shop</a></li>
             {% if product.category %}
             <li class="breadcrumb-item"><a href="{% url 'products:all_products' %}?category={{ product.category.name }}">{{ product.category.get_friendly_name }}</a></li>

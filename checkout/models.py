@@ -59,6 +59,14 @@ class OrderLineItem(models.Model):
         max_digits=6, decimal_places=2, null=False, blank=False, editable=False
     )
 
+    def save(self, *args, **kwargs):
+        """Override save to calculate lineitem total"""
+        if self.product:
+            self.lineitem_total = self.product.price * self.quantity
+        elif self.membership:
+            self.lineitem_total = self.membership.price * self.quantity
+        super().save(*args, **kwargs)
+
     def __str__(self):
         if self.product:
             return f'SKU {self.product.sku} on order {self.order.order_number}'

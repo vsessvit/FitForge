@@ -54,6 +54,9 @@ form.addEventListener('submit', function(ev) {
     card.update({ 'disabled': true});
     $('#submit-button').attr('disabled', true);
     
+    // Show loading overlay
+    $('.loading-overlay').fadeIn();
+    
     // Get CSRF token
     var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
     
@@ -80,6 +83,9 @@ form.addEventListener('submit', function(ev) {
                     `;
                     $(errorDiv).html(html);
                     
+                    // Hide loading overlay
+                    $('.loading-overlay').fadeOut();
+                    
                     // Re-enable card element and submit button
                     card.update({ 'disabled': false});
                     $('#submit-button').attr('disabled', false);
@@ -95,6 +101,9 @@ form.addEventListener('submit', function(ev) {
             // Show error
             var errorDiv = document.getElementById('card-errors');
             $(errorDiv).html(`<span>Error creating payment. Please try again.</span>`);
+            
+            // Hide loading overlay
+            $('.loading-overlay').fadeOut();
             
             // Re-enable elements
             card.update({ 'disabled': false});

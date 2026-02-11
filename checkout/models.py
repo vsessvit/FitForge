@@ -17,3 +17,16 @@ class Order(models.Model):
     county = models.CharField(max_length=80, null=True, blank=True)
     postcode = models.CharField(max_length=20, null=True, blank=True)
     country = models.CharField(max_length=40, null=False, blank=False)
+    date = models.DateTimeField(auto_now_add=True)
+    order_total = models.DecimalField(
+        max_digits=10, decimal_places=2, null=False, default=0
+    )
+    delivery_cost = models.DecimalField(
+        max_digits=6, decimal_places=2, null=False, default=0
+    )
+    grand_total = models.DecimalField(
+        max_digits=10, decimal_places=2, null=False, default=0
+    )
+
+    def __str__(self):
+        return f'Order {self.id}'

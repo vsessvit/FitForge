@@ -1008,6 +1008,132 @@ a:hover {
     font-weight: 600;
 }
 
+/* My Bookings Page Styles */
+.my-bookings-page .section-card {
+    margin-bottom: 2rem;
+}
+
+.my-bookings-page .section-card .card-header {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.booking-card {
+    border: 1px solid rgba(14, 14, 14, 0.1);
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    transition: box-shadow 0.3s ease;
+}
+
+.booking-card:hover {
+    box-shadow: 0 5px 15px rgba(14, 14, 14, 0.1);
+}
+
+.booking-card .booking-header {
+    background: linear-gradient(135deg, var(--black) 0%, #2c2c2c 100%);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.booking-card .booking-header h5 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.booking-card .booking-body {
+    padding: 1.5rem;
+}
+
+.booking-card .booking-info-row {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(14, 14, 14, 0.05);
+}
+
+.booking-card .booking-info-row:last-child {
+    border-bottom: none;
+}
+
+.booking-card .booking-info-row i {
+    color: var(--gold);
+    width: 25px;
+    text-align: center;
+    margin-right: 10px;
+}
+
+.booking-card .booking-footer {
+    padding: 1rem 1.5rem;
+    background-color: #f8f9fa;
+    border-radius: 0 0 10px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.booking-card .badge-status {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+}
+
+.past-booking {
+    opacity: 0.85;
+}
+
+.past-booking .booking-header {
+    background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+}
+
+/* Capacity Warning Animations */
+.capacity-urgent {
+    animation: pulse-urgent 2s ease-in-out infinite;
+    font-weight: 600;
+}
+
+.capacity-limited {
+    animation: pulse-limited 3s ease-in-out infinite;
+}
+
+@keyframes pulse-urgent {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7);
+    }
+    50% {
+        transform: scale(1.02);
+        box-shadow: 0 0 0 10px rgba(220, 53, 69, 0);
+    }
+}
+
+@keyframes pulse-limited {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.85;
+    }
+}
+
+.availability-indicator[data-spots="1"],
+.availability-indicator[data-spots="2"] {
+    font-weight: 700;
+    color: #dc3545;
+    animation: blink 1.5s ease-in-out infinite;
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.6;
+    }
+}
+
 /* Booking Confirmation Styles */
 .booking-confirmation-card {
     border: none;

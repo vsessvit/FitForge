@@ -78,18 +78,30 @@
                         </span>
                     </p>
                     
-                    <!-- Availability Indicator -->
+                    <!-- Capacity Warnings with increasing urgency -->
                     {% if schedule.available_spots == 0 %}
                         <div class="alert alert-danger py-2 px-3 mt-3 mb-0">
-                            <i class="fas fa-times-circle"></i> Class Full
+                            <i class="fas fa-times-circle"></i> <strong>Class Full</strong> - Join waiting list or check other times
+                        </div>
+                    {% elif schedule.available_spots == 1 %}
+                        <div class="alert alert-danger py-2 px-3 mt-3 mb-0 capacity-urgent">
+                            <i class="fas fa-fire"></i> <strong>Last Spot!</strong> - Book now before it's gone
+                        </div>
+                    {% elif schedule.available_spots == 2 %}
+                        <div class="alert alert-warning py-2 px-3 mt-3 mb-0 capacity-limited">
+                            <i class="fas fa-exclamation-circle"></i> <strong>Only 2 spots left!</strong> - Don't miss out
                         </div>
                     {% elif schedule.available_spots <= 5 %}
                         <div class="alert alert-warning py-2 px-3 mt-3 mb-0">
-                            <i class="fas fa-exclamation-triangle"></i> Limited Spots
+                            <i class="fas fa-exclamation-triangle"></i> <strong>Filling Fast!</strong> - Only {{ schedule.available_spots }} spots remaining
+                        </div>
+                    {% elif schedule.available_spots <= 10 %}
+                        <div class="alert alert-info py-2 px-3 mt-3 mb-0">
+                            <i class="fas fa-info-circle"></i> Limited availability - {{ schedule.available_spots }} spots left
                         </div>
                     {% else %}
                         <div class="alert alert-success py-2 px-3 mt-3 mb-0">
-                            <i class="fas fa-check-circle"></i> Spots Available
+                            <i class="fas fa-check-circle"></i> Plenty of spots available
                         </div>
                     {% endif %}
                 </div>

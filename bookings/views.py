@@ -117,3 +117,39 @@ def my_bookings(request):
     return render(request, 'bookings/my_bookings.html', context)
 
 
+@login_required
+def cancel_booking(request, booking_id):
+    """View to cancel a booking"""
+    booking = get_object_or_404(Booking, pk=booking_id, user=request.user)
+    
+    # Check if booking can be cancelled (must be confirmed and in the future)
+    now = timezone.now()
+    if booking.class_schedule.date < now.date():
+        messages.error(request, 'Cannot cancel a past booking.')
+        return redirect('bookings:my_bookings')
+    
+    if booking.status == 'cancelled':
+        messages.warning(request, 'This booking is already cancelled.')
+        return redirect('bookings:my_bookings')
+    
+    if request.method == 'POST':
+        # Use transaction to ensure data consistency
+        with transaction.atomic():
+            # Update booking status
+            booking.status = 'cancelled'
+            booking.save()
+            
+            # Restore available spot
+            schedule = booking.class_schedule
+            schedule.available_spots += 1
+            schedule.save()
+        
+        messages.success(request, f'Your booking for {booking.class_schedule.fitness_class.name} on {booking.class_schedule.date} has been cancelled.')
+        return redirect('bookings:my_bookings')
+    
+    context = {
+        'booking': booking,
+    }
+    
+    return render(request, 'bookings/cancel_booking.html', context)
+

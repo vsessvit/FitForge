@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from products.models import Product
+from memberships.models import Membership
 import uuid
 
 
@@ -38,3 +40,27 @@ class Order(models.Model):
 
     def __str__(self):
         return self.order_number
+
+
+class OrderLineItem(models.Model):
+    """Individual line item in an order"""
+    order = models.ForeignKey(
+        Order, null=False, blank=False, on_delete=models.CASCADE,
+        related_name='lineitems'
+    )
+    product = models.ForeignKey(
+        Product, null=True, blank=True, on_delete=models.SET_NULL
+    )
+    membership = models.ForeignKey(
+        Membership, null=True, blank=True, on_delete=models.SET_NULL
+    )
+    quantity = models.IntegerField(null=False, blank=False, default=1)
+    lineitem_total = models.DecimalField(
+        max_digits=6, decimal_places=2, null=False, blank=False, editable=False
+    )
+
+    def __str__(self):
+        if self.product:
+            return f'SKU {self.product.sku} on order {self.order.order_number}'
+        else:
+            return f'{self.membership.name} on order {self.order.order_number}'

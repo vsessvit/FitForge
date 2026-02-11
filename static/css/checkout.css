@@ -74,12 +74,12 @@ select option {
 /* Checkout Success Page Styles */
 
 .order-confirmation-wrapper {
-    background: #fff;
+    background: gold;
     margin-top: 20px;
 }
 
 .order-confirmation-wrapper .row {
-    border-bottom: 1px solid #e9ecef;
+    border-bottom: 1px solid #9b9280;
     padding: 10px 0;
 }
 

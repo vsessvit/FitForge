@@ -5,4 +5,5 @@ app_name = 'checkout'
 
 urlpatterns = [
     path('', views.checkout, name='checkout'),
+    path('create_payment_intent/', views.create_payment_intent, name='create_payment_intent'),
 ]

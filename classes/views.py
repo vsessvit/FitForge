@@ -5,7 +5,7 @@ from django.db.models import Q
 from django.utils import timezone
 from datetime import datetime, timedelta
 from .models import FitnessClass, ClassCategory, ClassSchedule
-from .forms import ScheduleCreationForm, BulkScheduleCreationForm
+from .forms import ScheduleCreationForm, BulkScheduleCreationForm, FitnessClassForm
 
 
 def all_classes(request):
@@ -209,3 +209,29 @@ def admin_schedule_list(request):
     }
     
     return render(request, 'classes/admin_schedule_list.html', context)
+
+
+@login_required
+def add_class(request):
+    """Add a fitness class (admin only)"""
+    if not request.user.is_superuser:
+        messages.error(request, 'Sorry, only administrators can do that.')
+        return redirect('home')
+    
+    if request.method == 'POST':
+        form = FitnessClassForm(request.POST, request.FILES)
+        if form.is_valid():
+            fitness_class = form.save()
+            messages.success(request, f'Successfully added class: {fitness_class.name}')
+            return redirect('class_detail', class_id=fitness_class.id)
+        else:
+            messages.error(request, 'Failed to add class. Please ensure the form is valid.')
+    else:
+        form = FitnessClassForm()
+    
+    template = 'classes/add_class.html'
+    context = {
+        'form': form,
+    }
+    
+    return render(request, template, context)

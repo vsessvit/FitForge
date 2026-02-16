@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %}- Edit Class{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+            <h1 class="text-center mb-4">Class Management</h1>
+            <h5 class="text-muted text-center mb-4">Edit Class</h5>
+            <hr>
+            
+            <form method="POST" action="{% url 'edit_class' fitness_class.id %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                {% for field in form %}
+                    {% if field.name != 'image' %}
+                        <div class="form-group">
+                            {{ field.label_tag }}
+                            {{ field }}
+                            {% if field.help_text %}
+                                <small class="form-text text-muted">{{ field.help_text }}</small>
+                            {% endif %}
+                            {% for error in field.errors %}
+                                <div class="text-danger small">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="form-group">
+                            {{ field.label_tag }}
+                            {{ field }}
+                            {% if field.help_text %}
+                                <small class="form-text text-muted">{{ field.help_text }}</small>
+                            {% endif %}
+                            {% for error in field.errors %}
+                                <div class="text-danger small">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                
+                <div class="text-right mt-4">
+                    <a class="btn btn-outline-secondary" href="{% url 'class_detail' fitness_class.id %}">Cancel</a>
+                    <button class="btn btn-dark" type="submit">Update Class</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+<script type="text/javascript">
+    // Display filename when image is selected
+    $('#id_image').change(function() {
+        var file = $('#id_image')[0].files[0];
+        if (file) {
+            $('#filename').text(`Image will be set to: ${file.name}`);
+        }
+    });
+</script>
+{% endblock %}

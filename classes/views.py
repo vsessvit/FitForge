@@ -235,3 +235,46 @@ def add_class(request):
     }
     
     return render(request, template, context)
+
+
+@login_required
+def edit_class(request, class_id):
+    """Edit a fitness class (admin only)"""
+    if not request.user.is_superuser:
+        messages.error(request, 'Sorry, only administrators can do that.')
+        return redirect('home')
+    
+    fitness_class = get_object_or_404(FitnessClass, pk=class_id)
+    
+    if request.method == 'POST':
+        form = FitnessClassForm(request.POST, request.FILES, instance=fitness_class)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Successfully updated class: {fitness_class.name}')
+            return redirect('class_detail', class_id=fitness_class.id)
+        else:
+            messages.error(request, 'Failed to update class. Please ensure the form is valid.')
+    else:
+        form = FitnessClassForm(instance=fitness_class)
+        messages.info(request, f'You are editing {fitness_class.name}')
+    
+    template = 'classes/edit_class.html'
+    context = {
+        'form': form,
+        'fitness_class': fitness_class,
+    }
+    
+    return render(request, template, context)
+
+
+@login_required
+def delete_class(request, class_id):
+    """Delete a fitness class (admin only)"""
+    if not request.user.is_superuser:
+        messages.error(request, 'Sorry, only administrators can do that.')
+        return redirect('home')
+    
+    fitness_class = get_object_or_404(FitnessClass, pk=class_id)
+    fitness_class.delete()
+    messages.success(request, f'Class "{fitness_class.name}" has been deleted.')
+    return redirect('all_classes')

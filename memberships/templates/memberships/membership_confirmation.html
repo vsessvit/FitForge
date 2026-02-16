@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/memberships.css' %}">
+{% endblock %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-8 offset-lg-2">
+                <div class="text-center mt-5">
+                    <h2 class="logo-font mb-4">Membership Activated!</h2>
+                    <hr class="w-50 mb-5">
+                </div>
+                
+                <div class="card membership-card featured">
+                    <div class="card-body">
+                        <div class="text-center mb-4">
+                            <i class="fas fa-check-circle text-success" style="font-size: 4rem;"></i>
+                        </div>
+                        
+                        <h3 class="text-center mb-4">{{ membership.tier.name }}</h3>
+                        
+                        <div class="membership-details">
+                            <div class="row mb-3">
+                                <div class="col-sm-4">
+                                    <strong>Status:</strong>
+                                </div>
+                                <div class="col-sm-8">
+                                    <span class="badge badge-success">{{ membership.get_status_display }}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-sm-4">
+                                    <strong>Start Date:</strong>
+                                </div>
+                                <div class="col-sm-8">
+                                    {{ membership.start_date|date:"F j, Y" }}
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-sm-4">
+                                    <strong>End Date:</strong>
+                                </div>
+                                <div class="col-sm-8">
+                                    {{ membership.end_date|date:"F j, Y" }}
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-sm-4">
+                                    <strong>Monthly Price:</strong>
+                                </div>
+                                <div class="col-sm-8">
+                                    ${{ membership.tier.price }}
+                                </div>
+                            </div>
+                            
+                            {% if membership.tier.benefits %}
+                            <div class="row mb-3">
+                                <div class="col-sm-4">
+                                    <strong>Benefits:</strong>
+                                </div>
+                                <div class="col-sm-8">
+                                    {{ membership.tier.benefits|linebreaks }}
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                        
+                        <hr class="my-4">
+                        
+                        <div class="text-center">
+                            <h5 class="mb-3">What's Next?</h5>
+                            <p>Your membership is now active! You can:</p>
+                            <ul class="text-left" style="max-width: 400px; margin: 0 auto;">
+                                <li>Book classes from our schedule</li>
+                                <li>Access all gym facilities</li>
+                                <li>View your membership details in your profile</li>
+                                <li>Manage your subscription anytime</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="text-center mt-4">
+                            <a href="{% url 'classes:class_list' %}" class="btn btn-lg mr-2" style="background-color: #DFB011; color: #0E0E0E;">
+                                Browse Classes
+                            </a>
+                            <a href="{% url 'profile' %}" class="btn btn-outline-dark btn-lg">
+                                View Profile
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

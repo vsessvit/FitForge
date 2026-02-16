@@ -19,6 +19,8 @@ class MembershipTier(models.Model):
     has_nutrition_plan = models.BooleanField(default=False)
     discount_percentage = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     is_active = models.BooleanField(default=True)
+    stripe_price_id = models.CharField(max_length=255, blank=True, help_text='Stripe Price ID for subscriptions')
+    stripe_product_id = models.CharField(max_length=255, blank=True, help_text='Stripe Product ID')
     
     class Meta:
         verbose_name_plural = 'Membership Tiers'
@@ -43,6 +45,8 @@ class UserMembership(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
     auto_renew = models.BooleanField(default=False)
     classes_used_this_week = models.IntegerField(default=0)
+    stripe_subscription_id = models.CharField(max_length=255, blank=True, help_text='Stripe Subscription ID')
+    stripe_customer_id = models.CharField(max_length=255, blank=True, help_text='Stripe Customer ID')
     
     class Meta:
         verbose_name_plural = 'User Memberships'

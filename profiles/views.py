@@ -34,11 +34,23 @@ def profile(request):
     
     upcoming_count = bookings.count()
     
+    # Get user's active membership
+    from memberships.models import UserMembership
+    try:
+        active_membership = UserMembership.objects.filter(
+            user=request.user,
+            is_active=True,
+            status='active'
+        ).select_related('tier').first()
+    except UserMembership.DoesNotExist:
+        active_membership = None
+    
     context = {
         'profile': profile,
         'form': form,
         'bookings': bookings,
         'upcoming_count': upcoming_count,
+        'active_membership': active_membership,
     }
     
     return render(request, 'profiles/profile.html', context)

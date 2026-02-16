@@ -60,6 +60,78 @@
         </div>
 
         <div class="col-lg-6">
+            <div class="card profile-card mb-4">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="fas fa-id-card"></i> Membership Status</h5>
+                </div>
+                <div class="card-body">
+                    {% if active_membership %}
+                        <div class="membership-info">
+                            <h4 class="text-primary">{{ active_membership.tier.name }}</h4>
+                            <hr>
+                            <div class="row mb-2">
+                                <div class="col-sm-4">
+                                    <strong>Status:</strong>
+                                </div>
+                                <div class="col-sm-8">
+                                    <span class="badge badge-success">{{ active_membership.get_status_display }}</span>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-sm-4">
+                                    <strong>Start Date:</strong>
+                                </div>
+                                <div class="col-sm-8">
+                                    {{ active_membership.start_date|date:"F j, Y" }}
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-sm-4">
+                                    <strong>End Date:</strong>
+                                </div>
+                                <div class="col-sm-8">
+                                    {{ active_membership.end_date|date:"F j, Y" }}
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-sm-4">
+                                    <strong>Auto-Renew:</strong>
+                                </div>
+                                <div class="col-sm-8">
+                                    {% if active_membership.auto_renew %}
+                                        <span class="text-success"><i class="fas fa-check-circle"></i> Enabled</span>
+                                    {% else %}
+                                        <span class="text-muted"><i class="fas fa-times-circle"></i> Disabled</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% if active_membership.tier.benefits %}
+                            <hr>
+                            <div class="row">
+                                <div class="col-12">
+                                    <strong>Benefits:</strong>
+                                    <div class="mt-2">
+                                        {{ active_membership.tier.benefits|linebreaks }}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                            <hr>
+                            <div class="text-center">
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelMembershipModal">
+                                    <i class="fas fa-times-circle"></i> Cancel Membership
+                                </button>
+                            </div>
+                        </div>
+                    {% else %}
+                        <p class="text-muted">You don't have an active membership.</p>
+                        <a href="{% url 'memberships:membership_list' %}" class="btn btn-primary">
+                            <i class="fas fa-star"></i> View Membership Plans
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+
             <div class="card profile-card">
                 <div class="card-header">
                     <h5 class="mb-0">Order History</h5>
@@ -157,6 +229,39 @@
                     </a>
                     {% endif %}
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Cancel Membership Confirmation Modal -->
+<div class="modal fade" id="cancelMembershipModal" tabindex="-1" role="dialog" aria-labelledby="cancelMembershipModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="cancelMembershipModalLabel">
+                    <i class="fas fa-exclamation-triangle"></i> Cancel Membership
+                </h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Are you sure you want to cancel your membership?</strong></p>
+                <p>This action will:</p>
+                <ul>
+                    <li>Cancel your recurring subscription</li>
+                    <li>Disable automatic renewal</li>
+                    <li>End your membership at the current period end</li>
+                </ul>
+                <p class="text-danger"><strong>This action cannot be undone.</strong></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Keep Membership</button>
+                <form method="POST" action="{% url 'memberships:cancel_membership' %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Yes, Cancel Membership</button>
+                </form>
             </div>
         </div>
     </div>

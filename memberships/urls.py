@@ -10,4 +10,5 @@ urlpatterns = [
     path('create-subscription/', views.create_subscription, name='create_subscription'),
     path('activate/<int:plan_id>/', views.activate_membership, name='activate_membership'),
     path('confirmation/<int:membership_id>/', views.membership_confirmation, name='membership_confirmation'),
+    path('cancel/', views.cancel_membership, name='cancel_membership'),
 ]

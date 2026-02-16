@@ -164,3 +164,39 @@ def membership_confirmation(request, membership_id):
     }
     
     return render(request, 'memberships/membership_confirmation.html', context)
+
+
+@login_required
+@require_POST
+def cancel_membership(request):
+    """Cancel user's active membership"""
+    try:
+        # Get active membership
+        membership = UserMembership.objects.get(
+            user=request.user,
+            is_active=True,
+            status='active'
+        )
+        
+        # Cancel Stripe subscription if exists
+        if membership.stripe_subscription_id:
+            try:
+                stripe.Subscription.delete(membership.stripe_subscription_id)
+            except stripe.error.StripeError as e:
+                messages.error(request, f'Error canceling subscription: {str(e)}')
+                return redirect('profile')
+        
+        # Update membership status
+        membership.is_active = False
+        membership.status = 'cancelled'
+        membership.auto_renew = False
+        membership.save()
+        
+        messages.success(request, 'Your membership has been cancelled successfully.')
+        
+    except UserMembership.DoesNotExist:
+        messages.error(request, 'No active membership found.')
+    except Exception as e:
+        messages.error(request, f'An error occurred: {str(e)}')
+    
+    return redirect('profile')

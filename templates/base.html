@@ -73,6 +73,12 @@
                                 <a class="dropdown-item" href="{% url 'bookings:my_bookings' %}">
                                     <i class="fas fa-calendar-check"></i> My Bookings
                                 </a>
+                                {% if request.user.is_superuser %}
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{% url 'products:add_product' %}">
+                                    <i class="fas fa-plus"></i> Add Product
+                                </a>
+                                {% endif %}
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{% url 'account_logout' %}">
                                     <i class="fas fa-sign-out-alt"></i> Logout
@@ -92,6 +98,20 @@
             </div>
         </nav>
     </header>
+
+    <!-- Messages Container -->
+    {% if messages %}
+    <div class="container mt-3">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
 
     <main>
         {% block page_header %}

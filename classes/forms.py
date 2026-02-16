@@ -1,6 +1,45 @@
 from django import forms
-from classes.models import ClassSchedule, FitnessClass
+from classes.models import ClassSchedule, FitnessClass, ClassCategory
 from datetime import datetime, timedelta
+
+
+class FitnessClassForm(forms.ModelForm):
+    """Form for adding and editing fitness classes"""
+    
+    class Meta:
+        model = FitnessClass
+        fields = ['category', 'name', 'description', 'duration', 
+                  'difficulty', 'instructor', 'max_capacity', 'image_url', 'image']
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        categories = ClassCategory.objects.all()
+        friendly_names = [(c.id, c.get_friendly_name() or c.name) for c in categories]
+        
+        self.fields['category'].choices = friendly_names
+        
+        # Add placeholders
+        placeholders = {
+            'category': 'Class Category',
+            'name': 'Class Name',
+            'description': 'Class Description',
+            'duration': 'Duration (minutes)',
+            'difficulty': 'Difficulty Level',
+            'instructor': 'Instructor Name',
+            'max_capacity': 'Maximum Capacity',
+            'image_url': 'Image URL (optional)',
+        }
+        
+        # Set autofocus on first field
+        self.fields['category'].widget.attrs['autofocus'] = True
+        
+        # Add CSS classes and placeholders to all fields
+        for field_name, field in self.fields.items():
+            if field_name != 'image':
+                if field_name in placeholders:
+                    placeholder = placeholders[field_name]
+                    field.widget.attrs['placeholder'] = placeholder
+                field.widget.attrs['class'] = 'form-control border-dark rounded-0'
 
 
 class ScheduleCreationForm(forms.ModelForm):

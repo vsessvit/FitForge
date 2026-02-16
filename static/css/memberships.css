@@ -1,0 +1,136 @@
+/* Membership Purchase Styles */
+/* Color Palette:
+   Primary Dark: #0E0E0E
+   Gold: #DFB011
+   Light Gold: #DBBB5F
+   Beige: #D0C09E
+   Light: #E6E5E0
+*/
+
+#loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(14, 14, 14, 0.95);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#loading-overlay .spinner-border {
+    color: #DFB011;
+}
+
+#loading-overlay p {
+    color: #E6E5E0;
+}
+
+#card-element {
+    border: 2px solid #D0C09E;
+    border-radius: 0.25rem;
+    background-color: #E6E5E0;
+}
+
+.StripeElement {
+    padding: 10px 12px;
+    background-color: #E6E5E0;
+}
+
+.StripeElement--focus {
+    border-color: #DFB011;
+    box-shadow: 0 0 0 0.2rem rgba(223, 176, 17, 0.25);
+}
+
+.StripeElement--invalid {
+    border-color: #dc3545;
+}
+
+.StripeElement--complete {
+    border-color: #DFB011;
+}
+
+/* Membership Plan Cards */
+.membership-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #D0C09E;
+    background-color: #E6E5E0;
+}
+
+.membership-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1.5rem rgba(223, 176, 17, 0.3);
+    border-color: #DFB011;
+}
+
+.membership-card.featured {
+    border: 3px solid #DFB011;
+    background: linear-gradient(135deg, #E6E5E0 0%, #D0C09E 100%);
+}
+
+.membership-card .card-header {
+    background-color: #0E0E0E;
+    color: #DFB011;
+    border-bottom: 3px solid #DFB011;
+}
+
+.membership-benefits {
+    list-style: none;
+    padding-left: 0;
+}
+
+.membership-benefits li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #D0C09E;
+    color: #0E0E0E;
+}
+
+.membership-benefits li:last-child {
+    border-bottom: none;
+}
+
+.membership-benefits li i {
+    color: #DFB011;
+    margin-right: 0.5rem;
+}
+
+/* Payment Form Styling */
+.card-header h4 {
+    color: #0E0E0E;
+}
+
+.alert-info {
+    background-color: #DBBB5F;
+    border-color: #DFB011;
+    color: #0E0E0E;
+}
+
+#submit-button {
+    background-color: #DFB011;
+    border-color: #DFB011;
+    color: #0E0E0E;
+    font-weight: 600;
+}
+
+#submit-button:hover {
+    background-color: #DBBB5F;
+    border-color: #DBBB5F;
+    color: #0E0E0E;
+}
+
+#submit-button:disabled {
+    background-color: #D0C09E;
+    border-color: #D0C09E;
+}
+
+/* Secure payment badge */
+.text-muted small {
+    color: #0E0E0E !important;
+}
+
+.text-muted i {
+    color: #DFB011;
+}
+

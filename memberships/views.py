@@ -1,5 +1,11 @@
-from django.shortcuts import render, get_object_or_404
-from .models import MembershipTier
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.conf import settings
+from .models import MembershipTier, UserMembership
+import stripe
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 def membership_plans(request):
@@ -22,3 +28,25 @@ def membership_detail(request, plan_id):
     }
     
     return render(request, 'memberships/membership_detail.html', context)
+
+
+@login_required
+def purchase_membership(request, plan_id):
+    """Handle membership purchase with Stripe"""
+    plan = get_object_or_404(MembershipTier, id=plan_id, is_active=True)
+    
+    # Check if user already has an active membership
+    try:
+        existing_membership = UserMembership.objects.get(user=request.user)
+        if existing_membership.status == 'active':
+            messages.warning(request, 'You already have an active membership. Please cancel it before purchasing a new one.')
+            return redirect('profiles:profile')
+    except UserMembership.DoesNotExist:
+        pass
+    
+    context = {
+        'plan': plan,
+        'stripe_public_key': settings.STRIPE_PUBLIC_KEY,
+    }
+    
+    return render(request, 'memberships/purchase_membership.html', context)

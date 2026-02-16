@@ -164,19 +164,46 @@
     });
     
     function handleSubscription(paymentMethodId) {
-        // This will be implemented in the next phase with backend integration
-        console.log('Payment Method ID:', paymentMethodId);
+        // Show loading overlay
+        document.getElementById('loading-overlay').classList.remove('d-none');
         
-        // For now, show a message
-        alert('Stripe integration will be completed in the next steps. Payment Method ID: ' + paymentMethodId);
+        // Get CSRF token
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
         
-        var submitButton = document.getElementById('submit-button');
-        var buttonText = document.getElementById('button-text');
-        var spinner = document.getElementById('spinner');
-        
-        submitButton.disabled = false;
-        spinner.classList.add('d-none');
-        buttonText.textContent = 'Subscribe Now - ${{ plan.price }}';
+        // Call backend to create subscription
+        fetch('{% url "memberships:create_subscription" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify({
+                plan_id: {{ plan.id }},
+                payment_method_id: paymentMethodId,
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                throw new Error(data.error);
+            }
+            
+            // Redirect to confirmation page
+            window.location.href = '{% url "memberships:activate_membership" plan.id %}';
+        })
+        .catch(error => {
+            document.getElementById('loading-overlay').classList.add('d-none');
+            var errorElement = document.getElementById('card-errors');
+            errorElement.textContent = error.message || 'An error occurred. Please try again.';
+            
+            var submitButton = document.getElementById('submit-button');
+            var buttonText = document.getElementById('button-text');
+            var spinner = document.getElementById('spinner');
+            
+            submitButton.disabled = false;
+            spinner.classList.add('d-none');
+            buttonText.textContent = 'Subscribe Now - ${{ plan.price }}';
+        });
     }
 </script>
 {% endblock %}

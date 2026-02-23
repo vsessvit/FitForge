@@ -21,9 +21,7 @@ body {
 
 main {
     flex: 1 0 auto;
-    display: flex;
-    align-items: center;
-    padding: 10px 0;
+    padding: 0;
 }
 
 .container {
@@ -103,6 +101,62 @@ form input[type="password"]:focus {
     outline: none;
 }
 
+/* Authentication Forms - Centered Styling */
+.login form p,
+.signup form p {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login form label,
+.signup form label {
+    display: block;
+    text-align: center;
+    width: 100%;
+}
+
+.login form input[type="text"],
+.login form input[type="email"],
+.login form input[type="password"],
+.signup form input[type="text"],
+.signup form input[type="email"],
+.signup form input[type="password"] {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    display: block;
+}
+
+/* Error Messages - Bold Styling */
+.errorlist {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0;
+    color: #dc3545;
+    font-weight: 700;
+    text-align: center;
+}
+
+.errorlist li {
+    font-weight: 700;
+    margin: 0.25rem 0;
+}
+
+form ul.errorlist {
+    font-weight: 700;
+}
+
+/* Authentication pages vertical centering */
+main:has(.login),
+main:has(.signup) {
+    display: flex;
+    align-items: center;
+    min-height: calc(100vh - 200px);
+    padding: 20px 0;
+}
+
 .btn-primary {
     background-color: var(--gold);
     border-color: var(--gold);
@@ -138,6 +192,16 @@ form input[type="password"]:focus {
 .btn-link:hover {
     color: var(--light-gold);
     text-decoration: underline;
+}
+
+/* Input Group Styling - Fix button height */
+.input-group .btn {
+    padding: 0.375rem 1rem;
+    border-radius: 0 0.25rem 0.25rem 0;
+}
+
+.input-group .form-control {
+    border-radius: 0.25rem 0 0 0.25rem;
 }
 
 /* Button overrides for consistent active states */
@@ -217,16 +281,16 @@ a:hover {
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    min-height: 600px;
+    min-height: 500px;
     display: flex;
     align-items: center;
     color: var(--off-white);
     text-align: center;
-    padding: 100px 0;
+    padding: 80px 0;
 }
 
 .hero h1 {
-    font-size: 3.5rem;
+    font-size: 3rem;
     font-weight: 700;
     margin-bottom: 1.5rem;
     color: var(--gold);
@@ -249,15 +313,15 @@ a:hover {
 
 /* Features Section */
 .features {
-    padding: 80px 0;
+    padding: 60px 0;
     background-color: var(--off-white);
 }
 
 .features h2 {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 2.5rem;
     color: var(--black);
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 700;
 }
 
@@ -286,15 +350,15 @@ a:hover {
 
 /* Testimonials Section */
 .testimonials {
-    padding: 80px 0;
+    padding: 60px 0;
     background-color: var(--black);
 }
 
 .testimonials h2 {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 2.5rem;
     color: var(--gold);
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 700;
 }
 

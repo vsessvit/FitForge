@@ -18,6 +18,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.defaults import page_not_found, server_error
+from home import views as home_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,6 +31,11 @@ urlpatterns = [
     path('profile/', include('profiles.urls')),
     path('bookings/', include('bookings.urls')),
     path('checkout/', include('checkout.urls')),
+    # Policy pages
+    path('faq/', home_views.faq, name='faq'),
+    path('terms/', home_views.terms, name='terms'),
+    path('privacy/', home_views.privacy, name='privacy'),
+    path('contact/', home_views.contact, name='contact'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # Custom error handlers

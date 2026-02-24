@@ -80,8 +80,14 @@ def remove_from_bag(request, item_id):
         product = get_object_or_404(Product, pk=item_id)
         bag = request.session.get('bag', {})
         
-        bag.pop(item_id)
-        messages.success(request, f'Removed {product.name} from your bag')
+        # Ensure item_id is a string since session keys are strings
+        item_id = str(item_id)
+        
+        if item_id in bag:
+            bag.pop(item_id)
+            messages.success(request, f'Removed {product.name} from your bag')
+        else:
+            messages.warning(request, f'{product.name} was not in your bag')
 
         request.session['bag'] = bag
         return redirect(reverse('bag:view_bag'))

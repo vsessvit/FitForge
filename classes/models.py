@@ -49,12 +49,18 @@ class ClassSchedule(models.Model):
     date = models.DateField()
     start_time = models.TimeField()
     end_time = models.TimeField()
-    available_spots = models.IntegerField()
+    available_spots = models.IntegerField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
     
     class Meta:
         verbose_name_plural = 'Class Schedules'
         ordering = ['date', 'start_time']
+    
+    def save(self, *args, **kwargs):
+        """Override save to set available_spots to max_capacity if not specified"""
+        if self.available_spots is None and self.fitness_class:
+            self.available_spots = self.fitness_class.max_capacity
+        super().save(*args, **kwargs)
     
     def __str__(self):
         return f"{self.fitness_class.name} - {self.date} {self.start_time}"

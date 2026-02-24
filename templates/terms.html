@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Terms & Conditions - FitForge{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <h1 class="display-4 mb-4">Terms & Conditions</h1>
+            <p class="text-muted mb-5">Last updated: February 24, 2026</p>
+
+            <section class="mb-5">
+                <h2>1. Acceptance of Terms</h2>
+                <p>By accessing and using FitForge's services, you accept and agree to be bound by the terms and provisions of this agreement. If you do not agree to these terms, please do not use our services.</p>
+            </section>
+
+            <section class="mb-5">
+                <h2>2. Membership Terms</h2>
+                <h5>2.1 Membership Types</h5>
+                <p>FitForge offers three membership tiers: Basic, Premium, and Elite. Each tier has its own benefits, restrictions, and pricing structure as detailed on our Membership Plans page.</p>
+                
+                <h5>2.2 Billing</h5>
+                <p>Memberships are billed automatically on a recurring basis (monthly or annually, depending on your selection). You authorize FitForge to charge your payment method on file for membership fees.</p>
+                
+                <h5>2.3 Cancellation</h5>
+                <p>You may cancel your membership at any time from your account settings. Cancellations take effect at the end of the current billing cycle. No refunds will be provided for partial periods.</p>
+                
+                <h5>2.4 Suspension</h5>
+                <p>FitForge reserves the right to suspend or terminate memberships for violations of facility rules, non-payment, or inappropriate conduct.</p>
+            </section>
+
+            <section class="mb-5">
+                <h2>3. Facility Usage</h2>
+                <h5>3.1 Access Hours</h5>
+                <p>Access hours vary by membership tier. Elite members have 24/7 access, while Basic and Premium members have access from 5 AM to 11 PM daily.</p>
+                
+                <h5>3.2 Guest Policy</h5>
+                <p>Premium and Elite members may bring guests. Guest passes must be purchased in advance and are subject to availability.</p>
+                
+                <h5>3.3 Facility Rules</h5>
+                <ul>
+                    <li>Members must check in at reception upon arrival</li>
+                    <li>Appropriate athletic attire and closed-toe shoes are required</li>
+                    <li>Equipment must be wiped down after use</li>
+                    <li>Weights and equipment must be returned to their proper storage</li>
+                    <li>Mobile phones should be on silent mode</li>
+                    <li>Photography and videography require prior approval</li>
+                </ul>
+            </section>
+
+            <section class="mb-5">
+                <h2>4. Class Bookings</h2>
+                <h5>4.1 Reservation Policy</h5>
+                <p>Classes can be booked through your online account. A valid membership is required to book classes.</p>
+                
+                <h5>4.2 Cancellation Policy</h5>
+                <p>Members may cancel class bookings up to 2 hours before the scheduled start time. Late cancellations or no-shows may result in temporary booking restrictions.</p>
+                
+                <h5>4.3 Waitlist</h5>
+                <p>If a class is full, you may join the waitlist. You'll be notified if a spot becomes available.</p>
+            </section>
+
+            <section class="mb-5">
+                <h2>5. Product Purchases</h2>
+                <h5>5.1 Pricing</h5>
+                <p>All prices are in USD. FitForge reserves the right to change prices at any time without notice.</p>
+                
+                <h5>5.2 Shipping</h5>
+                <p>Free shipping is offered on orders over $50. Standard shipping takes 3-5 business days within the continental United States.</p>
+                
+                <h5>5.3 Returns</h5>
+                <p>Products may be returned within 30 days of purchase if unused and in original packaging. Shipping costs are non-refundable. Memberships and digital products are non-refundable.</p>
+            </section>
+
+            <section class="mb-5">
+                <h2>6. Health and Safety</h2>
+                <h5>6.1 Assumption of Risk</h5>
+                <p>You acknowledge that physical exercise involves inherent risks and that you participate in all activities at your own risk.</p>
+                
+                <h5>6.2 Medical Clearance</h5>
+                <p>You represent that you are in good physical condition and have no medical conditions that would prevent safe participation in fitness activities. Consult your physician before beginning any exercise program.</p>
+                
+                <h5>6.3 Liability Waiver</h5>
+                <p>By using our facilities, you agree to release FitForge, its employees, and instructors from liability for any injuries or damages sustained during your use of our services.</p>
+            </section>
+
+            <section class="mb-5">
+                <h2>7. Privacy</h2>
+                <p>Your privacy is important to us. Please review our <a href="{% url 'privacy' %}">Privacy Policy</a> to understand how we collect, use, and protect your personal information.</p>
+            </section>
+
+            <section class="mb-5">
+                <h2>8. Intellectual Property</h2>
+                <p>All content on the FitForge website, including text, graphics, logos, images, and software, is the property of FitForge and protected by copyright laws. Unauthorized use is prohibited.</p>
+            </section>
+
+            <section class="mb-5">
+                <h2>9. Changes to Terms</h2>
+                <p>FitForge reserves the right to modify these terms at any time. Changes will be posted on this page with an updated revision date. Continued use of our services after changes constitutes acceptance of the new terms.</p>
+            </section>
+
+            <section class="mb-5">
+                <h2>10. Contact Information</h2>
+                <p>If you have questions about these Terms & Conditions, please <a href="{% url 'contact' %}">contact us</a>.</p>
+            </section>
+
+            <div class="text-center mt-5">
+                <a href="{% url 'home:index' %}" class="btn btn-primary">Back to Home</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -69,27 +69,27 @@
                             </td>
                             <td class="py-3">
                                 {% if item.item_type == 'product' %}
-                                <form class="form update-form" method="POST" action="{% url 'bag:adjust_bag' item.item_id %}">
+                                <form class="form update-form" method="POST" action="{% url 'bag:adjust_bag' item.product.id %}">
                                     {% csrf_token %}
                                     <div class="d-flex align-items-center">
                                         <div class="input-group input-group-sm" style="max-width: 150px;">
                                             <div class="input-group-prepend">
                                                 <button class="btn btn-outline-secondary decrement-qty" type="button" 
-                                                        data-item_id="{{ item.item_id }}">
+                                                        data-item_id="{{ item.product.id }}">
                                                     <i class="fas fa-minus"></i>
                                                 </button>
                                             </div>
                                             <input class="form-control qty_input text-center" type="number" 
                                                    name="quantity" value="{{ item.quantity }}" min="1" max="99"
-                                                   data-item_id="{{ item.item_id }}" id="id_qty_{{ item.item_id }}">
+                                                   data-item_id="{{ item.product.id }}" id="id_qty_{{ item.product.id }}">
                                             <div class="input-group-append">
                                                 <button class="btn btn-outline-secondary increment-qty" type="button"
-                                                        data-item_id="{{ item.item_id }}">
+                                                        data-item_id="{{ item.product.id }}">
                                                     <i class="fas fa-plus"></i>
                                                 </button>
                                             </div>
                                         </div>
-                                        <a class="remove-item text-dark ml-3" href="#" id="remove_{{ item.item_id }}" title="Remove item">
+                                        <a class="remove-item text-dark ml-3" href="#" id="remove_{{ item.product.id }}" title="Remove item">
                                             <i class="fas fa-trash-alt fa-lg"></i>
                                         </a>
                                     </div>
@@ -192,6 +192,14 @@
     $('.remove-item').click(function(e) {
         e.preventDefault();
         var itemId = $(this).attr('id').split('remove_')[1];
+        
+        // Validate itemId before proceeding
+        if (!itemId || itemId === 'undefined' || itemId === 'null') {
+            console.error('Invalid item ID:', itemId);
+            location.reload();
+            return;
+        }
+        
         var url = `/bag/remove/${itemId}/`;
         window.location.href = url;
     });

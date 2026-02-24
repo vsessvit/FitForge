@@ -1,0 +1,13 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /accounts/
+Disallow: /bag/
+Disallow: /checkout/
+Disallow: /profile/
+
+Allow: /
+Allow: /classes/
+Allow: /memberships/
+Allow: /products/
+
+Sitemap: https://fit-forge-28d11490cba0.herokuapp.com/sitemap.xml

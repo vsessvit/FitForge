@@ -1,0 +1,91 @@
+{% extends "emails/base_email.html" %}
+
+{% block title %}Order Confirmation - {{ order.order_number }}{% endblock %}
+
+{% block content %}
+<h2 style="color: #d4af37; margin-bottom: 20px;">Thank You for Your Order!</h2>
+
+<p>Hi {{ order.full_name }},</p>
+
+<p>Thank you for your order at FitForge! This email confirms that we have received your order and it is being processed.</p>
+
+<div style="background-color: #f8f8f8; padding: 20px; border-radius: 4px; margin: 20px 0;">
+    <h3 style="color: #000; margin-top: 0;">Order Details</h3>
+    <table style="width: 100%; border-collapse: collapse;">
+        <tr>
+            <td style="padding: 8px 0; font-weight: bold;">Order Number:</td>
+            <td style="padding: 8px 0;">{{ order.order_number }}</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px 0; font-weight: bold;">Order Date:</td>
+            <td style="padding: 8px 0;">{{ order.date|date:"F d, Y" }}</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px 0; font-weight: bold;">Email:</td>
+            <td style="padding: 8px 0;">{{ order.email }}</td>
+        </tr>
+    </table>
+</div>
+
+<div style="background-color: #fff; border: 1px solid #ddd; padding: 20px; border-radius: 4px; margin: 20px 0;">
+    <h3 style="color: #000; margin-top: 0;">Order Items</h3>
+    <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr style="border-bottom: 2px solid #d4af37;">
+                <th style="text-align: left; padding: 10px 0;">Item</th>
+                <th style="text-align: center; padding: 10px 0;">Qty</th>
+                <th style="text-align: right; padding: 10px 0;">Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in order.lineitems.all %}
+            <tr style="border-bottom: 1px solid #eee;">
+                <td style="padding: 10px 0;">{{ item.product.name }}</td>
+                <td style="text-align: center; padding: 10px 0;">{{ item.quantity }}</td>
+                <td style="text-align: right; padding: 10px 0;">€{{ item.lineitem_total }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2" style="text-align: right; padding: 10px 0; font-weight: bold;">Order Total:</td>
+                <td style="text-align: right; padding: 10px 0; font-weight: bold;">€{{ order.order_total }}</td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: right; padding: 10px 0;">Delivery:</td>
+                <td style="text-align: right; padding: 10px 0;">€{{ order.delivery_cost }}</td>
+            </tr>
+            <tr style="border-top: 2px solid #d4af37;">
+                <td colspan="2" style="text-align: right; padding: 10px 0; font-weight: bold; font-size: 18px;">Grand Total:</td>
+                <td style="text-align: right; padding: 10px 0; font-weight: bold; font-size: 18px; color: #d4af37;">€{{ order.grand_total }}</td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<div style="background-color: #f8f8f8; padding: 20px; border-radius: 4px; margin: 20px 0;">
+    <h3 style="color: #000; margin-top: 0;">Delivery Address</h3>
+    <p style="margin: 5px 0;">{{ order.full_name }}</p>
+    <p style="margin: 5px 0;">{{ order.street_address1 }}</p>
+    {% if order.street_address2 %}
+    <p style="margin: 5px 0;">{{ order.street_address2 }}</p>
+    {% endif %}
+    <p style="margin: 5px 0;">{{ order.town_or_city }}</p>
+    {% if order.county %}
+    <p style="margin: 5px 0;">{{ order.county }}</p>
+    {% endif %}
+    {% if order.postcode %}
+    <p style="margin: 5px 0;">{{ order.postcode }}</p>
+    {% endif %}
+    <p style="margin: 5px 0;">{{ order.country }}</p>
+    <p style="margin: 5px 0;">Phone: {{ order.phone_number }}</p>
+</div>
+
+<p style="margin-top: 30px;">Your order will be shipped soon. You'll receive another email once your order has been dispatched.</p>
+
+<p>Keep training hard! 💪</p>
+
+<p style="margin-top: 20px;">
+    <a href="{{ domain }}/profile/" class="btn">View Your Orders</a>
+</p>
+{% endblock %}

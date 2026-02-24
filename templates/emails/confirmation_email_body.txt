@@ -1,0 +1,39 @@
+Order {{ order.order_number }} Confirmation
+
+Hi {{ order.full_name }},
+
+Thank you for your order at FitForge! This email confirms that we have received your order and it is being processed.
+
+Order Details:
+----------------
+Order Number: {{ order.order_number }}
+Order Date: {{ order.date|date:"F d, Y" }}
+Email: {{ order.email }}
+
+Order Items:
+------------
+{% for item in order.lineitems.all %}
+{{ item.product.name }} x {{ item.quantity }} - €{{ item.lineitem_total }}
+{% endfor %}
+
+Order Total: €{{ order.order_total }}
+Delivery: €{{ order.delivery_cost }}
+Grand Total: €{{ order.grand_total }}
+
+Delivery Address:
+-----------------
+{{ order.full_name }}
+{{ order.street_address1 }}
+{% if order.street_address2 %}{{ order.street_address2 }}{% endif %}
+{{ order.town_or_city }}
+{% if order.county %}{{ order.county }}{% endif %}
+{% if order.postcode %}{{ order.postcode }}{% endif %}
+{{ order.country }}
+Phone: {{ order.phone_number }}
+
+Your order will be shipped soon. You'll receive another email once your order has been dispatched.
+
+Keep training hard!
+
+© 2026 FitForge. All rights reserved.
+www.fitforge.com

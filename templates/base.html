@@ -11,22 +11,8 @@
     
     <title>FitForge {% block extra_title %}{% endblock %}</title>
     
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ request.build_absolute_uri }}">
-    <meta property="og:title" content="FitForge - Where Champions Are Made">
-    <meta property="og:description" content="{% block og_description %}Join FitForge - Where Champions Are Made{% endblock %}">
-    <meta property="og:image" content="{% static 'images/og-image.jpg' %}">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="{{ request.build_absolute_uri }}">
-    <meta property="twitter:title" content="FitForge - Where Champions Are Made">
-    <meta property="twitter:description" content="{% block twitter_description %}Join FitForge - Where Champions Are Made{% endblock %}">
-    <meta property="twitter:image" content="{% static 'images/twitter-image.jpg' %}">
+    <!-- Favicon removed temporarily - add when image is available -->
     
-    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
-
     {% block corecss %}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">

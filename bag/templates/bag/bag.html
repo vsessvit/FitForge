@@ -218,7 +218,8 @@
             return;
         }
         
-        var url = `/bag/remove/${itemId}/`;
+        // Use Django's URL template tag to build the URL properly
+        var url = "{% url 'bag:remove_from_bag' 0 %}".replace('/0/', '/' + itemId + '/');
         var form = $('<form>', {
             'method': 'POST',
             'action': url

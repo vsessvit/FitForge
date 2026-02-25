@@ -19,6 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.defaults import page_not_found, server_error
 from home import views as home_views
+from . import views as fitforge_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -37,6 +38,12 @@ urlpatterns = [
     path('privacy/', home_views.privacy, name='privacy'),
     path('contact/', home_views.contact, name='contact'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# Add test URLs only in DEBUG mode
+if settings.DEBUG:
+    urlpatterns += [
+        path('test-500/', fitforge_views.test_500, name='test_500'),
+    ]
 
 # Custom error handlers
 handler404 = 'fitforge.views.custom_404'

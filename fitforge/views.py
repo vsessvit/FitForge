@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 import logging
 
 logger = logging.getLogger(__name__)
@@ -14,3 +15,8 @@ def custom_500(request):
     """Custom 500 error handler"""
     logger.error(f'500 error: {request.path}')
     return render(request, '500.html', status=500)
+
+
+def test_500(request):
+    """Test view to trigger 500 error - only available in DEBUG mode"""
+    raise Exception('This is a test 500 error')

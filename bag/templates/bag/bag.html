@@ -69,9 +69,9 @@
                             </td>
                             <td class="py-3">
                                 {% if item.item_type == 'product' %}
-                                <form class="form update-form" method="POST" action="{% url 'bag:adjust_bag' item.product.id %}">
-                                    {% csrf_token %}
-                                    <div class="d-flex align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <form class="form update-form" method="POST" action="{% url 'bag:adjust_bag' item.product.id %}">
+                                        {% csrf_token %}
                                         <div class="input-group input-group-sm" style="max-width: 150px;">
                                             <div class="input-group-prepend">
                                                 <button class="btn btn-outline-secondary decrement-qty" type="button" 
@@ -89,22 +89,25 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        <a class="remove-item text-dark ml-3" href="#" 
-                                           data-product-id="{{ item.product.id }}"
-                                           data-remove-url="{% url 'bag:remove_from_bag' item.product.id %}" 
-                                           title="Remove item">
+                                    </form>
+                                    <form method="POST" action="{% url 'bag:remove_from_bag' item.product.id %}" style="display: inline;">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-link text-dark p-0 ml-3" title="Remove item">
                                             <i class="fas fa-trash-alt fa-lg"></i>
-                                        </a>
-                                    </div>
-                                </form>
+                                        </button>
+                                    </form>
+                                </div>
                                 {% else %}
                                 <div class="d-flex align-items-center">
                                     <div class="quantity-control">
                                         1 <span class="text-muted">(per month)</span>
                                     </div>
-                                    <a class="remove-membership text-dark ml-3" href="#" title="Remove membership">
-                                        <i class="fas fa-trash-alt fa-lg"></i>
-                                    </a>
+                                    <form method="POST" action="{% url 'bag:remove_membership_from_bag' %}" style="display: inline;">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-link text-dark p-0 ml-3" title="Remove membership">
+                                            <i class="fas fa-trash-alt fa-lg"></i>
+                                        </button>
+                                    </form>
                                 </div>
                                 {% endif %}
                             </td>
@@ -189,67 +192,6 @@
     // Auto-submit form when quantity changes
     $('.qty_input').change(function() {
         $(this).closest('form').submit();
-    });
-
-    // Get CSRF token from cookie
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-    
-    const csrftoken = getCookie('csrftoken');
-
-    // Remove item from bag
-    $('.remove-item').click(function(e) {
-        e.preventDefault();
-        var url = $(this).data('remove-url');
-        var productId = $(this).data('product-id');
-        
-        // Validate URL before proceeding
-        if (!url || !productId) {
-            console.error('Invalid URL or product ID');
-            location.reload();
-            return;
-        }
-        
-        var form = $('<form>', {
-            'method': 'POST',
-            'action': url
-        });
-        form.append($('<input>', {
-            'type': 'hidden',
-            'name': 'csrfmiddlewaretoken',
-            'value': csrftoken
-        }));
-        $('body').append(form);
-        form.submit();
-    });
-
-    // Remove membership from bag
-    $('.remove-membership').click(function(e) {
-        e.preventDefault();
-        var url = "{% url 'bag:remove_membership_from_bag' %}";
-        var form = $('<form>', {
-            'method': 'POST',
-            'action': url
-        });
-        form.append($('<input>', {
-            'type': 'hidden',
-            'name': 'csrfmiddlewaretoken',
-            'value': csrftoken
-        }));
-        $('body').append(form);
-        form.submit();
     });
 </script>
 {% endblock %}

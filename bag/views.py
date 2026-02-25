@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
+from django.views.decorators.http import require_POST
 from products.models import Product
 from memberships.models import MembershipTier
 
@@ -78,6 +79,7 @@ def adjust_bag(request, item_id):
     return redirect(reverse('bag:view_bag'))
 
 
+@require_POST
 def remove_from_bag(request, item_id):
     """
     Remove the specified product from the shopping bag
@@ -98,11 +100,15 @@ def remove_from_bag(request, item_id):
         request.session['bag'] = bag
         return redirect(reverse('bag:view_bag'))
     
+    except Product.DoesNotExist:
+        messages.error(request, 'Product not found')
+        return redirect(reverse('bag:view_bag'))
     except Exception as e:
         messages.error(request, f'Error removing item: {e}')
         return redirect(reverse('bag:view_bag'))
 
 
+@require_POST
 def remove_membership_from_bag(request):
     """
     Remove the membership from the shopping bag
@@ -110,9 +116,14 @@ def remove_membership_from_bag(request):
     try:
         membership_id = request.session.get('membership_in_bag')
         if membership_id:
-            membership = get_object_or_404(MembershipTier, pk=membership_id)
+            try:
+                membership = MembershipTier.objects.get(pk=membership_id)
+                membership_name = membership.name
+            except MembershipTier.DoesNotExist:
+                membership_name = 'Membership'
+            
             del request.session['membership_in_bag']
-            messages.success(request, f'Removed {membership.name} membership from your bag')
+            messages.success(request, f'Removed {membership_name} membership from your bag')
         
         return redirect(reverse('bag:view_bag'))
     

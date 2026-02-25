@@ -188,6 +188,24 @@
         $(this).closest('form').submit();
     });
 
+    // Get CSRF token from cookie
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    
+    const csrftoken = getCookie('csrftoken');
+
     // Remove item from bag
     $('.remove-item').click(function(e) {
         e.preventDefault();
@@ -201,14 +219,34 @@
         }
         
         var url = `/bag/remove/${itemId}/`;
-        window.location.href = url;
+        var form = $('<form>', {
+            'method': 'POST',
+            'action': url
+        });
+        form.append($('<input>', {
+            'type': 'hidden',
+            'name': 'csrfmiddlewaretoken',
+            'value': csrftoken
+        }));
+        $('body').append(form);
+        form.submit();
     });
 
     // Remove membership from bag
     $('.remove-membership').click(function(e) {
         e.preventDefault();
         var url = "{% url 'bag:remove_membership_from_bag' %}";
-        window.location.href = url;
+        var form = $('<form>', {
+            'method': 'POST',
+            'action': url
+        });
+        form.append($('<input>', {
+            'type': 'hidden',
+            'name': 'csrfmiddlewaretoken',
+            'value': csrftoken
+        }));
+        $('body').append(form);
+        form.submit();
     });
 </script>
 {% endblock %}

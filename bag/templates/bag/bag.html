@@ -89,7 +89,10 @@
                                                 </button>
                                             </div>
                                         </div>
-                                        <a class="remove-item text-dark ml-3" href="#" id="remove_{{ item.product.id }}" title="Remove item">
+                                        <a class="remove-item text-dark ml-3" href="#" 
+                                           data-product-id="{{ item.product.id }}"
+                                           data-remove-url="{% url 'bag:remove_from_bag' item.product.id %}" 
+                                           title="Remove item">
                                             <i class="fas fa-trash-alt fa-lg"></i>
                                         </a>
                                     </div>
@@ -209,17 +212,16 @@
     // Remove item from bag
     $('.remove-item').click(function(e) {
         e.preventDefault();
-        var itemId = $(this).attr('id').split('remove_')[1];
+        var url = $(this).data('remove-url');
+        var productId = $(this).data('product-id');
         
-        // Validate itemId before proceeding
-        if (!itemId || itemId === 'undefined' || itemId === 'null') {
-            console.error('Invalid item ID:', itemId);
+        // Validate URL before proceeding
+        if (!url || !productId) {
+            console.error('Invalid URL or product ID');
             location.reload();
             return;
         }
         
-        // Use Django's URL template tag to build the URL properly
-        var url = "{% url 'bag:remove_from_bag' 0 %}".replace('/0/', '/' + itemId + '/');
         var form = $('<form>', {
             'method': 'POST',
             'action': url

@@ -34,7 +34,7 @@ class FitnessClass(models.Model):
     instructor = models.CharField(max_length=100)
     max_capacity = models.IntegerField(default=20)
     image_url = models.URLField(max_length=1024, blank=True)
-    image = models.ImageField(blank=True, null=True)
+    image = models.ImageField(upload_to='classes/', blank=True, null=True)
     
     class Meta:
         verbose_name_plural = 'Fitness Classes'

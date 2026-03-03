@@ -1,0 +1,26 @@
+{
+  "name": "fitforge",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000F\u0000i\u0000t\u0000F\u0000o\u0000r\u0000g\u0000e\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+    "lint:js": "eslint static/js/*.js",
+    "lint:js:fix": "eslint static/js/*.js --fix",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vsessvit/FitForge.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/vsessvit/FitForge/issues"
+  },
+  "homepage": "https://github.com/vsessvit/FitForge#readme",
+  "devDependencies": {
+    "eslint": "^10.0.2"
+  }
+}

@@ -59,10 +59,14 @@ virtualenv/
 ehthumbs.db
 Thumbs.db
 
-# Node modules (if using any frontend tools)
+# Node modules and npm
 node_modules/
 npm-debug.log
 yarn-error.log
+package-lock.json
+
+# Linting
+.eslintcache
 
 # Media files
 media/

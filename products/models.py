@@ -26,7 +26,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2)
     stock_quantity = models.IntegerField(default=0)
     image_url = models.URLField(max_length=1024, blank=True)
-    image = models.ImageField(blank=True, null=True)
+    image = models.ImageField(upload_to='products/', blank=True, null=True)
     rating = models.DecimalField(max_digits=3, decimal_places=2, null=True, blank=True)
     
     class Meta:

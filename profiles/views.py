@@ -34,15 +34,12 @@ def profile(request):
     
     upcoming_count = bookings.count()
     
-    # Get user's active membership
     from memberships.models import UserMembership
-    try:
-        active_membership = UserMembership.objects.filter(
-            user=request.user,
-            status='active'
-        ).select_related('membership_tier').first()
-    except UserMembership.DoesNotExist:
-        active_membership = None
+    active_membership = UserMembership.objects.filter(
+        user=request.user,
+        status='active',
+        end_date__gte=timezone.now().date()
+    ).select_related('membership_tier').first()
     
     context = {
         'profile': profile,

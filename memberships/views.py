@@ -171,14 +171,11 @@ def membership_confirmation(request, membership_id):
 def cancel_membership(request):
     """Cancel user's active membership"""
     try:
-        # Get active membership
         membership = UserMembership.objects.get(
             user=request.user,
-            is_active=True,
             status='active'
         )
         
-        # Cancel Stripe subscription if exists
         if membership.stripe_subscription_id:
             try:
                 stripe.Subscription.delete(membership.stripe_subscription_id)
@@ -186,8 +183,6 @@ def cancel_membership(request):
                 messages.error(request, f'Error canceling subscription: {str(e)}')
                 return redirect('profile')
         
-        # Update membership status
-        membership.is_active = False
         membership.status = 'cancelled'
         membership.auto_renew = False
         membership.save()

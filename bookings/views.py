@@ -14,24 +14,32 @@ def create_booking(request, schedule_id):
     """View to create a new booking for a class"""
     schedule = get_object_or_404(ClassSchedule, pk=schedule_id)
     
-    # Check if user has an active membership
     try:
-        user_membership = UserMembership.objects.get(user=request.user, is_active=True)
+        user_membership = UserMembership.objects.select_related('membership_tier').get(
+            user=request.user, 
+            status='active',
+            end_date__gte=timezone.now().date()
+        )
     except UserMembership.DoesNotExist:
         messages.error(request, 'You need an active membership to book classes. Please purchase a membership first.')
         return redirect('memberships:membership_plans')
     
-    # Check if schedule not full
+    if not user_membership.membership_tier:
+        messages.error(request, 'Your membership is incomplete. Please contact support.')
+        return redirect('memberships:membership_plans')
+    
+    if user_membership.classes_used_this_week >= user_membership.membership_tier.classes_per_week:
+        messages.error(request, f'You have reached your weekly class limit ({user_membership.membership_tier.classes_per_week} classes). Upgrade your membership for more classes.')
+        return redirect('memberships:membership_plans')
+    
     if schedule.available_spots <= 0:
         messages.error(request, 'Sorry, this class is full. Please choose another time.')
         return redirect('class_schedule_list')
     
-    # Check if schedule is active
     if not schedule.is_active:
         messages.error(request, 'This class schedule is no longer active.')
         return redirect('class_schedule_list')
     
-    # Check for duplicate booking
     existing_booking = Booking.objects.filter(
         user=request.user,
         class_schedule=schedule,
@@ -42,33 +50,21 @@ def create_booking(request, schedule_id):
         messages.warning(request, 'You have already booked this class.')
         return redirect('bookings:my_bookings')
     
-    if request.method == 'POST':
-        form = BookingForm(request.POST, user=request.user, schedule=schedule)
-        if form.is_valid():
-            # Use transaction to ensure data consistency
-            with transaction.atomic():
-                # Create booking
-                booking = form.save(commit=False)
-                booking.user = request.user
-                booking.class_schedule = schedule
-                booking.status = 'confirmed'
-                booking.save()
-                
-                # Decrease available spots
-                schedule.available_spots -= 1
-                schedule.save()
-            
-            messages.success(request, f'Successfully booked {schedule.fitness_class.name} on {schedule.date}!')
-            return redirect('bookings:booking_confirmation', booking_id=booking.id)
-    else:
-        form = BookingForm(user=request.user, schedule=schedule)
+    with transaction.atomic():
+        booking = Booking.objects.create(
+            user=request.user,
+            class_schedule=schedule,
+            status='confirmed'
+        )
+        
+        schedule.available_spots -= 1
+        schedule.save()
+        
+        user_membership.classes_used_this_week += 1
+        user_membership.save()
     
-    context = {
-        'form': form,
-        'schedule': schedule,
-    }
-    
-    return render(request, 'bookings/create_booking.html', context)
+    messages.success(request, f'Successfully booked {schedule.fitness_class.name} on {schedule.date}!')
+    return redirect('bookings:my_bookings')
 
 
 @login_required

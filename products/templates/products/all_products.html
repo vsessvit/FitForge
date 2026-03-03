@@ -118,7 +118,7 @@
                     <p class="card-text flex-grow-1">{{ product.description|truncatewords:15 }}</p>
                     <div class="mt-auto">
                         <div class="d-flex justify-content-between align-items-center">
-                            <span class="product-price">${{ product.price }}</span>
+                            <span class="product-price">€{{ product.price }}</span>
                             {% if product.rating %}
                             <span class="product-rating">
                                 <i class="fas fa-star text-warning"></i> {{ product.rating }}

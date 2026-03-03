@@ -22,7 +22,7 @@
                     <p class="lead">{{ plan.description }}</p>
                     
                     <ul class="membership-benefits mb-4">
-                        <li><i class="fas fa-check"></i> <strong>Price:</strong> ${{ plan.price }} / {{ plan.get_duration_display }}</li>
+                        <li><i class="fas fa-check"></i> <strong>Price:</strong> €{{ plan.price }} / {{ plan.get_duration_display }}</li>
                         <li><i class="fas fa-check"></i> <strong>Classes per week:</strong> {{ plan.classes_per_week }}</li>
                         {% if plan.has_personal_training %}
                         <li><i class="fas fa-check"></i> Personal Training Sessions</li>
@@ -36,7 +36,7 @@
                     </ul>
                     
                     <div class="alert alert-info">
-                        <strong>Total:</strong> ${{ plan.price }}
+                        <strong>Total:</strong> €{{ plan.price }}
                     </div>
                 </div>
             </div>
@@ -68,7 +68,7 @@
                         
                         <div class="text-center mt-4">
                             <button type="submit" id="submit-button" class="btn btn-lg btn-block">
-                                <span id="button-text">Subscribe Now - ${{ plan.price }}</span>
+                                <span id="button-text">Subscribe Now - €{{ plan.price }}</span>
                                 <span id="spinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
                             </button>
                             <a href="{% url 'memberships:membership_plans' %}" class="btn btn-outline-secondary btn-block mt-2">Cancel</a>
@@ -202,7 +202,7 @@
             
             submitButton.disabled = false;
             spinner.classList.add('d-none');
-            buttonText.textContent = 'Subscribe Now - ${{ plan.price }}';
+            buttonText.textContent = 'Subscribe Now - €{{ plan.price }}';
         });
     }
 </script>

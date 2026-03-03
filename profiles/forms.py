@@ -4,11 +4,12 @@ from .models import UserProfile
 
 class UserProfileForm(forms.ModelForm):
     """Form for users to update their profile information"""
-    
+
     class Meta:
         model = UserProfile
-        exclude = ('user',)
-        
+        fields = ['phone_number', 'date_of_birth', 'fitness_goals',
+                  'emergency_contact_name', 'emergency_contact_phone']
+
     def __init__(self, *args, **kwargs):
         """
         Add placeholders and classes, remove auto-generated labels

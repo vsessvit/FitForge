@@ -39,9 +39,8 @@ def profile(request):
     try:
         active_membership = UserMembership.objects.filter(
             user=request.user,
-            is_active=True,
             status='active'
-        ).select_related('tier').first()
+        ).select_related('membership_tier').first()
     except UserMembership.DoesNotExist:
         active_membership = None
     

@@ -16,7 +16,7 @@ import dj_database_url
 
 # Import environment variables if env.py exists
 if os.path.isfile('env.py'):
-    import env
+    pass
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,9 +29,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-i!^^*e2&!io^xs4ap+6%82l=e)fpjgjf93t11$0(aza2upsv+m')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'DEVELOPMENT' in os.environ
+DEBUG = os.environ.get('DEVELOPMENT', 'False') == '1'
 
 ALLOWED_HOSTS = ['.herokuapp.com', 'localhost', '127.0.0.1']
+
+# Ensure custom error pages are shown when DEBUG=False
+if not DEBUG:
+    ALLOWED_HOSTS = ['*']
 
 
 # Application definition

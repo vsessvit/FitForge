@@ -20,11 +20,11 @@ logger = logging.getLogger(__name__)
 def checkout(request):
     """Handle checkout process"""
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
-    
+
     if request.method == 'POST':
         bag = request.session.get('bag', {})
         membership_id = request.session.get('membership_in_bag', None)
-        
+
         form_data = {
             'full_name': request.POST['full_name'],
             'email': request.POST['email'],
@@ -36,14 +36,14 @@ def checkout(request):
             'postcode': request.POST['postcode'],
             'country': request.POST['country'],
         }
-        
+
         order_form = OrderForm(form_data)
         if order_form.is_valid():
             order = order_form.save(commit=False)
             if request.user.is_authenticated:
                 order.user = request.user
             order.save()
-            
+
             # Create order line items for products
             for item_id, quantity in bag.items():
                 try:
@@ -66,7 +66,7 @@ def checkout(request):
                     messages.error(request, "There was an error processing your order. Please try again.")
                     order.delete()
                     return redirect(reverse('bag:view_bag'))
-            
+
             # Create order line item for membership if present
             if membership_id:
                 try:
@@ -89,7 +89,7 @@ def checkout(request):
                     messages.error(request, "There was an error processing your order. Please try again.")
                     order.delete()
                     return redirect(reverse('bag:view_bag'))
-            
+
             return redirect(reverse('checkout:checkout_success', args=[order.order_number]))
         else:
             messages.error(request, 'There was an error with your form. \
@@ -97,22 +97,22 @@ def checkout(request):
             logger.warning(f"Invalid checkout form: {order_form.errors}")
     else:
         bag = request.session.get('bag', {})
-        
+
         if not bag and not request.session.get('membership_in_bag'):
             messages.error(request, "There's nothing in your bag at the moment")
             return redirect('products:product_list')
-        
+
         order_form = OrderForm()
-    
+
     if not stripe_public_key:
         messages.warning(request, 'Stripe public key is missing. \
             Did you forget to set it in your environment?')
-    
+
     context = {
         'order_form': order_form,
         'stripe_public_key': stripe_public_key,
     }
-    
+
     return render(request, 'checkout/checkout.html', context)
 
 
@@ -122,7 +122,7 @@ def cache_checkout_data(request):
     try:
         pid = request.POST.get('client_secret').split('_secret')[0]
         stripe.api_key = settings.STRIPE_SECRET_KEY
-        
+
         # Modify the payment intent with metadata
         stripe.PaymentIntent.modify(pid, metadata={
             'bag': json.dumps(request.session.get('bag', {})),
@@ -130,7 +130,7 @@ def cache_checkout_data(request):
             'save_info': request.POST.get('save_info'),
             'username': request.user.username if request.user.is_authenticated else 'AnonymousUser',
         })
-        
+
         return JsonResponse({'success': True})
     except Exception as e:
         messages.error(request, 'Sorry, your payment cannot be \
@@ -143,20 +143,20 @@ def create_payment_intent(request):
     """Create a Stripe payment intent"""
     try:
         stripe.api_key = settings.STRIPE_SECRET_KEY
-        
+
         # Get bag contents and calculate total
         current_bag = bag_contents(request)
         total = current_bag['grand_total']
-        
+
         # Stripe requires amount in cents
         stripe_total = round(total * 100)
-        
+
         # Create payment intent
         intent = stripe.PaymentIntent.create(
             amount=stripe_total,
             currency=settings.STRIPE_CURRENCY,
         )
-        
+
         return JsonResponse({
             'clientSecret': intent.client_secret
         })
@@ -168,21 +168,21 @@ def create_payment_intent(request):
 def checkout_success(request, order_number):
     """Handle successful checkouts"""
     order = get_object_or_404(Order, order_number=order_number)
-    
+
     messages.success(request, f'Order successfully processed! \
         Your order number is {order_number}. A confirmation \
         email will be sent to {order.email}.')
-    
+
     # Clear the bag from session
     if 'bag' in request.session:
         del request.session['bag']
     if 'membership_in_bag' in request.session:
         del request.session['membership_in_bag']
-    
+
     context = {
         'order': order,
     }
-    
+
     return render(request, 'checkout/checkout_success.html', context)
 
 
@@ -202,14 +202,12 @@ def webhook(request):
         event = stripe.Webhook.construct_event(
             payload, sig_header, wh_secret
         )
-    except ValueError as e:
-        # Invalid payload
+    except ValueError:
         return HttpResponse(status=400)
-    except stripe.error.SignatureVerificationError as e:
-        # Invalid signature
+    except stripe.error.SignatureVerificationError:
         return HttpResponse(status=400)
-    except Exception as e:
-        return HttpResponse(content=e, status=400)
+    except Exception:
+        return HttpResponse(status=400)
 
     # Set up a webhook handler
     handler = StripeWH_Handler(request)

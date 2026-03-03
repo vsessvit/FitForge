@@ -34,32 +34,37 @@ def all_products(request):
     if 'sort' in request.GET:
         sortkey = request.GET['sort']
         
-        # Handle combined sort&direction parameters (e.g., "price&direction=desc")
-        if '&' in sortkey:
-            parts = sortkey.split('&')
-            sortkey = parts[0]
-            if len(parts) > 1 and 'direction=' in parts[1]:
-                direction = parts[1].split('=')[1]
-        
-        sort = sortkey
-        
-        # Check for separate direction parameter
-        if 'direction' in request.GET and not direction:
-            direction = request.GET['direction']
-        
-        # Apply sorting
-        if sortkey == 'price':
-            if direction == 'desc':
-                sortkey = '-price'
-            else:
+        # Skip sorting if sortkey is empty (Default option)
+        if sortkey:
+            # Handle combined sort&direction parameters (e.g., "price&direction=desc")
+            if '&' in sortkey:
+                parts = sortkey.split('&')
+                sortkey = parts[0]
+                if len(parts) > 1 and 'direction=' in parts[1]:
+                    direction = parts[1].split('=')[1]
+            
+            sort = sortkey
+
+            if sortkey == 'name':
+                sortkey = 'name'
+            elif sortkey == 'price':
                 sortkey = 'price'
-        elif sortkey == 'rating':
-            if direction == 'desc':
-                sortkey = '-rating'
-            else:
-                sortkey = 'rating'
-        
-        products = products.order_by(sortkey)
+            elif sortkey == 'category':
+                sortkey = 'category__name'
+            elif sortkey == 'rating':
+                sortkey = '-rating'  # Default to high to low for popularity
+                if direction and direction == 'asc':
+                    sortkey = 'rating'
+            
+            # Check for separate direction parameter
+            if 'direction' in request.GET and not direction:
+                direction = request.GET['direction']
+            
+            # Apply sorting
+            if sort != 'rating' and direction == 'desc':
+                sortkey = f'-{sortkey}'
+            
+            products = products.order_by(sortkey)
     
     current_sorting = f'{sort}_{direction}'
     

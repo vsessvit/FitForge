@@ -54,9 +54,18 @@
 {{ block.super }}
 <script type="text/javascript">
     // Display filename when image is selected
-    $('#new-image').change(function() {
-        var file = $('#new-image')[0].files[0];
-        $('#filename').text(`Image will be set to: ${file.name}`);
+    $('#id_image').change(function() {
+        var file = $('#id_image')[0].files[0];
+        if (file) {
+            var filename = file.name;
+            var displayText = 'Image will be set to: ' + filename;
+            // Create or update the filename display
+            if ($('#filename').length) {
+                $('#filename').text(displayText);
+            } else {
+                $(this).parent().append('<p id="filename" class="text-muted small mt-2">' + displayText + '</p>');
+            }
+        }
     });
 </script>
 {% endblock %}

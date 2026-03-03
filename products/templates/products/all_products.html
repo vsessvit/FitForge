@@ -4,16 +4,10 @@
 {% block title %}Shop - FitForge{% endblock %}
 
 {% block content %}
-<div class="container my-5">
+<div class="container py-4">
     <div class="row">
         <div class="col-12">
-            <h1 class="display-4 mb-4">Shop</h1>
-            {% if current_category %}
-            <p class="lead">Category: {{ current_category.get_friendly_name }}</p>
-            {% endif %}
-            {% if search_query %}
-            <p class="lead">Search results for: "{{ search_query }}"</p>
-            {% endif %}
+            <h1 class="text-center mb-4">Shop</h1>
         </div>
     </div>
 
@@ -35,51 +29,44 @@
 
     <!-- Category Filter -->
     <div class="row mb-4">
-        <div class="col-md-6">
-            <div class="btn-group" role="group" aria-label="Category filter">
-                <a href="{% url 'products:all_products' %}" class="btn btn-outline-secondary {% if not current_category %}active{% endif %}">
+        <div class="col-12">
+            <div class="btn-group d-flex flex-wrap justify-content-center" role="group">
+                <a href="{% url 'products:all_products' %}" class="btn btn-outline-dark {% if not current_category %}active{% endif %}">
                     All Products
                 </a>
                 {% for category in categories %}
                 <a href="{% url 'products:all_products' %}?category={{ category.name }}" 
-                   class="btn btn-outline-secondary {% if current_category.name == category.name %}active{% endif %}">
+                   class="btn btn-outline-dark {% if current_category.name == category.name %}active{% endif %}">
                     {{ category.get_friendly_name }}
                 </a>
                 {% endfor %}
             </div>
         </div>
-        <div class="col-md-6 text-right">
-            <div class="d-flex justify-content-end align-items-center">
-                <form method="GET" action="{% url 'products:all_products' %}" class="form-inline">
-                    {% if search_query %}
-                    <input type="hidden" name="q" value="{{ search_query }}">
-                    {% endif %}
+    </div>
+    
+    <!-- Sorting Dropdown -->
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="btn-group float-right">
+                <select class="form-control" id="sort-selector">
+                    <option value="?sort=price&direction=asc" {% if current_sorting == 'price_asc' %}selected{% endif %}>Price (Low-High)</option>
+                    <option value="?sort=price&direction=desc" {% if current_sorting == 'price_desc' %}selected{% endif %}>Price (High-Low)</option>
+                    <option value="?sort=name&direction=asc" {% if current_sorting == 'name_asc' %}selected{% endif %}>Name (A-Z)</option>
+                    <option value="?sort=name&direction=desc" {% if current_sorting == 'name_desc' %}selected{% endif %}>Name (Z-A)</option>
                     {% if current_category %}
-                    <input type="hidden" name="category" value="{{ current_category.name }}">
+                    <option value="?category={{ current_category.name }}" {% if current_sorting == 'None_None' %}selected{% endif %}>Reset Sort</option>
+                    {% else %}
+                    <option value="?" {% if current_sorting == 'None_None' %}selected{% endif %}>Reset Sort</option>
                     {% endif %}
-                    <label class="mr-2 mb-0">Sort by:</label>
-                    <select name="sort" class="form-control mr-2" onchange="this.form.submit()">
-                        <option value="" {% if current_sorting == 'None_None' %}selected{% endif %}>Default</option>
-                        <option value="price" {% if current_sorting == 'price_None' or current_sorting == 'price_asc' %}selected{% endif %}>Price (Low to High)</option>
-                        <option value="price&direction=desc" {% if current_sorting == 'price_desc' %}selected{% endif %}>Price (High to Low)</option>
-                        <option value="rating&direction=desc" {% if current_sorting == 'rating_desc' %}selected{% endif %}>Popularity</option>
-                    </select>
-                    <select name="direction" class="form-control" style="display:none;">
-                        <option value="asc">Ascending</option>
-                        <option value="desc">Descending</option>
-                    </select>
-                </form>
-                <a href="{% url 'products:all_products' %}{% if current_category %}?category={{ current_category.name }}{% endif %}" class="btn btn-outline-secondary btn-sm ml-2" title="Reset filters">
-                    <i class="fas fa-redo"></i> Reset
-                </a>
+                </select>
             </div>
         </div>
     </div>
 
     <div class="row">
         {% for product in products %}
-        <div class="col-md-4 col-lg-3 mb-4">
-            <div class="card product-card h-100">
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100">
                 <a href="{% url 'products:product_detail' product.id %}">
                     {% if product.image %}
                     <img src="{{ product.image.url }}" class="card-img-top product-img" alt="{{ product.name }}">
@@ -149,4 +136,29 @@
         {% endfor %}
     </div>
 </div>
+{% endblock %}
+
+{% block postloadjs %}
+<script>
+    $('#sort-selector').change(function() {
+        var selector = $(this);
+        var currentUrl = new URL(window.location);
+        var selectedVal = selector.val();
+        
+        if (selectedVal != "reset") {
+            var sort = selectedVal.split("&")[0].split("=")[1];
+            var direction = selectedVal.split("&")[1].split("=")[1];
+            
+            currentUrl.searchParams.set("sort", sort);
+            currentUrl.searchParams.set("direction", direction);
+            
+            window.location.replace(currentUrl);
+        } else {
+            currentUrl.searchParams.delete("sort");
+            currentUrl.searchParams.delete("direction");
+            
+            window.location.replace(currentUrl);
+        }
+    });
+</script>
 {% endblock %}

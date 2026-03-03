@@ -7,12 +7,27 @@ DEVELOPMENT_PLAN.md
 *.so
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+.dmypy.json
+dmypy.json
 
 # Django
 *.log
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
+*.pot
+migrations/__pycache__/
 
 # Environment variables
 .env
@@ -24,6 +39,7 @@ venv/
 .venv/
 ENV/
 env/
+virtualenv/
 
 # IDE
 .vscode/
@@ -31,13 +47,40 @@ env/
 *.swp
 *.swo
 *~
+*.sublime-project
+*.sublime-workspace
 
 # OS
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
 
-# Media files (will be added later when needed)
+# Node modules (if using any frontend tools)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Media files
 media/
 
 # Static files collected
 staticfiles/
+static_root/
+
+# Backup files
+*.bak
+*.backup
+
+# Compiled translation files
+*.mo
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# Local configuration
+local_config.py

@@ -77,7 +77,7 @@
                         <option value="desc">Descending</option>
                     </select>
                 </form>
-                <a href="{% url 'products:all_products' %}{% if current_category %}?category={{ current_category.name }}{% endif %}" class="btn btn-outline-secondary btn-sm ml-2" title="Reset filters">
+                <a href="{% url 'products:all_products' %}" class="btn btn-outline-secondary btn-sm ml-2" title="Reset filters">
                     <i class="fas fa-redo"></i> Reset
                 </a>
             </div>

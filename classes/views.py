@@ -30,18 +30,33 @@ def all_classes(request):
                 classes = classes.filter(queries)
         
         if 'sort' in request.GET:
-            sort = request.GET['sort']
-            sortkey = sort
+            sortkey = request.GET['sort']
             
-            if sortkey == 'name':
-                sortkey = 'name'
-            
-            if 'direction' in request.GET:
-                direction = request.GET['direction']
+            # Skip sorting if sortkey is empty (Default option)
+            if sortkey:
+                # Handle combined sort&direction parameters (e.g., "name&direction=desc")
+                if '&' in sortkey:
+                    parts = sortkey.split('&')
+                    sortkey = parts[0]
+                    if len(parts) > 1 and 'direction=' in parts[1]:
+                        direction = parts[1].split('=')[1]
+                
+                sort = sortkey
+                
+                if sortkey == 'name':
+                    sortkey = 'name'
+                elif sortkey == 'difficulty':
+                    sortkey = 'difficulty'
+                
+                # Check for separate direction parameter
+                if 'direction' in request.GET and not direction:
+                    direction = request.GET['direction']
+                
+                # Apply sorting
                 if direction == 'desc':
                     sortkey = f'-{sortkey}'
-            
-            classes = classes.order_by(sortkey)
+                
+                classes = classes.order_by(sortkey)
     
     current_sorting = f'{sort}_{direction}'
     

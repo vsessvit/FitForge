@@ -20,7 +20,7 @@ class Command(BaseCommand):
             self.stdout.write(self.style.WARNING('Cleared all existing schedules'))
 
         fitness_classes = FitnessClass.objects.all()
-        
+
         if not fitness_classes.exists():
             self.stdout.write(self.style.ERROR('No fitness classes found. Please load fixtures first.'))
             return
@@ -42,7 +42,7 @@ class Command(BaseCommand):
 
         start_date = timezone.now().date()
         end_date = datetime(2027, 4, 30).date()
-        
+
         total_created = 0
         current_date = start_date
 
@@ -50,17 +50,17 @@ class Command(BaseCommand):
 
         while current_date <= end_date:
             day_of_week = current_date.weekday()
-            
+
             for fitness_class in fitness_classes:
                 if fitness_class.id in class_schedules:
                     schedule_times = class_schedules[fitness_class.id]
-                    
+
                     for scheduled_day, start_time in schedule_times:
                         if day_of_week == scheduled_day:
                             duration_minutes = fitness_class.duration
-                            end_time = (datetime.combine(current_date, start_time) + 
-                                       timedelta(minutes=duration_minutes)).time()
-                            
+                            end_time = (datetime.combine(current_date, start_time)
+                                        + timedelta(minutes=duration_minutes)).time()
+
                             schedule, created = ClassSchedule.objects.get_or_create(
                                 fitness_class=fitness_class,
                                 date=current_date,
@@ -71,10 +71,10 @@ class Command(BaseCommand):
                                     'is_active': True,
                                 }
                             )
-                            
+
                             if created:
                                 total_created += 1
-            
+
             current_date += timedelta(days=1)
 
         self.stdout.write(

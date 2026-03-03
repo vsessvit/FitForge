@@ -12,7 +12,7 @@ def profile(request):
     Display the user's profile
     """
     profile = get_object_or_404(UserProfile, user=request.user)
-    
+
     if request.method == 'POST':
         form = UserProfileForm(request.POST, instance=profile)
         if form.is_valid():
@@ -22,7 +22,7 @@ def profile(request):
             messages.error(request, 'Update failed. Please ensure the form is valid.')
     else:
         form = UserProfileForm(instance=profile)
-    
+
     # Get user's upcoming bookings
     from bookings.models import Booking
     now = timezone.now()
@@ -31,16 +31,16 @@ def profile(request):
         class_schedule__date__gte=now.date(),
         status='confirmed'
     ).select_related('class_schedule', 'class_schedule__fitness_class').order_by('class_schedule__date', 'class_schedule__start_time')[:5]
-    
+
     upcoming_count = bookings.count()
-    
+
     from memberships.models import UserMembership
     active_membership = UserMembership.objects.filter(
         user=request.user,
         status='active',
         end_date__gte=timezone.now().date()
     ).select_related('membership_tier').first()
-    
+
     context = {
         'profile': profile,
         'form': form,
@@ -48,5 +48,5 @@ def profile(request):
         'upcoming_count': upcoming_count,
         'active_membership': active_membership,
     }
-    
+
     return render(request, 'profiles/profile.html', context)

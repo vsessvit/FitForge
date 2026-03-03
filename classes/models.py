@@ -6,13 +6,13 @@ class ClassCategory(models.Model):
     name = models.CharField(max_length=100, unique=True)
     friendly_name = models.CharField(max_length=100, blank=True)
     description = models.TextField(blank=True)
-    
+
     class Meta:
         verbose_name_plural = 'Class Categories'
-    
+
     def __str__(self):
         return self.name
-    
+
     def get_friendly_name(self):
         return self.friendly_name
 
@@ -25,7 +25,7 @@ class FitnessClass(models.Model):
         ('advanced', 'Advanced'),
         ('all_levels', 'All Levels'),
     ]
-    
+
     category = models.ForeignKey('ClassCategory', null=True, blank=True, on_delete=models.SET_NULL)
     name = models.CharField(max_length=200)
     description = models.TextField()
@@ -35,10 +35,10 @@ class FitnessClass(models.Model):
     max_capacity = models.IntegerField(default=20)
     image_url = models.URLField(max_length=1024, blank=True)
     image = models.ImageField(upload_to='classes/', blank=True, null=True)
-    
+
     class Meta:
         verbose_name_plural = 'Fitness Classes'
-    
+
     def __str__(self):
         return self.name
 
@@ -51,16 +51,16 @@ class ClassSchedule(models.Model):
     end_time = models.TimeField()
     available_spots = models.IntegerField(blank=True, null=True)
     is_active = models.BooleanField(default=True)
-    
+
     class Meta:
         verbose_name_plural = 'Class Schedules'
         ordering = ['date', 'start_time']
-    
+
     def save(self, *args, **kwargs):
         """Override save to set available_spots to max_capacity if not specified"""
         if self.available_spots is None and self.fitness_class:
             self.available_spots = self.fitness_class.max_capacity
         super().save(*args, **kwargs)
-    
+
     def __str__(self):
         return f"{self.fitness_class.name} - {self.date} {self.start_time}"

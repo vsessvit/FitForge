@@ -17,7 +17,6 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from django.views.defaults import page_not_found, server_error
 from home import views as home_views
 from . import views as fitforge_views
 

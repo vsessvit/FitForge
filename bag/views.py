@@ -20,7 +20,7 @@ def add_to_bag(request, item_id):
     quantity = int(request.POST.get('quantity'))
     redirect_url = request.POST.get('redirect_url')
     bag = request.session.get('bag', {})
-    
+
     # Convert to string for session storage consistency
     item_id = str(item_id)
 
@@ -41,7 +41,7 @@ def add_membership_to_bag(request, membership_id):
     """
     membership = get_object_or_404(MembershipTier, pk=membership_id)
     redirect_url = request.POST.get('redirect_url', reverse('bag:view_bag'))
-    
+
     # Store membership separately in session
     old_membership_id = request.session.get('membership_in_bag')
     if old_membership_id:
@@ -52,7 +52,7 @@ def add_membership_to_bag(request, membership_id):
             pass
     else:
         messages.success(request, f'Added {membership.name} membership to your bag')
-    
+
     request.session['membership_in_bag'] = str(membership_id)
     return redirect(redirect_url)
 
@@ -64,7 +64,7 @@ def adjust_bag(request, item_id):
     product = get_object_or_404(Product, pk=item_id)
     quantity = int(request.POST.get('quantity'))
     bag = request.session.get('bag', {})
-    
+
     # Convert to string for session storage consistency
     item_id = str(item_id)
 
@@ -87,10 +87,10 @@ def remove_from_bag(request, item_id):
     try:
         product = get_object_or_404(Product, pk=item_id)
         bag = request.session.get('bag', {})
-        
+
         # Ensure item_id is a string since session keys are strings
         item_id = str(item_id)
-        
+
         if item_id in bag:
             bag.pop(item_id)
             messages.success(request, f'Removed {product.name} from your bag')
@@ -99,7 +99,7 @@ def remove_from_bag(request, item_id):
 
         request.session['bag'] = bag
         return redirect(reverse('bag:view_bag'))
-    
+
     except Product.DoesNotExist:
         messages.error(request, 'Product not found')
         return redirect(reverse('bag:view_bag'))
@@ -121,15 +121,12 @@ def remove_membership_from_bag(request):
                 membership_name = membership.name
             except MembershipTier.DoesNotExist:
                 membership_name = 'Membership'
-            
+
             del request.session['membership_in_bag']
             messages.success(request, f'Removed {membership_name} membership from your bag')
-        
+
         return redirect(reverse('bag:view_bag'))
-    
+
     except Exception as e:
         messages.error(request, f'Error removing membership: {e}')
         return redirect(reverse('bag:view_bag'))
-
-
-

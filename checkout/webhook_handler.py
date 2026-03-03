@@ -24,7 +24,7 @@ class StripeWH_Handler:
         body = render_to_string(
             'checkout/confirmation_emails/confirmation_email_body.txt',
             {'order': order, 'contact_email': settings.DEFAULT_FROM_EMAIL})
-        
+
         send_mail(
             subject,
             body,
@@ -45,10 +45,10 @@ class StripeWH_Handler:
         Handle the payment_intent.succeeded webhook from Stripe
         """
         intent = event.data.object
-        pid = intent.id
+        intent.id
         bag = intent.metadata.bag
         membership_id = intent.metadata.get('membership_id', None)
-        save_info = intent.metadata.save_info
+        intent.metadata.save_info
 
         billing_details = intent.charges.data[0].billing_details
         grand_total = round(intent.charges.data[0].amount / 100, 2)
@@ -75,7 +75,7 @@ class StripeWH_Handler:
             except Order.DoesNotExist:
                 attempt += 1
                 time.sleep(1)
-        
+
         if order_exists:
             self._send_confirmation_email(order)
             return HttpResponse(
@@ -95,7 +95,7 @@ class StripeWH_Handler:
                     postcode=billing_details.address.postal_code,
                     country=billing_details.address.country,
                 )
-                
+
                 # Create line items from bag
                 for item_id, item_data in json.loads(bag).items():
                     product = Product.objects.get(id=item_id)
@@ -105,7 +105,7 @@ class StripeWH_Handler:
                         quantity=item_data,
                     )
                     order_line_item.save()
-                
+
                 # Create line item for membership if present
                 if membership_id:
                     membership = MembershipTier.objects.get(id=membership_id)
@@ -115,14 +115,14 @@ class StripeWH_Handler:
                         quantity=1,
                     )
                     order_line_item.save()
-                    
+
             except Exception as e:
                 if order:
                     order.delete()
                 return HttpResponse(
                     content=f'Webhook received: {event["type"]} | ERROR: {e}',
                     status=500)
-        
+
         self._send_confirmation_email(order)
         return HttpResponse(
             content=f'Webhook received: {event["type"]} | SUCCESS: Created order in webhook',

@@ -134,7 +134,7 @@ form.addEventListener('submit', function(ev) {
         error: function(error) {
             // Show error
             var errorDiv = document.getElementById('card-errors');
-            $(errorDiv).html(`<span>Error creating payment. Please try again.</span>`);
+            $(errorDiv).html('<span>Error creating payment. Please try again.</span>');
             
             // Hide loading overlay
             $('.loading-overlay').fadeOut();

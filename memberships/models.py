@@ -9,7 +9,7 @@ class MembershipTier(models.Model):
         ('quarterly', 'Quarterly'),
         ('annually', 'Annually'),
     ]
-    
+
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
@@ -21,10 +21,10 @@ class MembershipTier(models.Model):
     is_active = models.BooleanField(default=True)
     stripe_price_id = models.CharField(max_length=255, blank=True, help_text='Stripe Price ID for subscriptions')
     stripe_product_id = models.CharField(max_length=255, blank=True, help_text='Stripe Product ID')
-    
+
     class Meta:
         verbose_name_plural = 'Membership Tiers'
-    
+
     def __str__(self):
         return f"{self.name} - {self.get_duration_display()}"
 
@@ -37,7 +37,7 @@ class UserMembership(models.Model):
         ('cancelled', 'Cancelled'),
         ('pending', 'Pending'),
     ]
-    
+
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='membership')
     membership_tier = models.ForeignKey('MembershipTier', on_delete=models.SET_NULL, null=True)
     start_date = models.DateField()
@@ -47,9 +47,9 @@ class UserMembership(models.Model):
     classes_used_this_week = models.IntegerField(default=0)
     stripe_subscription_id = models.CharField(max_length=255, blank=True, help_text='Stripe Subscription ID')
     stripe_customer_id = models.CharField(max_length=255, blank=True, help_text='Stripe Customer ID')
-    
+
     class Meta:
         verbose_name_plural = 'User Memberships'
-    
+
     def __str__(self):
         return f"{self.user.username} - {self.membership_tier.name if self.membership_tier else 'No Tier'}"

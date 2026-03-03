@@ -25,7 +25,7 @@ def bag_contents(request):
             'product': product,
             'item_type': 'product',
         })
-    
+
     # Handle membership
     if membership_id:
         membership = MembershipTier.objects.get(pk=membership_id)
@@ -41,10 +41,10 @@ def bag_contents(request):
     # Delivery calculation - only for physical products, not memberships
     delivery_threshold = Decimal(settings.FREE_DELIVERY_THRESHOLD)
     delivery_cost = Decimal(settings.STANDARD_DELIVERY_COST)
-    
+
     # Check if there are any physical products in the bag
     has_physical_products = len(bag) > 0
-    
+
     if has_physical_products:
         if total < delivery_threshold:
             delivery = delivery_cost
@@ -56,7 +56,7 @@ def bag_contents(request):
         # No physical products, no delivery charge (membership only)
         delivery = 0
         free_delivery_delta = 0
-    
+
     grand_total = total + delivery
 
     context = {

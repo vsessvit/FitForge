@@ -80,7 +80,8 @@ form.addEventListener('submit', function(ev) {
                 url: '/checkout/cache_checkout_data/',
                 type: 'POST',
                 data: postData,
-                success: function(cacheResponse) {
+                // eslint-disable-next-line no-unused-vars
+                success: function(_cacheResponse) {
                     // Finally, confirm card payment with Stripe
                     stripe.confirmCardPayment(clientSecret, {
                         payment_method: {
@@ -125,13 +126,15 @@ form.addEventListener('submit', function(ev) {
                         }
                     });
                 },
-                error: function(cacheError) {
+                // eslint-disable-next-line no-unused-vars
+                error: function(_cacheError) {
                     // Reload page, error will be shown in messages
                     location.reload();
                 }
             });
         },
-        error: function(error) {
+        // eslint-disable-next-line no-unused-vars
+        error: function(_error) {
             // Show error
             var errorDiv = document.getElementById('card-errors');
             $(errorDiv).html('<span>Error creating payment. Please try again.</span>');

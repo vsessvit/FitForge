@@ -87,6 +87,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Function to show loading spinner for AJAX calls
+// eslint-disable-next-line no-unused-vars
 function showLoadingSpinner(element) {
     const spinner = document.createElement('div');
     spinner.className = 'spinner-border text-primary';
@@ -96,6 +97,7 @@ function showLoadingSpinner(element) {
 }
 
 // Function to hide loading spinner
+// eslint-disable-next-line no-unused-vars
 function hideLoadingSpinner(element) {
     const spinner = element.querySelector('.spinner-border');
     if (spinner) {
@@ -104,6 +106,7 @@ function hideLoadingSpinner(element) {
 }
 
 // Function to show toast notification
+// eslint-disable-next-line no-unused-vars
 function showToast(message, type = 'info') {
     const toastContainer = document.getElementById('toast-container');
     if (!toastContainer) {

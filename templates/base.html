@@ -66,7 +66,7 @@
                             <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-user"></i> My Account
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profileDropdown">
+                            <div class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="profileDropdown">
                                 <a class="dropdown-item" href="{% url 'profiles:profile' %}">
                                     <i class="fas fa-user-circle"></i> My Profile
                                 </a>
@@ -136,7 +136,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4 mb-4">
-                    <h5>About FitForge</h5>
+                    <h2>About FitForge</h2>
                     <p>Where Champions Are Made. Join our fitness community and transform your body, transform your life.</p>
                     <div class="social-links mt-3">
                         <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Visit our Facebook page">
@@ -154,7 +154,7 @@
                     </div>
                 </div>
                 <div class="col-md-2 mb-4">
-                    <h5>Quick Links</h5>
+                    <h3>Quick Links</h3>
                     <ul class="footer-links list-unstyled">
                         <li><a href="{% url 'home' %}">Home</a></li>
                         <li><a href="{% url 'all_classes' %}">Classes</a></li>
@@ -163,7 +163,7 @@
                     </ul>
                 </div>
                 <div class="col-md-3 mb-4">
-                    <h5>Customer Service</h5>
+                    <h3>Customer Service</h3>
                     <ul class="footer-links list-unstyled">
                         <li><a href="{% url 'contact' %}">Contact Us</a></li>
                         <li><a href="{% url 'faq' %}">FAQ</a></li>
@@ -172,7 +172,7 @@
                     </ul>
                 </div>
                 <div class="col-md-3 mb-4">
-                    <h5>Contact Info</h5>
+                    <h3>Contact Info</h3>
                     <ul class="footer-contact list-unstyled">
                         <li><i class="fas fa-map-marker-alt"></i> 123 Fitness Street, Dublin</li>
                         <li><i class="fas fa-phone"></i> +353 1 234 5678</li>

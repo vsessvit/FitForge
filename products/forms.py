@@ -17,9 +17,8 @@ class ProductForm(forms.ModelForm):
 
         self.fields['category'].choices = friendly_names
 
-        # Add placeholders
+        # Add placeholders (not for select fields)
         placeholders = {
-            'category': 'Product Category',
             'sku': 'SKU (e.g., pp5001340155)',
             'name': 'Product Name',
             'description': 'Product Description',
@@ -35,6 +34,7 @@ class ProductForm(forms.ModelForm):
         # Add CSS classes and placeholders to all fields
         for field_name, field in self.fields.items():
             if field_name != 'image':
+                # Only add placeholder to non-select fields
                 if field_name in placeholders:
                     placeholder = placeholders[field_name]
                     field.widget.attrs['placeholder'] = placeholder

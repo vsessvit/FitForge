@@ -128,7 +128,7 @@
         <div class="col-lg-4">
             <div class="card bag-summary-card">
                 <div class="card-body">
-                    <h5 class="card-title mb-4">Order Summary</h5>
+                    <h2 class="card-title mb-4">Order Summary</h2>
                     <div class="d-flex justify-content-between mb-2">
                         <span>Subtotal ({{ product_count }} items):</span>
                         <span>€{{ total|floatformat:2 }}</span>
@@ -170,7 +170,7 @@
     <div class="row">
         <div class="col-12">
             <div class="alert alert-info text-center">
-                <h4>Your bag is empty</h4>
+                <h2>Your bag is empty</h2>
                 <p class="mb-0">Add some products to get started!</p>
             </div>
             <div class="text-center mt-4">
@@ -188,7 +188,7 @@
 {{ block.super }}
 <script src="{% static 'js/bag.js' %}"></script>
 
-<script type="text/javascript">
+<script>
     // Auto-submit form when quantity changes
     $('.qty_input').change(function() {
         $(this).closest('form').submit();

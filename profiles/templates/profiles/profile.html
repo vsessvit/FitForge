@@ -15,7 +15,7 @@
         <div class="col-lg-6 mb-4">
             <div class="card profile-card">
                 <div class="card-header">
-                    <h5 class="mb-0">Personal Information</h5>
+                    <h2 class="mb-0">Personal Information</h2>
                 </div>
                 <div class="card-body">
                     <form method="POST" action="{% url 'profiles:profile' %}">
@@ -62,13 +62,15 @@
         <div class="col-lg-6">
             <div class="card profile-card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0"><i class="fas fa-id-card"></i> Membership Status</h5>
+                    <h2 class="mb-0"><i class="fas fa-id-card"></i> Membership Status</h2>
                 </div>
                 <div class="card-body">
                     {% if active_membership %}
                         <div class="membership-info">
-                            <h4 class="text-primary">{{ active_membership.tier.name }}</h4>
+                            {% if active_membership.tier.name %}
+                            <h3 class="text-primary">{{ active_membership.tier.name }}</h3>
                             <hr>
+                            {% endif %}
                             <div class="row mb-2">
                                 <div class="col-sm-4">
                                     <strong>Status:</strong>
@@ -134,7 +136,7 @@
 
             <div class="card profile-card">
                 <div class="card-header">
-                    <h5 class="mb-0">Order History</h5>
+                    <h3 class="mb-0">Order History</h3>
                 </div>
                 <div class="card-body">
                     {% if orders %}
@@ -175,7 +177,7 @@
 
             <div class="card profile-card mt-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0"><i class="fas fa-calendar-check"></i> My Classes</h5>
+                    <h3 class="mb-0"><i class="fas fa-calendar-check"></i> My Classes</h3>
                     <a href="{% url 'bookings:my_bookings' %}" class="btn btn-sm btn-outline-primary">
                         View All Bookings
                     </a>
@@ -239,9 +241,9 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header bg-danger text-white">
-                <h5 class="modal-title" id="cancelMembershipModalLabel">
+                <h3 class="modal-title" id="cancelMembershipModalLabel">
                     <i class="fas fa-exclamation-triangle"></i> Cancel Membership
-                </h5>
+                </h3>
                 <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

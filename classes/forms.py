@@ -17,13 +17,11 @@ class FitnessClassForm(forms.ModelForm):
 
         self.fields['category'].choices = friendly_names
 
-        # Add placeholders
+        # Add placeholders (not for select fields)
         placeholders = {
-            'category': 'Class Category',
             'name': 'Class Name',
             'description': 'Class Description',
             'duration': 'Duration (minutes)',
-            'difficulty': 'Difficulty Level',
             'instructor': 'Instructor Name',
             'max_capacity': 'Maximum Capacity',
             'image_url': 'Image URL (optional)',
@@ -35,6 +33,7 @@ class FitnessClassForm(forms.ModelForm):
         # Add CSS classes and placeholders to all fields
         for field_name, field in self.fields.items():
             if field_name != 'image':
+                # Only add placeholder to non-select fields
                 if field_name in placeholders:
                     placeholder = placeholders[field_name]
                     field.widget.attrs['placeholder'] = placeholder

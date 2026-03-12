@@ -17,7 +17,7 @@
         <div class="col-lg-7 mb-4">
             <div class="card">
                 <div class="card-body">
-                    <h3 class="card-title mb-4">Send Us a Message</h3>
+                    <h2 class="card-title mb-4">Send Us a Message</h2>
                     <form method="post" id="contactForm">
                         {% csrf_token %}
                         <div class="form-group">
@@ -65,20 +65,20 @@
         <div class="col-lg-5">
             <div class="card mb-4">
                 <div class="card-body">
-                    <h3 class="card-title mb-4">Get In Touch</h3>
+                    <h2 class="card-title mb-4">Get In Touch</h2>
                     
                     <div class="contact-info-item mb-4">
-                        <h5><i class="fas fa-map-marker-alt text-gold mr-2"></i> Address</h5>
+                        <h3><i class="fas fa-map-marker-alt text-gold mr-2"></i> Address</h3>
                         <p class="ml-4">123 Fitness Street<br>Gym City, GC 12345<br>United States</p>
                     </div>
                     
                     <div class="contact-info-item mb-4">
-                        <h5><i class="fas fa-phone text-gold mr-2"></i> Phone</h5>
+                        <h3><i class="fas fa-phone text-gold mr-2"></i> Phone</h3>
                         <p class="ml-4"><a href="tel:+15551234567">(555) 123-4567</a></p>
                     </div>
                     
                     <div class="contact-info-item mb-4">
-                        <h5><i class="fas fa-envelope text-gold mr-2"></i> Email</h5>
+                        <h3><i class="fas fa-envelope text-gold mr-2"></i> Email</h3>
                         <p class="ml-4">
                             <strong>General:</strong> <a href="mailto:info@fitforge.com">info@fitforge.com</a><br>
                             <strong>Support:</strong> <a href="mailto:support@fitforge.com">support@fitforge.com</a><br>
@@ -87,7 +87,7 @@
                     </div>
                     
                     <div class="contact-info-item mb-4">
-                        <h5><i class="fas fa-clock text-gold mr-2"></i> Hours</h5>
+                        <h3><i class="fas fa-clock text-gold mr-2"></i> Hours</h3>
                         <p class="ml-4">
                             <strong>Elite Members:</strong> 24/7<br>
                             <strong>Basic/Premium:</strong> 5 AM - 11 PM Daily<br>
@@ -99,7 +99,7 @@
 
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Follow Us</h5>
+                    <h2 class="card-title">Follow Us</h2>
                     <div class="social-links-contact">
                         <a href="https://facebook.com/fitforge" target="_blank" rel="noopener" class="btn btn-outline-dark btn-sm mr-2">
                             <i class="fab fa-facebook-f"></i> Facebook
@@ -123,34 +123,17 @@
     <div class="row mt-5">
         <div class="col-12">
             <div class="alert alert-info">
-                <h5 class="alert-heading"><i class="fas fa-question-circle"></i> Looking for quick answers?</h5>
+                <h3 class="alert-heading"><i class="fas fa-question-circle"></i> Looking for quick answers?</h3>
                 <p>Check out our <a href="{% url 'faq' %}" class="alert-link">FAQ page</a> for answers to common questions about memberships, classes, and more.</p>
             </div>
         </div>
     </div>
 </div>
-
-<style>
-.social-links-contact a {
-    margin-bottom: 10px;
-}
-.contact-info-item h5 {
-    color: #0E0E0E;
-    font-weight: 600;
-}
-.contact-info-item a {
-    color: #DFB011;
-}
-.contact-info-item a:hover {
-    color: #0E0E0E;
-    text-decoration: none;
-}
-</style>
 {% endblock %}
 
 {% block postloadjs %}
 {{ block.super }}
-<script type="text/javascript">
+<script>
     // Simple form validation feedback
     document.getElementById('contactForm').addEventListener('submit', function(e) {
         e.preventDefault();

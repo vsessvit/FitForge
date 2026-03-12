@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
             <h1 class="text-center mb-4">Class Management</h1>
-            <h5 class="text-muted text-center mb-4">Add a New Class</h5>
+            <h2 class="text-muted text-center mb-4">Add a New Class</h2>
             <hr>
             
             <form method="POST" action="{% url 'add_class' %}" enctype="multipart/form-data">
@@ -52,7 +52,7 @@
 
 {% block postloadjs %}
 {{ block.super }}
-<script type="text/javascript">
+<script>
     // Display filename when image is selected
     $('#id_image').change(function() {
         var file = $('#id_image')[0].files[0];

@@ -1450,3 +1450,22 @@ a:hover {
         height: 45px;
     }
 }
+
+/* Contact Page Styles */
+.social-links-contact a {
+    margin-bottom: 10px;
+}
+
+.contact-info-item h5 {
+    color: #0E0E0E;
+    font-weight: 600;
+}
+
+.contact-info-item a {
+    color: #DFB011;
+}
+
+.contact-info-item a:hover {
+    color: #0E0E0E;
+    text-decoration: none;
+}

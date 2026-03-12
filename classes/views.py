@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 from django.db.models import Q
 from django.utils import timezone
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from datetime import datetime, timedelta
 from .models import FitnessClass, ClassCategory, ClassSchedule
 from .forms import ScheduleCreationForm, BulkScheduleCreationForm, FitnessClassForm
@@ -83,7 +84,7 @@ def class_detail(request, class_id):
 
 
 def class_schedule_list(request):
-    """View to display class schedules, filtered by date (future only)"""
+    """View to display class schedules with pagination and filters"""
     # Get current datetime
     now = timezone.now()
     today = now.date()
@@ -120,17 +121,54 @@ def class_schedule_list(request):
     if end_date:
         schedules = schedules.filter(date__lte=end_date)
 
-    # Filter by class if specified
+    # Filter by class name search
+    search_query = request.GET.get('q', '').strip()
+    if search_query:
+        schedules = schedules.filter(
+            Q(fitness_class__name__icontains=search_query) | Q(
+                fitness_class__instructor__icontains=search_query) | Q(
+                fitness_class__description__icontains=search_query)
+        )
+
+    # Filter by specific class
     class_id = request.GET.get('class_id')
     if class_id:
         schedules = schedules.filter(fitness_class_id=class_id)
+
+    # Filter by difficulty
+    difficulty = request.GET.get('difficulty')
+    if difficulty:
+        schedules = schedules.filter(fitness_class__difficulty=difficulty)
+
+    # Filter by category
+    category_id = request.GET.get('category')
+    if category_id:
+        schedules = schedules.filter(fitness_class__category_id=category_id)
+
+    # Order by date and time
+    schedules = schedules.order_by('date', 'start_time')
+
+    # Get all classes and categories for filter dropdowns
+    all_classes = FitnessClass.objects.all().order_by('name')
+    all_categories = ClassCategory.objects.all().order_by('name')
+
+    # Pagination - 12 items per page
+    paginator = Paginator(schedules, 12)
+    page = request.GET.get('page', 1)
+
+    try:
+        schedules_page = paginator.page(page)
+    except PageNotAnInteger:
+        schedules_page = paginator.page(1)
+    except EmptyPage:
+        schedules_page = paginator.page(paginator.num_pages)
 
     # Calculate quick date ranges
     next_week_start = start_of_week + timedelta(days=7)
     next_week_end = next_week_start + timedelta(days=6)
 
     context = {
-        'schedules': schedules,
+        'schedules': schedules_page,
         'now': now,
         'start_date': start_date,
         'end_date': end_date,
@@ -139,6 +177,13 @@ def class_schedule_list(request):
         'this_week_end': end_of_week,
         'next_week_start': next_week_start,
         'next_week_end': next_week_end,
+        'search_query': search_query,
+        'all_classes': all_classes,
+        'all_categories': all_categories,
+        'selected_class': class_id,
+        'selected_difficulty': difficulty,
+        'selected_category': category_id,
+        'difficulty_choices': FitnessClass.DIFFICULTY_CHOICES,
     }
 
     return render(request, 'classes/schedule_list.html', context)

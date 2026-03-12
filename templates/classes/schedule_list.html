@@ -10,34 +10,107 @@
         </div>
     </div>
     
-    <!-- Date Filter Section -->
+    <!-- Filters Section -->
     <div class="row mb-4">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Filter by Date</h5>
+                    <h5 class="card-title mb-3">
+                        <i class="fas fa-filter"></i> Filter Classes
+                    </h5>
                     
-                    <!-- Quick Date Links -->
-                    <div class="btn-group mb-3 d-flex flex-wrap" role="group">
-                        <a href="{% url 'class_schedule_list' %}" class="btn btn-outline-dark">All Upcoming</a>
-                        <a href="?start_date={{ today }}&end_date={{ today }}" class="btn btn-outline-dark">Today</a>
-                        <a href="?start_date={{ this_week_start }}&end_date={{ this_week_end }}" class="btn btn-outline-dark">This Week</a>
-                        <a href="?start_date={{ next_week_start }}&end_date={{ next_week_end }}" class="btn btn-outline-dark">Next Week</a>
-                    </div>
-                    
-                    <!-- Custom Date Range -->
-                    <form method="GET" action="{% url 'class_schedule_list' %}">
-                        <div class="row">
+                    <form method="GET" action="{% url 'class_schedule_list' %}" id="filterForm">
+                        <!-- Search Box -->
+                        <div class="row mb-3">
+                            <div class="col-12">
+                                <label for="search">Search by class name, instructor, or description:</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="search" name="q" 
+                                           placeholder="e.g. Yoga, John Smith..." 
+                                           value="{{ search_query|default:'' }}">
+                                    <button class="btn btn-outline-secondary" type="button" onclick="document.getElementById('search').value=''; document.getElementById('filterForm').submit();">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dropdown Filters -->
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label for="class_filter">Specific Class:</label>
+                                <select class="form-control" id="class_filter" name="class_id">
+                                    <option value="">All Classes</option>
+                                    {% for class in all_classes %}
+                                        <option value="{{ class.id }}" {% if selected_class == class.id|stringformat:"s" %}selected{% endif %}>
+                                            {{ class.name }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="category_filter">Category:</label>
+                                <select class="form-control" id="category_filter" name="category">
+                                    <option value="">All Categories</option>
+                                    {% for category in all_categories %}
+                                        <option value="{{ category.id }}" {% if selected_category == category.id|stringformat:"s" %}selected{% endif %}>
+                                            {{ category.friendly_name|default:category.name }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="difficulty_filter">Difficulty:</label>
+                                <select class="form-control" id="difficulty_filter" name="difficulty">
+                                    <option value="">All Levels</option>
+                                    {% for value, label in difficulty_choices %}
+                                        <option value="{{ value }}" {% if selected_difficulty == value %}selected{% endif %}>
+                                            {{ label }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Date Filters -->
+                        <div class="row mb-3">
+                            <div class="col-12 mb-2">
+                                <label>Quick Date Filters:</label>
+                                <div class="btn-group d-flex flex-wrap" role="group">
+                                    <button type="button" class="btn btn-sm btn-outline-dark" onclick="clearDates()">All Upcoming</button>
+                                    <button type="button" class="btn btn-sm btn-outline-dark" onclick="setToday()">Today</button>
+                                    <button type="button" class="btn btn-sm btn-outline-dark" onclick="setThisWeek()">This Week</button>
+                                    <button type="button" class="btn btn-sm btn-outline-dark" onclick="setNextWeek()">Next Week</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
                             <div class="col-md-5">
-                                <label for="start_date">From:</label>
-                                <input type="date" class="form-control" id="start_date" name="start_date" value="{{ start_date|date:'Y-m-d' }}">
+                                <label for="start_date">From Date:</label>
+                                <input type="date" class="form-control" id="start_date" name="start_date" 
+                                       value="{{ start_date|date:'Y-m-d' }}">
                             </div>
                             <div class="col-md-5">
-                                <label for="end_date">To:</label>
-                                <input type="date" class="form-control" id="end_date" name="end_date" value="{{ end_date|date:'Y-m-d' }}">
+                                <label for="end_date">To Date:</label>
+                                <input type="date" class="form-control" id="end_date" name="end_date" 
+                                       value="{% if end_date %}{{ end_date|date:'Y-m-d' }}{% endif %}">
                             </div>
                             <div class="col-md-2 d-flex align-items-end">
-                                <button type="submit" class="btn btn-primary btn-block">Filter</button>
+                                <button type="submit" class="btn btn-primary btn-block">
+                                    <i class="fas fa-search"></i> Apply Filters
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Clear All Filters -->
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <a href="{% url 'class_schedule_list' %}" class="btn btn-sm btn-outline-secondary">
+                                    <i class="fas fa-redo"></i> Clear All Filters
+                                </a>
                             </div>
                         </div>
                     </form>
@@ -45,7 +118,17 @@
             </div>
         </div>
     </div>
+
+    <!-- Results Count -->
+    <div class="row mb-3">
+        <div class="col-12">
+            <p class="text-muted">
+                Showing {{ schedules.start_index }} - {{ schedules.end_index }} of {{ schedules.paginator.count }} class{{ schedules.paginator.count|pluralize:"es" }}
+            </p>
+        </div>
+    </div>
     
+    <!-- Schedule Cards -->
     <div class="row">
         {% for schedule in schedules %}
         <div class="col-md-6 col-lg-4 mb-4">
@@ -130,10 +213,87 @@
         {% empty %}
         <div class="col-12">
             <div class="alert alert-info text-center">
-                <i class="fas fa-info-circle"></i> No upcoming classes scheduled at the moment. Please check back later!
+                <i class="fas fa-info-circle"></i> No classes found matching your filters. Try adjusting your search criteria.
             </div>
         </div>
         {% endfor %}
     </div>
+
+    <!-- Pagination -->
+    {% if schedules.has_other_pages %}
+    <div class="row mt-4">
+        <div class="col-12">
+            <nav aria-label="Schedule pagination">
+                <ul class="pagination justify-content-center">
+                    {% if schedules.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page=1{% if request.GET.urlencode %}&{{ request.GET.urlencode }}{% endif %}" aria-label="First">
+                                <span aria-hidden="true">&laquo;&laquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ schedules.previous_page_number }}{% if request.GET.urlencode %}&{{ request.GET.urlencode }}{% endif %}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    {% for num in schedules.paginator.page_range %}
+                        {% if schedules.number == num %}
+                            <li class="page-item active">
+                                <span class="page-link">{{ num }}</span>
+                            </li>
+                        {% elif num > schedules.number|add:'-3' and num < schedules.number|add:'3' %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ num }}{% if request.GET.urlencode %}&{{ request.GET.urlencode }}{% endif %}">{{ num }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if schedules.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ schedules.next_page_number }}{% if request.GET.urlencode %}&{{ request.GET.urlencode }}{% endif %}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ schedules.paginator.num_pages }}{% if request.GET.urlencode %}&{{ request.GET.urlencode }}{% endif %}" aria-label="Last">
+                                <span aria-hidden="true">&raquo;&raquo;</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+    {% endif %}
 </div>
+
+<script>
+    // Helper functions for quick date filters
+    function clearDates() {
+        document.getElementById('start_date').value = '';
+        document.getElementById('end_date').value = '';
+        document.getElementById('filterForm').submit();
+    }
+
+    function setToday() {
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('start_date').value = today;
+        document.getElementById('end_date').value = today;
+        document.getElementById('filterForm').submit();
+    }
+
+    function setThisWeek() {
+        document.getElementById('start_date').value = '{{ this_week_start|date:"Y-m-d" }}';
+        document.getElementById('end_date').value = '{{ this_week_end|date:"Y-m-d" }}';
+        document.getElementById('filterForm').submit();
+    }
+
+    function setNextWeek() {
+        document.getElementById('start_date').value = '{{ next_week_start|date:"Y-m-d" }}';
+        document.getElementById('end_date').value = '{{ next_week_end|date:"Y-m-d" }}';
+        document.getElementById('filterForm').submit();
+    }
+</script>
 {% endblock %}

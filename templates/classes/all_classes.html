@@ -86,10 +86,10 @@
                 {% if class.image %}
                 <img src="{{ class.image.url }}" class="card-img-top" alt="{{ class.name }}">
                 {% else %}
-                <img src="https://via.placeholder.com/350x200?text={{ class.name }}" class="card-img-top" alt="{{ class.name }}">
+                <img src="https://via.placeholder.com/350x200?text={{ class.name|urlencode }}" class="card-img-top" alt="{{ class.name }}">
                 {% endif %}
                 <div class="card-body">
-                    <h5 class="card-title">{{ class.name }}</h5>
+                    <h2 class="card-title">{{ class.name }}</h2>
                     {% if request.user.is_superuser %}
                     <div class="admin-controls mb-2">
                         <small>

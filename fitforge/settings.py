@@ -214,6 +214,10 @@ STRIPE_CURRENCY = 'eur'
 # Crispy Forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+# Allow iframes for responsive design testing tools
+# IMPORTANT: For production, consider using SAMEORIGIN or removing this
+X_FRAME_OPTIONS = 'ALLOWALL'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 

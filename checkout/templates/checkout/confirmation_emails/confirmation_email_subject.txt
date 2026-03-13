@@ -1,1 +1,5 @@
+{% if membership_only %}
+FitForge Membership Confirmation - {{ membership_name }}
+{% else %}
 FitForge Order Confirmation - Order {{ order.order_number }}
+{% endif %}

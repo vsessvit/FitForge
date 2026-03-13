@@ -10,6 +10,7 @@ from memberships.models import MembershipTier
 from .forms import OrderForm
 from .models import Order, OrderLineItem
 from .webhook_handler import StripeWH_Handler
+from .utils import activate_membership_for_order, send_order_confirmation_email
 import stripe
 import json
 import logging
@@ -129,6 +130,7 @@ def cache_checkout_data(request):
             'membership_id': request.session.get('membership_in_bag', ''),
             'save_info': request.POST.get('save_info'),
             'username': request.user.username if request.user.is_authenticated else 'AnonymousUser',
+            'user_id': request.user.id if request.user.is_authenticated else '',
         })
 
         return JsonResponse({'success': True})
@@ -169,9 +171,33 @@ def checkout_success(request, order_number):
     """Handle successful checkouts"""
     order = get_object_or_404(Order, order_number=order_number)
 
-    messages.success(request, f'Order successfully processed! \
-        Your order number is {order_number}. A confirmation \
-        email will be sent to {order.email}.')
+    # Activate membership when this checkout includes a membership item
+    try:
+        activate_membership_for_order(order)
+    except Exception as e:
+        logger.error(f"Failed to activate membership for order {order.order_number}: {e}")
+
+    # Send email directly after successful checkout (independent of webhooks)
+    try:
+        send_order_confirmation_email(order)
+    except Exception as e:
+        logger.error(f"Failed to send confirmation email for order {order.order_number}: {e}")
+
+    has_products = order.lineitems.filter(product__isnull=False).exists()
+    has_membership = order.lineitems.filter(membership__isnull=False).exists()
+    membership_only = has_membership and not has_products
+
+    if membership_only:
+        messages.success(
+            request,
+            f'Membership successfully activated! A confirmation email was sent to {order.email}.'
+        )
+    else:
+        messages.success(
+            request,
+            f'Order successfully processed! Your order number is {order_number}. '
+            f'A confirmation email was sent to {order.email}.'
+        )
 
     # Clear the bag from session
     if 'bag' in request.session:
@@ -181,6 +207,7 @@ def checkout_success(request, order_number):
 
     context = {
         'order': order,
+        'membership_only': membership_only,
     }
 
     return render(request, 'checkout/checkout_success.html', context)

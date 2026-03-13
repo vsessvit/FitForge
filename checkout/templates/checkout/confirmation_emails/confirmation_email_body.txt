@@ -1,13 +1,30 @@
 Hello {{ order.full_name }}!
 
+{% if membership_only %}
+Thank you for choosing FitForge. Your membership purchase is confirmed.
+
+Membership: {{ membership_name }}
+Start Date: {{ order.date|date:"Y-m-d" }}
+
+Amount Paid: €{{ order.grand_total }}
+
+We've got your phone number on file as {{ order.phone_number }}.
+
+If you have any questions, feel free to contact us at {{ contact_email }}.
+
+Welcome to FitForge!
+
+Sincerely,
+The FitForge Team
+{% else %}
 Thank you for your order at FitForge. Your order information is below:
 
 Order Number: {{ order.order_number }}
 Order Date: {{ order.date }}
 
-Order Total: ${{ order.order_total }}
-Delivery: ${{ order.delivery_cost }}
-Grand Total: ${{ order.grand_total }}
+Order Total: €{{ order.order_total }}
+Delivery: €{{ order.delivery_cost }}
+Grand Total: €{{ order.grand_total }}
 
 Your order will be shipped to:
 {{ order.street_address1 }}
@@ -25,3 +42,4 @@ Thank you for shopping with FitForge!
 
 Sincerely,
 The FitForge Team
+{% endif %}

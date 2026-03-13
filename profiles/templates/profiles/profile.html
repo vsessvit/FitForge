@@ -67,8 +67,8 @@
                 <div class="card-body">
                     {% if active_membership %}
                         <div class="membership-info">
-                            {% if active_membership.tier.name %}
-                            <h3 class="text-primary">{{ active_membership.tier.name }}</h3>
+                            {% if active_membership.membership_tier.name %}
+                            <h3 class="text-primary">{{ active_membership.membership_tier.name }}</h3>
                             <hr>
                             {% endif %}
                             <div class="row mb-2">
@@ -107,13 +107,13 @@
                                     {% endif %}
                                 </div>
                             </div>
-                            {% if active_membership.tier.benefits %}
+                            {% if active_membership.membership_tier.description %}
                             <hr>
                             <div class="row">
                                 <div class="col-12">
-                                    <strong>Benefits:</strong>
+                                    <strong>Membership Details:</strong>
                                     <div class="mt-2">
-                                        {{ active_membership.tier.benefits|linebreaks }}
+                                        {{ active_membership.membership_tier.description|linebreaks }}
                                     </div>
                                 </div>
                             </div>

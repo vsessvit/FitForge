@@ -19,7 +19,11 @@
         <div class="col">
             <h2 class="mb-4">Thank You</h2>
             <hr>
-            <p class="text-black">Your order information is below. A confirmation email will be sent to <strong>{{ order.email }}</strong>.</p>
+            {% if membership_only %}
+            <p class="text-black">Your membership purchase is confirmed. A confirmation email has been sent to <strong>{{ order.email }}</strong>.</p>
+            {% else %}
+            <p class="text-black">Your order information is below. A confirmation email has been sent to <strong>{{ order.email }}</strong>.</p>
+            {% endif %}
         </div>
     </div>
 

@@ -180,7 +180,7 @@ def cancel_membership(request):
                 stripe.Subscription.delete(membership.stripe_subscription_id)
             except stripe.error.StripeError as e:
                 messages.error(request, f'Error canceling subscription: {str(e)}')
-                return redirect('profile')
+                return redirect('profiles:profile')
 
         membership.status = 'cancelled'
         membership.auto_renew = False
@@ -193,4 +193,4 @@ def cancel_membership(request):
     except Exception as e:
         messages.error(request, f'An error occurred: {str(e)}')
 
-    return redirect('profile')
+    return redirect('profiles:profile')

@@ -88,3 +88,7 @@ celerybeat.pid
 
 # Local configuration
 local_config.py
+
+# Local helper scripts
+local_setup.sh
+run_local.sh

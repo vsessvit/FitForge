@@ -190,12 +190,18 @@ if DEBUG and not USE_SMTP_EMAIL:
     DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'fitforge@example.com')
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_USE_TLS = True
-    EMAIL_PORT = 587
+    EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', '1') == '1'
+    EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL', '0') == '1'
+    EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 587))
+    EMAIL_TIMEOUT = int(os.environ.get('EMAIL_TIMEOUT', 10))
     EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
-    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+    EMAIL_HOST_USER = (
+        os.environ.get('EMAIL_HOST_USER')
+        or os.environ.get('SENDGRID_USERNAME')
+    )
     EMAIL_HOST_PASSWORD = (
         os.environ.get('EMAIL_HOST_PASSWORD')
+        or os.environ.get('SENDGRID_PASSWORD')
         or os.environ.get('EMAIL_HOST_PASS')
     )
     DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', EMAIL_HOST_USER)

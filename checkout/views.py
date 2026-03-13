@@ -178,9 +178,11 @@ def checkout_success(request, order_number):
         logger.error(f"Failed to activate membership for order {order.order_number}: {e}")
 
     # Send email directly after successful checkout (independent of webhooks)
+    email_sent = True
     try:
         send_order_confirmation_email(order)
     except Exception as e:
+        email_sent = False
         logger.error(f"Failed to send confirmation email for order {order.order_number}: {e}")
 
     has_products = order.lineitems.filter(product__isnull=False).exists()
@@ -188,16 +190,29 @@ def checkout_success(request, order_number):
     membership_only = has_membership and not has_products
 
     if membership_only:
-        messages.success(
-            request,
-            f'Membership successfully activated! A confirmation email was sent to {order.email}.'
-        )
+        if email_sent:
+            messages.success(
+                request,
+                f'Membership successfully activated! A confirmation email was sent to {order.email}.'
+            )
+        else:
+            messages.warning(
+                request,
+                'Membership successfully activated, but confirmation email could not be sent right now.'
+            )
     else:
-        messages.success(
-            request,
-            f'Order successfully processed! Your order number is {order_number}. '
-            f'A confirmation email was sent to {order.email}.'
-        )
+        if email_sent:
+            messages.success(
+                request,
+                f'Order successfully processed! Your order number is {order_number}. '
+                f'A confirmation email was sent to {order.email}.'
+            )
+        else:
+            messages.warning(
+                request,
+                f'Order successfully processed! Your order number is {order_number}. '
+                'Confirmation email could not be sent right now.'
+            )
 
     # Clear the bag from session
     if 'bag' in request.session:

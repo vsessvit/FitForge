@@ -1,7 +1,17 @@
-{% load i18n %}{% autoescape off %}{% blocktrans with site_name=current_site.name %}Hello from {{ site_name }}!{% endblocktrans %}
+{% load i18n %}{% autoescape off %}
+{% if current_site.name == 'example.com' %}
+Hello from FitForge!
+{% else %}
+{% blocktrans with site_name=current_site.name %}Hello from {{ site_name }}!{% endblocktrans %}
+{% endif %}
 
 {% block content %}{% endblock %}
 
+{% if current_site.name == 'example.com' or current_site.domain == 'example.com' %}
+Thank you for using FitForge!
+fit-forge-28d11490cba0.herokuapp.com
+{% else %}
 {% blocktrans with site_name=current_site.name site_domain=current_site.domain %}Thank you for using {{ site_name }}!
 {{ site_domain }}{% endblocktrans %}
+{% endif %}
 {% endautoescape %}

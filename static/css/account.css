@@ -1,0 +1,21 @@
+.account-page {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.account-card {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 0.5rem;
+}
+
+.account-card .card-body {
+    padding: 1.5rem;
+}
+
+.account-title {
+    margin-bottom: 1rem;
+}
+
+.account-text-last {
+    margin-bottom: 0;
+}

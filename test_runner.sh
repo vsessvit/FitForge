@@ -12,6 +12,11 @@ echo "║           🧪 RUNNING AUTOMATED TESTS 🧪                        ║
 echo "╚════════════════════════════════════════════════════════════════╝"
 echo ""
 
+# Ensure test-friendly environment variables are set
+export DEVELOPMENT="${DEVELOPMENT:-1}"
+export SECRET_KEY="${SECRET_KEY:-dev-secret-key-change-me}"
+export ALLOWED_HOSTS="${ALLOWED_HOSTS:-localhost,127.0.0.1,testserver}"
+
 # Run Django tests
 echo "📋 Running Django Test Suite..."
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

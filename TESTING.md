@@ -78,8 +78,11 @@ Use this when you want the standard Django output without any wrapper script.
 source .venv/bin/activate
 export DEVELOPMENT=1
 export SECRET_KEY='your-secret-key'
+export ALLOWED_HOSTS='localhost,127.0.0.1,testserver'
 python manage.py test
 ```
+
+Note: `testserver` is needed for Django test client requests.
 
 #### Option 2 — `test_runner.sh`
 
@@ -91,6 +94,7 @@ This script was added to make it easier to run the Django suite with one command
 - to provide a cleaner screenshot of a successful automated test run
 
 **What it does:**
+- sets local-safe defaults for `DEVELOPMENT`, `SECRET_KEY`, and `ALLOWED_HOSTS` if not already exported
 - runs `python manage.py test --verbosity=2`
 - prints a clear banner before execution
 - shows a simple coloured pass/fail summary afterwards
@@ -100,6 +104,16 @@ This script was added to make it easier to run the Django suite with one command
 
 ```bash
 chmod +x test_runner.sh
+./test_runner.sh
+```
+
+Optional (if you want to set env vars manually first):
+
+```bash
+source .venv/bin/activate
+export DEVELOPMENT=1
+export SECRET_KEY='your-secret-key'
+export ALLOWED_HOSTS='localhost,127.0.0.1,testserver'
 ./test_runner.sh
 ```
 

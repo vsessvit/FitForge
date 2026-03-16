@@ -5,6 +5,10 @@ from memberships.models import MembershipTier
 from .utils import activate_membership_for_order, send_order_confirmation_email
 import json
 import time
+import logging
+
+
+logger = logging.getLogger(__name__)
 
 
 class StripeWH_Handler:
@@ -120,8 +124,7 @@ class StripeWH_Handler:
         Handle the payment_intent.payment_failed webhook from Stripe
         """
         intent = event.data.object
-        print('Payment Intent Failed!')
-        print(intent)
+        logger.warning('Stripe payment_intent.payment_failed received: %s', intent)
         return HttpResponse(
             content=f'Webhook received: {event["type"]}',
             status=200)

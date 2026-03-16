@@ -59,14 +59,28 @@ def all_classes(request):
 
                 classes = classes.order_by(sortkey)
 
+    # Pagination - reduce initial payload on mobile
+    paginator = Paginator(classes, 9)
+    page = request.GET.get('page', 1)
+
+    try:
+        classes_page = paginator.page(page)
+    except PageNotAnInteger:
+        classes_page = paginator.page(1)
+    except EmptyPage:
+        classes_page = paginator.page(paginator.num_pages)
+
     current_sorting = f'{sort}_{direction}'
 
     context = {
-        'classes': classes,
+        'classes': classes_page,
+        'total_classes': paginator.count,
         'categories': categories,
         'current_category': current_category,
         'search_query': search_query,
         'current_sorting': current_sorting,
+        'sort': sort,
+        'direction': direction,
     }
 
     return render(request, 'classes/all_classes.html', context)

@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models import Sum
 from django.conf import settings
+from decimal import Decimal
 from products.models import Product
 from memberships.models import MembershipTier
 import uuid
@@ -46,10 +47,13 @@ class Order(models.Model):
             Sum('lineitem_total'))['lineitem_total__sum'] or 0
 
         has_physical_products = self.lineitems.filter(product__isnull=False).exists()
-        if has_physical_products and self.order_total < settings.FREE_DELIVERY_THRESHOLD:
-            self.delivery_cost = settings.STANDARD_DELIVERY_COST
+        free_delivery_threshold = Decimal(str(settings.FREE_DELIVERY_THRESHOLD))
+        standard_delivery_cost = Decimal(str(settings.STANDARD_DELIVERY_COST))
+
+        if has_physical_products and self.order_total < free_delivery_threshold:
+            self.delivery_cost = standard_delivery_cost
         else:
-            self.delivery_cost = 0
+            self.delivery_cost = Decimal('0.00')
         self.grand_total = self.order_total + self.delivery_cost
         self.save()
 

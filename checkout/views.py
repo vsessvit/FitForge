@@ -64,8 +64,11 @@ def checkout(request):
                     order.delete()
                     return redirect(reverse('bag:view_bag'))
                 except Exception as e:
-                    logger.error(f"Error creating order line item for product {item_id}: {str(e)}")
-                    messages.error(request, "There was an error processing your order. Please try again.")
+                    logger.exception(f"Error creating order line item for product {item_id}: {str(e)}")
+                    error_message = "There was an error processing your order. Please try again."
+                    if settings.DEBUG:
+                        error_message = f"{error_message} ({e})"
+                    messages.error(request, error_message)
                     order.delete()
                     return redirect(reverse('bag:view_bag'))
 
@@ -87,8 +90,11 @@ def checkout(request):
                     order.delete()
                     return redirect(reverse('bag:view_bag'))
                 except Exception as e:
-                    logger.error(f"Error creating order line item for membership {membership_id}: {str(e)}")
-                    messages.error(request, "There was an error processing your order. Please try again.")
+                    logger.exception(f"Error creating order line item for membership {membership_id}: {str(e)}")
+                    error_message = "There was an error processing your order. Please try again."
+                    if settings.DEBUG:
+                        error_message = f"{error_message} ({e})"
+                    messages.error(request, error_message)
                     order.delete()
                     return redirect(reverse('bag:view_bag'))
 

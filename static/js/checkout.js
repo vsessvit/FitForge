@@ -47,6 +47,55 @@ card.addEventListener('change', function (event) {
 // Handle form submit
 var form = document.getElementById('payment-form');
 
+function getTrimmedFieldValue(fieldName) {
+    return form[fieldName] ? $.trim(form[fieldName].value) : '';
+}
+
+function buildBillingDetails() {
+    var billingDetails = {
+        name: getTrimmedFieldValue('full_name'),
+        email: getTrimmedFieldValue('email')
+    };
+
+    var phoneNumber = getTrimmedFieldValue('phone_number');
+    if (phoneNumber) {
+        billingDetails.phone = phoneNumber;
+    }
+
+    var address = {};
+    var line1 = getTrimmedFieldValue('street_address1');
+    var line2 = getTrimmedFieldValue('street_address2');
+    var city = getTrimmedFieldValue('town_or_city');
+    var state = getTrimmedFieldValue('county');
+    var postalCode = getTrimmedFieldValue('postcode');
+    var country = getTrimmedFieldValue('country');
+
+    if (line1) {
+        address.line1 = line1;
+    }
+    if (line2) {
+        address.line2 = line2;
+    }
+    if (city) {
+        address.city = city;
+    }
+    if (state) {
+        address.state = state;
+    }
+    if (postalCode) {
+        address.postal_code = postalCode;
+    }
+    if (country) {
+        address.country = country;
+    }
+
+    if (Object.keys(address).length > 0) {
+        billingDetails.address = address;
+    }
+
+    return billingDetails;
+}
+
 form.addEventListener('submit', function(ev) {
     ev.preventDefault();
     
@@ -86,19 +135,7 @@ form.addEventListener('submit', function(ev) {
                     stripe.confirmCardPayment(clientSecret, {
                         payment_method: {
                             card: card,
-                            billing_details: {
-                                name: $.trim(form.full_name.value),
-                                phone: $.trim(form.phone_number.value),
-                                email: $.trim(form.email.value),
-                                address: {
-                                    line1: $.trim(form.street_address1.value),
-                                    line2: $.trim(form.street_address2.value),
-                                    city: $.trim(form.town_or_city.value),
-                                    state: $.trim(form.county.value),
-                                    postal_code: $.trim(form.postcode.value),
-                                    country: $.trim(form.country.value),
-                                }
-                            }
+                            billing_details: buildBillingDetails()
                         }
                     }).then(function(result) {
                         if (result.error) {

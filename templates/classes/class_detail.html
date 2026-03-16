@@ -1,14 +1,15 @@
 {% extends "base.html" %}
 {% load static %}
+{% load media_tools %}
 
 {% block content %}
 <div class="container py-5">
     <div class="row">
         <div class="col-md-6 mb-4">
             {% if fitness_class.image %}
-            <img src="{{ fitness_class.image.url }}" class="img-fluid rounded" alt="{{ fitness_class.name }}" fetchpriority="high" decoding="async">
+            <img src="{{ fitness_class.image.url|cld_optimize:'class_detail' }}" class="img-fluid rounded" alt="{{ fitness_class.name }}" width="960" height="640" fetchpriority="high" decoding="async">
             {% else %}
-            <img src="https://via.placeholder.com/600x400?text={{ fitness_class.name }}" class="img-fluid rounded" alt="{{ fitness_class.name }}" fetchpriority="high" decoding="async">
+            <img src="https://via.placeholder.com/960x640?text={{ fitness_class.name }}" class="img-fluid rounded" alt="{{ fitness_class.name }}" width="960" height="640" fetchpriority="high" decoding="async">
             {% endif %}
         </div>
         <div class="col-md-6">

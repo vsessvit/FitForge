@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load media_tools %}
 
 {% block content %}
 <div class="container py-4">
@@ -84,9 +85,9 @@
         <div class="col-md-6 col-lg-4 mb-4">
             <div class="card h-100">
                 {% if class.image %}
-                <img src="{{ class.image.url }}" class="card-img-top" alt="{{ class.name }}" {% if forloop.counter <= 3 %}fetchpriority="high"{% else %}loading="lazy"{% endif %} decoding="async">
+                <img src="{{ class.image.url|cld_optimize:'class_card' }}" class="card-img-top" alt="{{ class.name }}" width="640" height="360" {% if forloop.counter <= 3 %}fetchpriority="high"{% else %}loading="lazy"{% endif %} decoding="async">
                 {% else %}
-                <img src="https://via.placeholder.com/350x200?text={{ class.name|urlencode }}" class="card-img-top" alt="{{ class.name }}" {% if forloop.counter <= 3 %}fetchpriority="high"{% else %}loading="lazy"{% endif %} decoding="async">
+                <img src="https://via.placeholder.com/640x360?text={{ class.name|urlencode }}" class="card-img-top" alt="{{ class.name }}" width="640" height="360" {% if forloop.counter <= 3 %}fetchpriority="high"{% else %}loading="lazy"{% endif %} decoding="async">
                 {% endif %}
                 <div class="card-body">
                     <h2 class="card-title">{{ class.name }}</h2>

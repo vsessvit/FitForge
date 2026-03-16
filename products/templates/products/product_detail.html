@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load media_tools %}
 
 {% block title %}{{ product.name }} - FitForge{% endblock %}
 
@@ -21,7 +22,7 @@
         <div class="col-md-6 mb-4">
             <div class="product-image-container">
                 {% if product.image %}
-                <img src="{{ product.image.url }}" class="img-fluid product-detail-img" alt="{{ product.name }}" fetchpriority="high" decoding="async">
+                <img src="{{ product.image.url|cld_optimize:'product_detail' }}" class="img-fluid product-detail-img" alt="{{ product.name }}" width="1000" height="1000" fetchpriority="high" decoding="async">
                 {% else %}
                 <div class="product-detail-placeholder">
                     <i class="fas fa-image"></i>

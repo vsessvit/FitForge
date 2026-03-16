@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load media_tools %}
 
 {% block title %}Shop - FitForge{% endblock %}
 
@@ -90,7 +91,7 @@
             <div class="card h-100">
                 <a href="{% url 'products:product_detail' product.id %}">
                     {% if product.image %}
-                    <img src="{{ product.image.url }}" class="card-img-top product-img" alt="{{ product.name }}" {% if forloop.counter <= 3 %}fetchpriority="high"{% else %}loading="lazy"{% endif %} decoding="async">
+                    <img src="{{ product.image.url|cld_optimize:'product_card' }}" class="card-img-top product-img" alt="{{ product.name }}" width="640" height="640" {% if forloop.counter <= 3 %}fetchpriority="high"{% else %}loading="lazy"{% endif %} decoding="async">
                     {% else %}
                     <div class="product-img-placeholder">
                         <i class="fas fa-image"></i>
@@ -205,27 +206,3 @@
 </div>
 {% endblock %}
 
-{% block postloadjs %}
-<script>
-    $('#sort-selector').change(function() {
-        var selector = $(this);
-        var currentUrl = new URL(window.location);
-        var selectedVal = selector.val();
-        
-        if (selectedVal != "reset") {
-            var sort = selectedVal.split("&")[0].split("=")[1];
-            var direction = selectedVal.split("&")[1].split("=")[1];
-            
-            currentUrl.searchParams.set("sort", sort);
-            currentUrl.searchParams.set("direction", direction);
-            
-            window.location.replace(currentUrl);
-        } else {
-            currentUrl.searchParams.delete("sort");
-            currentUrl.searchParams.delete("direction");
-            
-            window.location.replace(currentUrl);
-        }
-    });
-</script>
-{% endblock %}

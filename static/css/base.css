@@ -1470,11 +1470,27 @@ a:hover {
     font-weight: 600;
 }
 
-.contact-info-item a {
-    color: #DFB011;
+/* Pagination Theme */
+.page-link {
+    color: var(--black) !important;
 }
 
-.contact-info-item a:hover {
-    color: #0E0E0E;
-    text-decoration: none;
+.page-link:hover {
+    color: var(--black) !important;
+    background-color: rgba(223, 176, 17, 0.15) !important;
+    border-color: var(--gold) !important;
 }
+
+.page-item.active .page-link {
+    z-index: 3;
+    color: var(--black) !important;
+    background-color: var(--gold) !important;
+    border-color: var(--gold) !important;
+}
+
+.page-item.active .page-link:hover {
+    color: var(--black) !important;
+    background-color: var(--light-gold) !important;
+    border-color: var(--light-gold) !important;
+}
+

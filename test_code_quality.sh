@@ -14,12 +14,16 @@ echo -e "${BOLD}╚════════════════════�
 echo ""
 
 # Activate virtual environment
-source venv/bin/activate
+if [ -d ".venv" ]; then
+    source .venv/bin/activate
+elif [ -d "venv" ]; then
+    source venv/bin/activate
+fi
 
 # Run Python linting
 echo -e "${BLUE}${BOLD}Running Python Code Quality Check (Flake8)...${NC}"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-python -m flake8 --statistics --count > /tmp/flake8_output.txt 2>&1
+python -m flake8 . --statistics --count > /tmp/flake8_output.txt 2>&1
 FLAKE8_EXIT=$?
 FLAKE8_COUNT=$(tail -1 /tmp/flake8_output.txt)
 

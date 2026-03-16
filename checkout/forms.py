@@ -14,6 +14,7 @@ class OrderForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         """Add placeholders and classes, remove auto-generated labels"""
+        membership_only = kwargs.pop('membership_only', False)
         super().__init__(*args, **kwargs)
         placeholders = {
             'full_name': 'Full Name',
@@ -26,6 +27,18 @@ class OrderForm(forms.ModelForm):
             'postcode': 'Postal Code',
             'country': 'Country',
         }
+
+        if membership_only:
+            for field_name in [
+                'phone_number',
+                'street_address1',
+                'street_address2',
+                'town_or_city',
+                'county',
+                'postcode',
+                'country',
+            ]:
+                self.fields[field_name].required = False
 
         self.fields['full_name'].widget.attrs['autofocus'] = True
         for field in self.fields:

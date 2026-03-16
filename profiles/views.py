@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils import timezone
@@ -11,7 +11,7 @@ def profile(request):
     """
     Display the user's profile
     """
-    profile = get_object_or_404(UserProfile, user=request.user)
+    profile, _ = UserProfile.objects.get_or_create(user=request.user)
 
     if request.method == 'POST':
         form = UserProfileForm(request.POST, instance=profile)

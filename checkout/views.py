@@ -25,20 +25,21 @@ def checkout(request):
     if request.method == 'POST':
         bag = request.session.get('bag', {})
         membership_id = request.session.get('membership_in_bag', None)
+        membership_only = bool(membership_id and not bag)
 
         form_data = {
-            'full_name': request.POST['full_name'],
-            'email': request.POST['email'],
-            'phone_number': request.POST['phone_number'],
-            'street_address1': request.POST['street_address1'],
-            'street_address2': request.POST['street_address2'],
-            'town_or_city': request.POST['town_or_city'],
-            'county': request.POST['county'],
-            'postcode': request.POST['postcode'],
-            'country': request.POST['country'],
+            'full_name': request.POST.get('full_name', ''),
+            'email': request.POST.get('email', ''),
+            'phone_number': request.POST.get('phone_number', ''),
+            'street_address1': request.POST.get('street_address1', ''),
+            'street_address2': request.POST.get('street_address2', ''),
+            'town_or_city': request.POST.get('town_or_city', ''),
+            'county': request.POST.get('county', ''),
+            'postcode': request.POST.get('postcode', ''),
+            'country': request.POST.get('country', ''),
         }
 
-        order_form = OrderForm(form_data)
+        order_form = OrderForm(form_data, membership_only=membership_only)
         if order_form.is_valid():
             order = order_form.save(commit=False)
             if request.user.is_authenticated:
@@ -98,12 +99,14 @@ def checkout(request):
             logger.warning(f"Invalid checkout form: {order_form.errors}")
     else:
         bag = request.session.get('bag', {})
+        membership_id = request.session.get('membership_in_bag', None)
+        membership_only = bool(membership_id and not bag)
 
-        if not bag and not request.session.get('membership_in_bag'):
+        if not bag and not membership_id:
             messages.error(request, "There's nothing in your bag at the moment")
             return redirect('products:product_list')
 
-        order_form = OrderForm()
+        order_form = OrderForm(membership_only=membership_only)
 
     if not stripe_public_key:
         messages.warning(request, 'Stripe public key is missing. \
@@ -112,6 +115,7 @@ def checkout(request):
     context = {
         'order_form': order_form,
         'stripe_public_key': stripe_public_key,
+        'membership_only': membership_only,
     }
 
     return render(request, 'checkout/checkout.html', context)

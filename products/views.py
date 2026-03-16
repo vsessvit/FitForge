@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Product, ProductCategory
 from .forms import ProductForm
 
@@ -66,14 +67,28 @@ def all_products(request):
 
             products = products.order_by(sortkey)
 
+    # Pagination - reduce initial payload on mobile
+    paginator = Paginator(products, 9)
+    page = request.GET.get('page', 1)
+
+    try:
+        products_page = paginator.page(page)
+    except PageNotAnInteger:
+        products_page = paginator.page(1)
+    except EmptyPage:
+        products_page = paginator.page(paginator.num_pages)
+
     current_sorting = f'{sort}_{direction}'
 
     context = {
-        'products': products,
+        'products': products_page,
+        'total_products': paginator.count,
         'categories': categories,
         'current_category': current_category,
         'search_query': search_query,
         'current_sorting': current_sorting,
+        'sort': sort,
+        'direction': direction,
     }
 
     return render(request, 'products/all_products.html', context)

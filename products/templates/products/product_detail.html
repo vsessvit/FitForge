@@ -21,7 +21,7 @@
         <div class="col-md-6 mb-4">
             <div class="product-image-container">
                 {% if product.image %}
-                <img src="{{ product.image.url }}" class="img-fluid product-detail-img" alt="{{ product.name }}">
+                <img src="{{ product.image.url }}" class="img-fluid product-detail-img" alt="{{ product.name }}" fetchpriority="high" decoding="async">
                 {% else %}
                 <div class="product-detail-placeholder">
                     <i class="fas fa-image"></i>

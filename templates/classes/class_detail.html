@@ -6,9 +6,9 @@
     <div class="row">
         <div class="col-md-6 mb-4">
             {% if fitness_class.image %}
-            <img src="{{ fitness_class.image.url }}" class="img-fluid rounded" alt="{{ fitness_class.name }}">
+            <img src="{{ fitness_class.image.url }}" class="img-fluid rounded" alt="{{ fitness_class.name }}" fetchpriority="high" decoding="async">
             {% else %}
-            <img src="https://via.placeholder.com/600x400?text={{ fitness_class.name }}" class="img-fluid rounded" alt="{{ fitness_class.name }}">
+            <img src="https://via.placeholder.com/600x400?text={{ fitness_class.name }}" class="img-fluid rounded" alt="{{ fitness_class.name }}" fetchpriority="high" decoding="async">
             {% endif %}
         </div>
         <div class="col-md-6">

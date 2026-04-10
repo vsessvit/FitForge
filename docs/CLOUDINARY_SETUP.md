@@ -69,15 +69,17 @@ git push heroku main
 4. Upload the image in the **Image** field
 5. Click **Save**
 
-Images are now stored on Cloudinary and will **persist forever**! 🎉
+Images are now stored on Cloudinary and will **persist forever**!
+
+> Note: this project uses Cloudinary for class and product media.
 
 ---
 
-##  Verify It's Working
+## Verify It's Working
 
 1. After uploading, go to your Cloudinary dashboard
 2. Click **Media Library** in the left menu
-3. You should see a `classes/` folder with your images
+3. You should see uploaded media folders/files (for example class and product images)
 4. Check your website - images should display correctly
 5. Restart your Heroku dyno - images should still be there!
 
@@ -86,18 +88,18 @@ Images are now stored on Cloudinary and will **persist forever**! 🎉
 ##  Free Tier Limits
 
 Cloudinary Free Tier includes:
-- ✅ **25 GB** Storage
-- ✅ **25 GB** Monthly Bandwidth
-- ✅ **25,000** Transformations/month
-- ✅ **Automatic image optimization**
-- ✅ **CDN delivery**
-- ✅ **No credit card required**
+- **25 GB** Storage
+- **25 GB** Monthly Bandwidth
+- **25,000** Transformations/month
+- **Automatic image optimization**
+- **CDN delivery**
+- **No credit card required**
 
 This is more than enough for a fitness class website!
 
 ---
 
-## 🔧 Local Development (Optional)
+## Local Development (Optional)
 
 If you want to test Cloudinary locally:
 
@@ -132,7 +134,7 @@ os.environ.setdefault('CLOUDINARY_URL', 'cloudinary://your-credentials')
 ##  Done!
 
 Your images are now:
-- ✅ Stored permanently (not deleted on dyno restart)
-- ✅ Optimized automatically
-- ✅ Served via global CDN (fast loading)
-- ✅ Free (within generous limits)
+- Stored permanently (not deleted on dyno restart)
+- Optimized automatically
+- Served via global CDN (fast loading)
+- Free (within generous limits)

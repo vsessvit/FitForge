@@ -11,6 +11,7 @@ This document records the testing process for FitForge, including automated chec
 - [Automated Testing](#automated-testing)
    - [Test Scope](#test-scope)
    - [Latest Test Run](#latest-test-run)
+   - [TDD and Iterative Test Evidence](#tdd-and-iterative-test-evidence)
    - [How to Run Tests](#how-to-run-tests)
       - [Option 1 — Django test runner directly](#option-1--django-test-runner-directly)
       - [Option 2 — test_runner.sh](#option-2--test_runnersh)
@@ -29,6 +30,7 @@ This document records the testing process for FitForge, including automated chec
 - [Responsive and Cross-Device Testing](#responsive-and-cross-device-testing)
 - [Lighthouse and Performance Testing](#lighthouse-and-performance-testing)
 - [Email and Payment Testing](#email-and-payment-testing)
+- [Deployment Security Checks](#deployment-security-checks)
 - [Bugs Fixed During Development and QA](#bugs-fixed-during-development-and-qa)
 - [Known Minor Issues](#known-minor-issues)
 - [Complete Screenshot Evidence Index](#complete-screenshot-evidence-index)
@@ -67,6 +69,23 @@ OK
 Evidence:
 - [Combined validation and test evidence](docs/Screenshots/Tests_CodeValidation_results.png)
 - [Dedicated test runner script output](docs/Screenshots/test_runner_script_result.png)
+
+### TDD and Iterative Test Evidence
+
+The project workflow follows an iterative test-first/test-after-fix cycle:
+
+1. run tests or manual checks to reproduce an issue
+2. apply a focused fix
+3. re-run automated tests and code-quality checks
+4. commit only after verification
+
+Representative fix cycles from git history:
+- [025ea72](https://github.com/vsessvit/FitForge/commit/025ea72): fixed profile 404 and membership-only checkout form behavior, then re-tested user flows
+- [157315c](https://github.com/vsessvit/FitForge/commit/157315c): fixed checkout total calculation (`Decimal`/`float` issue) and verified checkout path again
+- [e188d64](https://github.com/vsessvit/FitForge/commit/e188d64): improved lint script/config, then re-ran quality checks until clean
+- [8dcb2ce](https://github.com/vsessvit/FitForge/commit/8dcb2ce): removed remaining test warnings and validated with full suite rerun
+
+This gives clear evidence that tests were used continuously during development, not only at the end.
 
 ### How to Run Tests
 
@@ -366,6 +385,31 @@ Evidence:
 - [2_fields_when_bying_just_a_membership.png](docs/Screenshots/2_fields_when_bying_just_a_membership.png)
 - [Order_successfully_processed_popup_message.png](docs/Screenshots/Order_successfully_processed_popup_message.png)
 - [Membership_successfully_activated_popup_message.png](docs/Screenshots/Membership_successfully_activated_popup_message.png)
+
+---
+
+## Deployment Security Checks
+
+Production configuration checks were run using Django's deploy checker.
+
+Command:
+
+```bash
+source .venv/bin/activate
+export DEVELOPMENT=0
+export SECRET_KEY='your-long-random-production-secret'
+export ALLOWED_HOSTS='fit-forge-28d11490cba0.herokuapp.com'
+python manage.py check --deploy
+```
+
+Result:
+- No deployment security issues reported after hardening settings.
+
+Coverage of key deploy checks:
+- HTTPS redirect enabled
+- secure session/CSRF cookies enabled
+- HSTS enabled
+- production `DEBUG` behavior controlled by environment
 
 ---
 

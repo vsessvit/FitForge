@@ -72,20 +72,29 @@ Evidence:
 
 ### TDD and Iterative Test Evidence
 
-The project workflow follows an iterative test-first/test-after-fix cycle:
+FitForge shows a long iterative development history (**276 commits**) with repeated “write/fix → test → verify → commit” cycles.
 
-1. run tests or manual checks to reproduce an issue
-2. apply a focused fix
+The practical workflow used throughout development:
+
+1. reproduce issue with manual checks or test run
+2. implement a focused code change
 3. re-run automated tests and code-quality checks
 4. commit only after verification
 
-Representative fix cycles from git history:
-- [025ea72](https://github.com/vsessvit/FitForge/commit/025ea72): fixed profile 404 and membership-only checkout form behavior, then re-tested user flows
-- [157315c](https://github.com/vsessvit/FitForge/commit/157315c): fixed checkout total calculation (`Decimal`/`float` issue) and verified checkout path again
-- [e188d64](https://github.com/vsessvit/FitForge/commit/e188d64): improved lint script/config, then re-ran quality checks until clean
-- [8dcb2ce](https://github.com/vsessvit/FitForge/commit/8dcb2ce): removed remaining test warnings and validated with full suite rerun
+Commit evidence of test-first / test-after-fix behavior:
 
-This gives clear evidence that tests were used continuously during development, not only at the end.
+| Phase | Commit | Evidence |
+|---|---|---|
+| Build core test base | [7677a9d](https://github.com/vsessvit/FitForge/commit/7677a9d) | Added comprehensive automated test suite |
+| Expand test coverage by app | [f5bfa29](https://github.com/vsessvit/FitForge/commit/f5bfa29) | Added app-specific test suites |
+| Stabilize test environment | [e6cdc0c](https://github.com/vsessvit/FitForge/commit/e6cdc0c) | Added test-specific static files behavior |
+| Add repeatable test scripts | [225374a](https://github.com/vsessvit/FitForge/commit/225374a) | Added `test_runner.sh` and code-quality workflow |
+| Fix profile/checkout regressions then re-test | [025ea72](https://github.com/vsessvit/FitForge/commit/025ea72) | Fixed profile 404 and membership checkout form logic |
+| Fix checkout calculation bug then re-test | [157315c](https://github.com/vsessvit/FitForge/commit/157315c) | Fixed `Decimal`/`float` order total issue |
+| Improve lint/test script reliability | [e188d64](https://github.com/vsessvit/FitForge/commit/e188d64) | Cleaned lint config and script behavior |
+| Remove remaining test warnings | [8dcb2ce](https://github.com/vsessvit/FitForge/commit/8dcb2ce) | Fixed pagination ordering + test middleware setup |
+
+This provides clear evidence that testing was continuous and integrated into development decisions, not only performed at the end.
 
 ### How to Run Tests
 

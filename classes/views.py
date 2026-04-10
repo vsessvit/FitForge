@@ -11,7 +11,7 @@ from .forms import ScheduleCreationForm, BulkScheduleCreationForm, FitnessClassF
 
 def all_classes(request):
     """View to show all fitness classes, with filtering by category"""
-    classes = FitnessClass.objects.all()
+    classes = FitnessClass.objects.all().order_by('name')
     categories = ClassCategory.objects.all()
     current_category = None
     search_query = None

@@ -96,6 +96,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# WhiteNoise is not needed in tests and can emit staticfiles directory warnings.
+if 'test' in sys.argv:
+    MIDDLEWARE = [
+        middleware for middleware in MIDDLEWARE
+        if middleware != 'whitenoise.middleware.WhiteNoiseMiddleware'
+    ]
+
 ROOT_URLCONF = 'fitforge.urls'
 
 TEMPLATES = [

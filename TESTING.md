@@ -340,11 +340,11 @@ Lighthouse evidence was collected for both mobile and desktop views across impor
 - [Lighthouse_SignOut_desktop.png](docs/Screenshots/Lighthouse_SignOut_desktop.png)
 
 ### Mobile Lighthouse Evidence
-- [Lifhthouse_HomePage_mobile.png](docs/Screenshots/Lifhthouse_HomePage_mobile.png)
-- [Lifhthouse_classes_mobile.png](docs/Screenshots/Lifhthouse_classes_mobile.png)
-- [Lifhthouse_classes_mobile copy.png](docs/Screenshots/Lifhthouse_classes_mobile%20copy.png)
-- [Lifhthouse_ClassSchesule_mobile.png](docs/Screenshots/Lifhthouse_ClassSchesule_mobile.png)
-- [Lifhthouse_shop_mobile.png](docs/Screenshots/Lifhthouse_shop_mobile.png)
+- [Lighthouse_HomePage_mobile.png](docs/Screenshots/Lighthouse_HomePage_mobile.png)
+- [Lighthouse_classes_mobile.png](docs/Screenshots/Lighthouse_classes_mobile.png)
+- [Lighthouse_classes_mobile copy.png](docs/Screenshots/Lighthouse_classes_mobile%20copy.png)
+- [Lighthouse_ClassSchesule_mobile.png](docs/Screenshots/Lighthouse_ClassSchesule_mobile.png)
+- [Lighthouse_shop_mobile.png](docs/Screenshots/Lighthouse_shop_mobile.png)
 - [Lighthouse_AddANewClass_mobile.png](docs/Screenshots/Lighthouse_AddANewClass_mobile.png)
 - [Lighthouse_AddANewProduct_mobile.png](docs/Screenshots/Lighthouse_AddANewProduct_mobile.png)
 - [Lighthouse_bag_mobile.png](docs/Screenshots/Lighthouse_bag_mobile.png)
@@ -531,11 +531,11 @@ This section ensures every screenshot stored in `docs/Screenshots` is referenced
 
 ### Lighthouse and Performance Evidence
 
-- [Lifhthouse_classes_mobile copy.png](docs/Screenshots/Lifhthouse_classes_mobile%20copy.png)
-- [Lifhthouse_classes_mobile.png](docs/Screenshots/Lifhthouse_classes_mobile.png)
-- [Lifhthouse_ClassSchesule_mobile.png](docs/Screenshots/Lifhthouse_ClassSchesule_mobile.png)
-- [Lifhthouse_HomePage_mobile.png](docs/Screenshots/Lifhthouse_HomePage_mobile.png)
-- [Lifhthouse_shop_mobile.png](docs/Screenshots/Lifhthouse_shop_mobile.png)
+- [Lighthouse_classes_mobile copy.png](docs/Screenshots/Lighthouse_classes_mobile%20copy.png)
+- [Lighthouse_classes_mobile.png](docs/Screenshots/Lighthouse_classes_mobile.png)
+- [Lighthouse_ClassSchesule_mobile.png](docs/Screenshots/Lighthouse_ClassSchesule_mobile.png)
+- [Lighthouse_HomePage_mobile.png](docs/Screenshots/Lighthouse_HomePage_mobile.png)
+- [Lighthouse_shop_mobile.png](docs/Screenshots/Lighthouse_shop_mobile.png)
 - [Lighthouse_AddANewClass_mobile.png](docs/Screenshots/Lighthouse_AddANewClass_mobile.png)
 - [Lighthouse_AddANewProduct_mobile.png](docs/Screenshots/Lighthouse_AddANewProduct_mobile.png)
 - [Lighthouse_AddNewClass_desktop.png](docs/Screenshots/Lighthouse_AddNewClass_desktop.png)
@@ -573,7 +573,7 @@ This section ensures every screenshot stored in `docs/Screenshots` is referenced
 
 ### Additional QA Captures
 
-- [Screenshot 2026-03-13 at 16.03.50.png](docs/Screenshots/Screenshot%202026-03-13%20at%2016.03.50.png)
+- [Lighthouse_ConfirmEmail.png](docs/Screenshots/Lighthouse_ConfirmEmail.png)
 
 ---
 

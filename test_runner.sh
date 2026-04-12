@@ -8,7 +8,7 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 echo "╔════════════════════════════════════════════════════════════════╗"
-echo "║           🧪 RUNNING AUTOMATED TESTS 🧪                        ║"
+echo "║              RUNNING AUTOMATED TESTS                           ║"
 echo "╚════════════════════════════════════════════════════════════════╝"
 echo ""
 
@@ -18,7 +18,7 @@ export SECRET_KEY="${SECRET_KEY:-dev-secret-key-change-me}"
 export ALLOWED_HOSTS="${ALLOWED_HOSTS:-localhost,127.0.0.1,testserver}"
 
 # Run Django tests
-echo "📋 Running Django Test Suite..."
+echo "  Running Django Test Suite..."
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
 python manage.py test --verbosity=2
@@ -27,7 +27,7 @@ TEST_EXIT_CODE=$?
 
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "📊 TEST SUMMARY:"
+echo "  TEST SUMMARY:"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
 if [ $TEST_EXIT_CODE -eq 0 ]; then

@@ -9,7 +9,7 @@ BOLD='\033[1m'
 NC='\033[0m' # No Color
 
 echo -e "${BOLD}╔════════════════════════════════════════════════════════════════╗${NC}"
-echo -e "${BOLD}║             CODE QUALITY TEST RESULTS                        ║${NC}"
+echo -e "${BOLD}║             CODE QUALITY TEST RESULTS                          ║${NC}"
 echo -e "${BOLD}╚════════════════════════════════════════════════════════════════╝${NC}"
 echo ""
 

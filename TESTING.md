@@ -13,9 +13,9 @@ This document records the testing process for FitForge, including automated chec
    - [Latest Test Run](#latest-test-run)
    - [TDD and Iterative Test Evidence](#tdd-and-iterative-test-evidence)
    - [How to Run Tests](#how-to-run-tests)
-      - [Option 1 — Django test runner directly](#option-1--django-test-runner-directly)
-      - [Option 2 — test_runner.sh](#option-2--test_runnersh)
-      - [Option 3 — test_code_quality.sh](#option-3--test_code_qualitysh)
+      - [Option 1 - Django test runner directly](#option-1--django-test-runner-directly)
+      - [Option 2 - test_runner.sh](#option-2--test_runnersh)
+      - [Option 3 - test_code_quality.sh](#option-3--test_code_qualitysh)
 - [Manual Testing](#manual-testing)
    - [Authentication and Account Testing](#authentication-and-account-testing)
    - [Membership Testing](#membership-testing)
@@ -98,7 +98,7 @@ This provides clear evidence that testing was continuous and integrated into dev
 
 ### How to Run Tests
 
-#### Option 1 — Django test runner directly
+#### Option 1 - Django test runner directly
 
 Use this when you want the standard Django output without any wrapper script.
 
@@ -112,7 +112,7 @@ python manage.py test
 
 Note: `testserver` is needed for Django test client requests.
 
-#### Option 2 — `test_runner.sh`
+#### Option 2 - `test_runner.sh`
 
 This script was added to make it easier to run the Django suite with one command and get a clearer terminal summary for project QA and screenshots.
 
@@ -148,7 +148,7 @@ export ALLOWED_HOSTS='localhost,127.0.0.1,testserver'
 Evidence:
 - [test_runner.sh result](docs/Screenshots/test_runner_script_result.png)
 
-#### Option 3 — `test_code_quality.sh`
+#### Option 3 - `test_code_quality.sh`
 
 This script was added so Python and JavaScript code quality checks could be run together from one command.
 
@@ -473,7 +473,7 @@ This section ensures every screenshot stored in `docs/Screenshots` is referenced
 - [Confirmation_email_when_forgot_password.png](docs/Screenshots/Confirmation_email_when_forgot_password.png)
 - [Edit_delete_options_for_admin.png](docs/Screenshots/Edit_delete_options_for_admin.png)
 - [Full_homepage_desktop.png](docs/Screenshots/Full_homepage_desktop.png)
-- [Full_page_mobil;e.png](docs/Screenshots/Full_page_mobil;e.png)
+- [Full_page_mobile.png](docs/Screenshots/Full_page_mobile.png)
 - [Item_in_shopping_bag.png](docs/Screenshots/Item_in_shopping_bag.png)
 - [Login_Error.png](docs/Screenshots/Login_Error.png)
 - [Membership_added_to_MyProfile.png](docs/Screenshots/Membership_added_to_MyProfile.png)

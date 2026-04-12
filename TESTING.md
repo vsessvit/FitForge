@@ -574,7 +574,6 @@ This section ensures every screenshot stored in `docs/Screenshots` is referenced
 ### Additional QA Captures
 
 - [Screenshot 2026-03-13 at 16.03.50.png](docs/Screenshots/Screenshot%202026-03-13%20at%2016.03.50.png)
-- [Screenshot 2026-03-16 at 10.26.10.png](docs/Screenshots/Screenshot%202026-03-16%20at%2010.26.10.png)
 
 ---
 

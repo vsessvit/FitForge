@@ -17,13 +17,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from home import views as home_views
+from homepage import views as home_views
 from . import views as fitforge_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
-    path('', include('home.urls')),
+    path('', include('homepage.urls')),
     path('classes/', include('classes.urls')),
     path('memberships/', include('memberships.urls')),
     path('products/', include('products.urls')),

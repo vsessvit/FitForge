@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.urls import Resolver404
 from django.urls import resolve
 from django.shortcuts import redirect
 
@@ -26,7 +27,7 @@ class AuthenticatedUserSignupRedirectMiddleware:
                         'Visit your profile to manage your account.'
                     )
                     return redirect('profiles:profile')
-            except:
+            except Resolver404:
                 # If URL doesn't resolve, just continue
                 pass
 

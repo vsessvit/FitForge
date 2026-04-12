@@ -33,7 +33,7 @@ This document records the testing process for FitForge, including automated chec
 - [Deployment Security Checks](#deployment-security-checks)
 - [Bugs Fixed During Development and QA](#bugs-fixed-during-development-and-qa)
 - [Known Minor Issues](#known-minor-issues)
-- [Complete Screenshot Evidence Index](#complete-screenshot-evidence-index)
+- [Screenshot Evidence Snapshot](#screenshot-evidence-snapshot)
 - [Conclusion](#conclusion)
 
 ---
@@ -98,83 +98,9 @@ This provides clear evidence that testing was continuous and integrated into dev
 
 ### How to Run Tests
 
-#### Option 1 - Django test runner directly
-
-Use this when you want the standard Django output without any wrapper script.
-
-```bash
-source .venv/bin/activate
-export DEVELOPMENT=1
-export SECRET_KEY='your-secret-key'
-export ALLOWED_HOSTS='localhost,127.0.0.1,testserver'
-python manage.py test
-```
-
-Note: `testserver` is needed for Django test client requests.
-
-#### Option 2 - `test_runner.sh`
-
-This script was added to make it easier to run the Django suite with one command and get a clearer terminal summary for project QA and screenshots.
-
-**Why it was added:**
-- to avoid repeatedly typing environment and test commands
-- to make output easier to read during submission preparation
-- to provide a cleaner screenshot of a successful automated test run
-
-**What it does:**
-- sets local-safe defaults for `DEVELOPMENT`, `SECRET_KEY`, and `ALLOWED_HOSTS` if not already exported
-- runs `python manage.py test --verbosity=2`
-- prints a clear banner before execution
-- shows a simple coloured pass/fail summary afterwards
-- returns the Django exit status so failures are still real failures
-
-**How to run it:**
-
-```bash
-chmod +x test_runner.sh
-./test_runner.sh
-```
-
-Optional (if you want to set env vars manually first):
-
-```bash
-source .venv/bin/activate
-export DEVELOPMENT=1
-export SECRET_KEY='your-secret-key'
-export ALLOWED_HOSTS='localhost,127.0.0.1,testserver'
-./test_runner.sh
-```
-
-Evidence:
-- [test_runner.sh result](docs/Screenshots/test_runner_script_result.png)
-
-#### Option 3 - `test_code_quality.sh`
-
-This script was added so Python and JavaScript code quality checks could be run together from one command.
-
-**Why it was added:**
-- to speed up final QA work
-- to keep Flake8 and ESLint checks consistent
-- to make it easy to capture one clear screenshot showing code-quality status
-
-**What it does:**
-- activates `.venv` or `venv` if present
-- runs `python -m flake8 . --statistics --count`
-- runs `npm run lint:js`
-- prints a summary showing whether the codebase is clean
-- checks that production-style error page and `DEBUG` safeguards exist in settings
-
-**How to run it:**
-
-```bash
-chmod +x test_code_quality.sh
-./test_code_quality.sh
-```
-
-Evidence:
-- [test_code_quality.sh result](docs/Screenshots/code_quality_script_result.png)
-
----
+- Option 1 — Django test runner directly
+- Option 2 — `test_runner.sh`
+- Option 3 — `test_code_quality.sh`
 
 ## Manual Testing
 
@@ -434,7 +360,7 @@ The following issues were found during testing and corrected as part of the deve
 | Membership-only checkout still showed delivery-style form fields | Checkout UX was confusing for membership-only orders | Membership-only form path now shows only the relevant visible fields | [025ea72](https://github.com/vsessvit/FitForge/commit/025ea72) |
 | Checkout failed with `Decimal` + `float` total calculation error | Order total logic mixed numeric types | Delivery settings were converted safely to `Decimal` values | [157315c](https://github.com/vsessvit/FitForge/commit/157315c) |
 | Stripe billing details JS did not handle simplified membership-only form well | Missing fields could cause checkout issues | Billing details collection was hardened to only send existing fields | [157315c](https://github.com/vsessvit/FitForge/commit/157315c) |
-| Code-quality script initially surfaced thousands of irrelevant issues from an extra virtualenv | Flake8 was reading unintended environment files | Script and configuration were cleaned up and the intended env handling was improved | [e188d64](https://github.com/vsessvit/FitForge/commit/e188d64) |
+| Code-quality script initially surfaced thousands of irrelevant issues from an extra virtualenv | Flake8 was reading unintended environment files | The script and configuration were cleaned up to use the intended environment handling | [e188d64](https://github.com/vsessvit/FitForge/commit/e188d64) |
 | Mobile performance on homepage, classes, schedule, shop, and detail pages was too low | Large assets and rendering overhead hurt Lighthouse scores | Performance optimisations were applied across templates, images, pagination, and assets | [57bd649](https://github.com/vsessvit/FitForge/commit/57bd649), [bcbe949](https://github.com/vsessvit/FitForge/commit/bcbe949), [dfb9c2d](https://github.com/vsessvit/FitForge/commit/dfb9c2d) |
 | Schedule pagination/buttons still showed Bootstrap blue instead of FitForge gold | Theme consistency was broken on the schedules page | Pagination/button colour overrides were strengthened | [ba6a195](https://github.com/vsessvit/FitForge/commit/ba6a195), [700fc89](https://github.com/vsessvit/FitForge/commit/700fc89) |
 
@@ -448,128 +374,25 @@ The following issues were found during testing and corrected as part of the deve
 
 ---
 
-## Complete Screenshot Evidence Index
+## Screenshot Evidence Snapshot
 
-This section ensures every screenshot stored in `docs/Screenshots` is referenced in the documentation set.
+The sections above already contain the detailed manual testing and validation evidence. This brief snapshot keeps a few representative screenshots for quick reference without repeating every item.
 
-### Core UI and Feature Evidence
+### Core flow samples
+- [Homepage](docs/Screenshots/Full_homepage_desktop.png)
+- [Membership purchase](docs/Screenshots/Membership_confirmation_form.png)
+- [Class detail view](docs/Screenshots/ClassDetail_page_user_view.png)
+- [Product detail view](docs/Screenshots/Product_Detail_page_user_view.png)
 
-- [2_fields_when_buying_just_a_membership.png](docs/Screenshots/2_fields_when_buying_just_a_membership.png)
-- [404_Error_page.png](docs/Screenshots/404_Error_page.png)
-- [500_Error.png](docs/Screenshots/500_Error.png)
-- [Added_Premium membership_to_your_bag_popup_message.png](docs/Screenshots/Added_Premium%20membership_to_your_bag_popup_message.png)
-- [AddToBag_success_message.png](docs/Screenshots/AddToBag_success_message.png)
-- [Admin_updating_picture_for_product.png](docs/Screenshots/Admin_updating_picture_for_product.png)
-- [Cancel_membership_Warning_message.png](docs/Screenshots/Cancel_membership_Warning_message.png)
-- [Checkout_form_with_delivery.png](docs/Screenshots/Checkout_form_with_delivery.png)
-- [Checkout_form.png](docs/Screenshots/Checkout_form.png)
-- [ClassDetail_page_user_view.png](docs/Screenshots/ClassDetail_page_user_view.png)
-- [ClassEdited_Confirmation_popup_message.png](docs/Screenshots/ClassEdited_Confirmation_popup_message.png)
-- [Classes_filter_by_class_example.png](docs/Screenshots/Classes_filter_by_class_example.png)
-- [Classes_SortBy_example.png](docs/Screenshots/Classes_SortBy_example.png)
-- [Confirmation_email.png](docs/Screenshots/Confirmation_email.png)
-- [Confirmation_email_real_example.png](docs/Screenshots/Confirmation_email_real_example.png)
-- [Confirmation_email_was_sent.png](docs/Screenshots/Confirmation_email_was_sent.png)
-- [Confirmation_email_when_forgot_password.png](docs/Screenshots/Confirmation_email_when_forgot_password.png)
-- [Edit_delete_options_for_admin.png](docs/Screenshots/Edit_delete_options_for_admin.png)
-- [Full_homepage_desktop.png](docs/Screenshots/Full_homepage_desktop.png)
-- [Full_page_mobile.png](docs/Screenshots/Full_page_mobile.png)
-- [Item_in_shopping_bag.png](docs/Screenshots/Item_in_shopping_bag.png)
-- [Login_Error.png](docs/Screenshots/Login_Error.png)
-- [When_Membership_bought_its_added_to_MyProfile.png](docs/Screenshots/When_Membership_bought_its_added_to_MyProfile.png)
-- [Membership_added_to_the_bag_popup_message.png](docs/Screenshots/Membership_added_to_the_bag_popup_message.png)
-- [Membership_confirmation_form.png](docs/Screenshots/Membership_confirmation_form.png)
-- [Membership_successfully_activated_popup_message.png](docs/Screenshots/Membership_successfully_activated_popup_message.png)
-- [Membership_added_to_MyProfile.png](docs/Screenshots/Membership_added_to_MyProfile.png)
-- [No_edit_delete_option_for_the_user.png](docs/Screenshots/No_edit_delete_option_for_the_user.png)
-- [NoClasses_Message.png](docs/Screenshots/NoClasses_Message.png)
-- [Not_admin_user_menu_options.png](docs/Screenshots/Not_admin_user_menu_options.png)
-- [Order_successfully_processed_popup_message.png](docs/Screenshots/Order_successfully_processed_popup_message.png)
-- [Password_reset_page.png](docs/Screenshots/Password_reset_page.png)
-- [Product_Detail_page_user_view.png](docs/Screenshots/Product_Detail_page_user_view.png)
-- [Product_updated.png](docs/Screenshots/Product_updated.png)
-- [RegForm_Error.png](docs/Screenshots/RegForm_Error.png)
-- [RegForm_NoPassword_Error.png](docs/Screenshots/RegForm_NoPassword_Error.png)
-- [RegForm_NOUserName_Error.png](docs/Screenshots/RegForm_NOUserName_Error.png)
-- [RegForm_PasswordsMustMatch_Error.png](docs/Screenshots/RegForm_PasswordsMustMatch_Error.png)
-- [RegForm_PasswordTooShort_Error.png](docs/Screenshots/RegForm_PasswordTooShort_Error.png)
-- [RegForm_ShortName_Error.png](docs/Screenshots/RegForm_ShortName_Error.png)
-- [RegForm_UsernameAlreadyExists_Error.png](docs/Screenshots/RegForm_UsernameAlreadyExists_Error.png)
-- [Removed_the_item_from_the_cart.png](docs/Screenshots/Removed_the_item_from_the_cart.png)
-- [SignOut_Warning.png](docs/Screenshots/SignOut_Warning.png)
-- [User_account_before_buying_the_membership.png](docs/Screenshots/User_account_before_buying_the_membership.png)
-- [UserAlreadyExists_Error.png](docs/Screenshots/UserAlreadyExists_Error.png)
-- [When_Membership_bought_its_added_to_MyProfile.png](docs/Screenshots/When_Membership_bought_its_added_to_MyProfile.png)
-- [You_need_membership_to_book_classes_message.png](docs/Screenshots/You_need_membership_to_book_classes_message.png)
+### Validation and QA samples
+- [Validation summary](docs/Screenshots/Tests_CodeValidation_results.png)
+- [Test runner output](docs/Screenshots/test_runner_script_result.png)
+- [Code quality output](docs/Screenshots/code_quality_script_result.png)
 
-### HTML, CSS, and Code Validation Evidence
-
-- [Base.css_validation.png](docs/Screenshots/Base.css_validation.png)
-- [Checkout.css_validation.png](docs/Screenshots/Checkout.css_validation.png)
-- [Memberships.css_validation.png](docs/Screenshots/Memberships.css_validation.png)
-- [Html Checker_logout.png](docs/Screenshots/Html%20Checker_logout.png)
-- [HtmlChecker_add_class.png](docs/Screenshots/HtmlChecker_add_class.png)
-- [HtmlChecker_add_product.png](docs/Screenshots/HtmlChecker_add_product.png)
-- [HtmlChecker_all_classes.png](docs/Screenshots/HtmlChecker_all_classes.png)
-- [HtmlChecker_bag.png](docs/Screenshots/HtmlChecker_bag.png)
-- [HtmlChecker_base.png](docs/Screenshots/HtmlChecker_base.png)
-- [HtmlChecker_contact.png](docs/Screenshots/HtmlChecker_contact.png)
-- [HtmlChecker_create_schedule.png](docs/Screenshots/HtmlChecker_create_schedule.png)
-- [HtmlChecker_faq.png](docs/Screenshots/HtmlChecker_faq.png)
-- [HtmlChecker_login.png](docs/Screenshots/HtmlChecker_login.png)
-- [HtmlChecker_membership_plans.png](docs/Screenshots/HtmlChecker_membership_plans.png)
-- [HtmlChecker_my_bookings.png](docs/Screenshots/HtmlChecker_my_bookings.png)
-- [HtmlChecker_privacy.png](docs/Screenshots/HtmlChecker_privacy.png)
-- [HtmlChecker_profile.png](docs/Screenshots/HtmlChecker_profile.png)
-- [HtmlChecker_schedule_list.png](docs/Screenshots/HtmlChecker_schedule_list.png)
-- [HtmlChecker_shop.png](docs/Screenshots/HtmlChecker_shop.png)
-- [HtmlChecker_signup.png](docs/Screenshots/HtmlChecker_signup.png)
-- [HtmlChecker_terms.png](docs/Screenshots/HtmlChecker_terms.png)
-- [code_quality_script_result.png](docs/Screenshots/code_quality_script_result.png)
-- [test_runner_script_result.png](docs/Screenshots/test_runner_script_result.png)
-- [Tests_CodeValidation_results.png](docs/Screenshots/Tests_CodeValidation_results.png)
-
-### Lighthouse and Performance Evidence
-
-- [Lighthouse_classes_mobile_copy.png](docs/Screenshots/Lighthouse_classes_mobile_copy.png)
-- [Lighthouse_classes_mobile.png](docs/Screenshots/Lighthouse_classes_mobile.png)
-- [Lighthouse_ClassSchedule_mobile.png](docs/Screenshots/Lighthouse_ClassSchedule_mobile.png)
-- [Lighthouse_HomePage_mobile.png](docs/Screenshots/Lighthouse_HomePage_mobile.png)
-- [Lighthouse_shop_mobile.png](docs/Screenshots/Lighthouse_shop_mobile.png)
-- [Lighthouse_AddANewClass_mobile.png](docs/Screenshots/Lighthouse_AddANewClass_mobile.png)
-- [Lighthouse_AddANewProduct_mobile.png](docs/Screenshots/Lighthouse_AddANewProduct_mobile.png)
-- [Lighthouse_AddNewClass_desktop.png](docs/Screenshots/Lighthouse_AddNewClass_desktop.png)
-- [Lighthouse_AddNewProduct_desktop.png](docs/Screenshots/Lighthouse_AddNewProduct_desktop.png)
-- [Lighthouse_AddSchedule_desktop.png](docs/Screenshots/Lighthouse_AddSchedule_desktop.png)
-- [Lighthouse_bag_mobile.png](docs/Screenshots/Lighthouse_bag_mobile.png)
-- [Lighthouse_ConfirmEmail_desktop.png](docs/Screenshots/Lighthouse_ConfirmEmail_desktop.png)
-- [Lighthouse_ContactUs_mobile.png](docs/Screenshots/Lighthouse_ContactUs_mobile.png)
-- [Lighthouse_FAQ_mobile.png](docs/Screenshots/Lighthouse_FAQ_mobile.png)
-- [Lighthouse_logout_mobile.png](docs/Screenshots/Lighthouse_logout_mobile.png)
-- [Lighthouse_memberships_mobile.png](docs/Screenshots/Lighthouse_memberships_mobile.png)
-- [Lighthouse_MyBookings_desktop.png](docs/Screenshots/Lighthouse_MyBookings_desktop.png)
-- [Lighthouse_MyBookings_mobile.png](docs/Screenshots/Lighthouse_MyBookings_mobile.png)
-- [Lighthouse_PasswordReset_desktop.png](docs/Screenshots/Lighthouse_PasswordReset_desktop.png)
-- [Lighthouse_policy_mobile.png](docs/Screenshots/Lighthouse_policy_mobile.png)
-- [Lighthouse_ProductDetail_mobile.png](docs/Screenshots/Lighthouse_ProductDetail_mobile.png)
-- [Lighthouse_Profile_desktop.png](docs/Screenshots/Lighthouse_Profile_desktop.png)
-- [Lighthouse_profile_mobile.png](docs/Screenshots/Lighthouse_profile_mobile.png)
-- [Lighthouse_schedule_mobile.png](docs/Screenshots/Lighthouse_schedule_mobile.png)
-- [Lighthouse_ShoppingBag_mobile.png](docs/Screenshots/Lighthouse_ShoppingBag_mobile.png)
-- [Lighthouse_SignOut_desktop.png](docs/Screenshots/Lighthouse_SignOut_desktop.png)
-- [Lighthouse_term_mobile.png](docs/Screenshots/Lighthouse_term_mobile.png)
-
-### Responsive and Device Evidence
-
-- [I_am_responsive.png](docs/Screenshots/I_am_responsive.png)
-- [ResponsiveChecker_desktop.png](docs/Screenshots/ResponsiveChecker_desktop.png)
-- [ResponsiveChecker_Desktop20.png](docs/Screenshots/ResponsiveChecker_Desktop20.png)
-- [ResponsiveChecker_GooglePixel.png](docs/Screenshots/ResponsiveChecker_GooglePixel.png)
-- [ResponsiveChecker_iPadMini.png](docs/Screenshots/ResponsiveChecker_iPadMini.png)
-- [ResponsiveChecker_iPadPro.png](docs/Screenshots/ResponsiveChecker_iPadPro.png)
-- [ResponsiveChecker_iPhone15ProMax_real.jpeg](docs/Screenshots/ResponsiveChecker_iPhone15ProMax_real.jpeg)
-- [ResponsiveChecker_real_MacBook13,6.png](docs/Screenshots/ResponsiveChecker_real_MacBook13,6.png)
-- [ResponsiveChecker_SamsungGalaxyTab10.png](docs/Screenshots/ResponsiveChecker_SamsungGalaxyTab10.png)
+### Performance and responsive samples
+- [Responsive preview](docs/Screenshots/I_am_responsive.png)
+- [Homepage mobile Lighthouse](docs/Screenshots/Lighthouse_HomePage_mobile.png)
+- [Profile desktop Lighthouse](docs/Screenshots/Lighthouse_Profile_desktop.png)
 
 ### Additional QA Captures
 

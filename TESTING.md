@@ -192,19 +192,19 @@ Manual testing was carried out across the main user journeys and special busines
 | Password too short | Minimum length validation appears | ✅ | [RegForm_PasswordTooShort_Error.png](docs/Screenshots/RegForm_PasswordTooShort_Error.png) |
 | Password mismatch | User sees mismatch warning | ✅ | [RegForm_PasswordsMustMatch_Error.png](docs/Screenshots/RegForm_PasswordsMustMatch_Error.png) |
 | Username too short / invalid | Validation prevents submission | ✅ | [RegForm_ShortName_Error.png](docs/Screenshots/RegForm_ShortName_Error.png) |
-| Existing username | Duplicate account creation is blocked | ✅ | [RegForm_UsermaneAlreadyExists_Error.png](docs/Screenshots/RegForm_UsermaneAlreadyExists_Error.png), [UserAlreadyExists_Error.png](docs/Screenshots/UserAlreadyExists_Error.png) |
+| Existing username | Duplicate account creation is blocked | ✅ | [RegForm_UsernameAlreadyExists_Error.png](docs/Screenshots/RegForm_UsernameAlreadyExists_Error.png), [UserAlreadyExists_Error.png](docs/Screenshots/UserAlreadyExists_Error.png) |
 | Sign-out confirmation | User sees a styled sign-out warning page | ✅ | [SignOut_Warning.png](docs/Screenshots/SignOut_Warning.png) |
 
 ### Membership Testing
 
 | Test Case | Expected Result | Status | Evidence |
 |---|---|---|---|
-| Profile before membership purchase | No active membership shown yet | ✅ | [User_account_before_bying_the_membership.png](docs/Screenshots/User_account_before_bying_the_membership.png) |
+| Profile before membership purchase | No active membership shown yet | ✅ | [User_account_before_buying_the_membership.png](docs/Screenshots/User_account_before_buying_the_membership.png) |
 | Add membership to bag | Success message appears | ✅ | [Membership_added_to_the_bag_popup_message.png](docs/Screenshots/Membership_added_to_the_bag_popup_message.png), [Added_Premium membership_to_your_bag_popup_message.png](docs/Screenshots/Added_Premium%20membership_to_your_bag_popup_message.png) |
-| Membership-only checkout | Only the relevant visible fields are shown | ✅ | [2_fields_when_bying_just_a_membership.png](docs/Screenshots/2_fields_when_bying_just_a_membership.png) |
+| Membership-only checkout | Only the relevant visible fields are shown | ✅ | [2_fields_when_buying_just_a_membership.png](docs/Screenshots/2_fields_when_buying_just_a_membership.png) |
 | Membership checkout form page | Checkout screen renders correctly | ✅ | [Membership_confirmation_form.png](docs/Screenshots/Membership_confirmation_form.png) |
 | Successful membership activation | User sees success feedback | ✅ | [Membership_successfully_activated_popup_message.png](docs/Screenshots/Membership_successfully_activated_popup_message.png) |
-| Membership added to profile | Active plan appears in profile | ✅ | [Membership_added_to_MyProfile.png](docs/Screenshots/Membership_added_to_MyProfile.png), [Membersip_added_to_MyProfile.png](docs/Screenshots/Membersip_added_to_MyProfile.png), [When_Membership_bought_its_added_to_MyProfile.png](docs/Screenshots/When_Membership_bought_its_added_to_MyProfile.png) |
+| Membership added to profile | Active plan appears in profile | ✅ | [Membership_added_to_MyProfile.png](docs/Screenshots/Membership_added_to_MyProfile.png), [When_Membership_bought_its_added_to_MyProfile.png](docs/Screenshots/When_Membership_bought_its_added_to_MyProfile.png) |
 | Cancel membership | Warning/confirmation appears before cancellation | ✅ | [Cancel_membership_Warning_message.png](docs/Screenshots/Cancel_membership_Warning_message.png) |
 
 ### Classes, Schedule, and Booking Testing
@@ -216,7 +216,7 @@ Manual testing was carried out across the main user journeys and special busines
 | Sort classes | Sort order changes correctly | ✅ | [Classes_SortBy_example.png](docs/Screenshots/Classes_SortBy_example.png) |
 | Empty result set | User sees an informative empty-state message | ✅ | [NoClasses_Message.png](docs/Screenshots/NoClasses_Message.png) |
 | Booking blocked without membership | User sees a restriction message | ✅ | [You_need_membership_to_book_classes_message.png](docs/Screenshots/You_need_membership_to_book_classes_message.png) |
-| Admin can edit class content | Update success confirmation is shown | ✅ | [ClassEdited_Confirmation_poup_message.png](docs/Screenshots/ClassEdited_Confirmation_poup_message.png) |
+| Admin can edit class content | Update success confirmation is shown | ✅ | [ClassEdited_Confirmation_popup_message.png](docs/Screenshots/ClassEdited_Confirmation_popup_message.png) |
 | My bookings page | User can review bookings | ✅ | [HtmlChecker_my_bookings.png](docs/Screenshots/HtmlChecker_my_bookings.png) |
 
 ### Products, Bag, and Checkout Testing
@@ -225,7 +225,7 @@ Manual testing was carried out across the main user journeys and special busines
 |---|---|---|---|
 | Add product to bag | Success message appears | ✅ | [AddToBag_success_message.png](docs/Screenshots/AddToBag_success_message.png) |
 | Bag shows selected item | Product is shown in the bag | ✅ | [Item_in_shopping_bag.png](docs/Screenshots/Item_in_shopping_bag.png) |
-| Checkout for products | Checkout form renders with delivery fields when needed | ✅ | [Checkout_form.png](docs/Screenshots/Checkout_form.png), [Chechout_form_with_delivery.png](docs/Screenshots/Chechout_form_with_delivery.png) |
+| Checkout for products | Checkout form renders with delivery fields when needed | ✅ | [Checkout_form.png](docs/Screenshots/Checkout_form.png), [Checkout_form_with_delivery.png](docs/Screenshots/Checkout_form_with_delivery.png) |
 | Remove item from bag | Removal message appears | ✅ | [Removed_the_item_from_the_cart.png](docs/Screenshots/Removed_the_item_from_the_cart.png) |
 | Complete order | Success feedback appears after payment | ✅ | [Order_successfully_processed_popup_message.png](docs/Screenshots/Order_successfully_processed_popup_message.png) |
 | Product detail page | Product details render correctly | ✅ | [Product_Detail_page_user_view.png](docs/Screenshots/Product_Detail_page_user_view.png) |
@@ -330,20 +330,20 @@ Outcome:
 Lighthouse evidence was collected for both mobile and desktop views across important pages.
 
 ### Desktop Lighthouse Evidence
-- [LightHouse_Profile_desktop.png](docs/Screenshots/LightHouse_Profile_desktop.png)
+- [Lighthouse_Profile_desktop.png](docs/Screenshots/Lighthouse_Profile_desktop.png)
 - [Lighthouse_MyBookings_desktop.png](docs/Screenshots/Lighthouse_MyBookings_desktop.png)
 - [Lighthouse_PasswordReset_desktop.png](docs/Screenshots/Lighthouse_PasswordReset_desktop.png)
 - [Lighthouse_AddNewProduct_desktop.png](docs/Screenshots/Lighthouse_AddNewProduct_desktop.png)
 - [Lighthouse_AddNewClass_desktop.png](docs/Screenshots/Lighthouse_AddNewClass_desktop.png)
 - [Lighthouse_AddSchedule_desktop.png](docs/Screenshots/Lighthouse_AddSchedule_desktop.png)
-- [Lighthouse_ConfirmE-mailAddress_desktop.png](docs/Screenshots/Lighthouse_ConfirmE-mailAddress_desktop.png)
+- [Lighthouse_ConfirmEmail_desktop.png](docs/Screenshots/Lighthouse_ConfirmEmail_desktop.png)
 - [Lighthouse_SignOut_desktop.png](docs/Screenshots/Lighthouse_SignOut_desktop.png)
 
 ### Mobile Lighthouse Evidence
 - [Lighthouse_HomePage_mobile.png](docs/Screenshots/Lighthouse_HomePage_mobile.png)
 - [Lighthouse_classes_mobile.png](docs/Screenshots/Lighthouse_classes_mobile.png)
-- [Lighthouse_classes_mobile copy.png](docs/Screenshots/Lighthouse_classes_mobile%20copy.png)
-- [Lighthouse_ClassSchesule_mobile.png](docs/Screenshots/Lighthouse_ClassSchesule_mobile.png)
+- [Lighthouse_classes_mobile_copy.png](docs/Screenshots/Lighthouse_classes_mobile_copy.png)
+- [Lighthouse_ClassSchedule_mobile.png](docs/Screenshots/Lighthouse_ClassSchedule_mobile.png)
 - [Lighthouse_shop_mobile.png](docs/Screenshots/Lighthouse_shop_mobile.png)
 - [Lighthouse_AddANewClass_mobile.png](docs/Screenshots/Lighthouse_AddANewClass_mobile.png)
 - [Lighthouse_AddANewProduct_mobile.png](docs/Screenshots/Lighthouse_AddANewProduct_mobile.png)
@@ -390,8 +390,8 @@ Verified scenarios:
 
 Evidence:
 - [Checkout_form.png](docs/Screenshots/Checkout_form.png)
-- [Chechout_form_with_delivery.png](docs/Screenshots/Chechout_form_with_delivery.png)
-- [2_fields_when_bying_just_a_membership.png](docs/Screenshots/2_fields_when_bying_just_a_membership.png)
+- [Checkout_form_with_delivery.png](docs/Screenshots/Checkout_form_with_delivery.png)
+- [2_fields_when_buying_just_a_membership.png](docs/Screenshots/2_fields_when_buying_just_a_membership.png)
 - [Order_successfully_processed_popup_message.png](docs/Screenshots/Order_successfully_processed_popup_message.png)
 - [Membership_successfully_activated_popup_message.png](docs/Screenshots/Membership_successfully_activated_popup_message.png)
 
@@ -454,17 +454,17 @@ This section ensures every screenshot stored in `docs/Screenshots` is referenced
 
 ### Core UI and Feature Evidence
 
-- [2_fields_when_bying_just_a_membership.png](docs/Screenshots/2_fields_when_bying_just_a_membership.png)
+- [2_fields_when_buying_just_a_membership.png](docs/Screenshots/2_fields_when_buying_just_a_membership.png)
 - [404_Error_page.png](docs/Screenshots/404_Error_page.png)
 - [500_Error.png](docs/Screenshots/500_Error.png)
 - [Added_Premium membership_to_your_bag_popup_message.png](docs/Screenshots/Added_Premium%20membership_to_your_bag_popup_message.png)
 - [AddToBag_success_message.png](docs/Screenshots/AddToBag_success_message.png)
 - [Admin_updating_picture_for_product.png](docs/Screenshots/Admin_updating_picture_for_product.png)
 - [Cancel_membership_Warning_message.png](docs/Screenshots/Cancel_membership_Warning_message.png)
-- [Chechout_form_with_delivery.png](docs/Screenshots/Chechout_form_with_delivery.png)
+- [Checkout_form_with_delivery.png](docs/Screenshots/Checkout_form_with_delivery.png)
 - [Checkout_form.png](docs/Screenshots/Checkout_form.png)
 - [ClassDetail_page_user_view.png](docs/Screenshots/ClassDetail_page_user_view.png)
-- [ClassEdited_Confirmation_poup_message.png](docs/Screenshots/ClassEdited_Confirmation_poup_message.png)
+- [ClassEdited_Confirmation_popup_message.png](docs/Screenshots/ClassEdited_Confirmation_popup_message.png)
 - [Classes_filter_by_class_example.png](docs/Screenshots/Classes_filter_by_class_example.png)
 - [Classes_SortBy_example.png](docs/Screenshots/Classes_SortBy_example.png)
 - [Confirmation_email.png](docs/Screenshots/Confirmation_email.png)
@@ -476,11 +476,11 @@ This section ensures every screenshot stored in `docs/Screenshots` is referenced
 - [Full_page_mobile.png](docs/Screenshots/Full_page_mobile.png)
 - [Item_in_shopping_bag.png](docs/Screenshots/Item_in_shopping_bag.png)
 - [Login_Error.png](docs/Screenshots/Login_Error.png)
-- [Membership_added_to_MyProfile.png](docs/Screenshots/Membership_added_to_MyProfile.png)
+- [When_Membership_bought_its_added_to_MyProfile.png](docs/Screenshots/When_Membership_bought_its_added_to_MyProfile.png)
 - [Membership_added_to_the_bag_popup_message.png](docs/Screenshots/Membership_added_to_the_bag_popup_message.png)
 - [Membership_confirmation_form.png](docs/Screenshots/Membership_confirmation_form.png)
 - [Membership_successfully_activated_popup_message.png](docs/Screenshots/Membership_successfully_activated_popup_message.png)
-- [Membersip_added_to_MyProfile.png](docs/Screenshots/Membersip_added_to_MyProfile.png)
+- [Membership_added_to_MyProfile.png](docs/Screenshots/Membership_added_to_MyProfile.png)
 - [No_edit_delete_option_for_the_user.png](docs/Screenshots/No_edit_delete_option_for_the_user.png)
 - [NoClasses_Message.png](docs/Screenshots/NoClasses_Message.png)
 - [Not_admin_user_menu_options.png](docs/Screenshots/Not_admin_user_menu_options.png)
@@ -494,10 +494,10 @@ This section ensures every screenshot stored in `docs/Screenshots` is referenced
 - [RegForm_PasswordsMustMatch_Error.png](docs/Screenshots/RegForm_PasswordsMustMatch_Error.png)
 - [RegForm_PasswordTooShort_Error.png](docs/Screenshots/RegForm_PasswordTooShort_Error.png)
 - [RegForm_ShortName_Error.png](docs/Screenshots/RegForm_ShortName_Error.png)
-- [RegForm_UsermaneAlreadyExists_Error.png](docs/Screenshots/RegForm_UsermaneAlreadyExists_Error.png)
+- [RegForm_UsernameAlreadyExists_Error.png](docs/Screenshots/RegForm_UsernameAlreadyExists_Error.png)
 - [Removed_the_item_from_the_cart.png](docs/Screenshots/Removed_the_item_from_the_cart.png)
 - [SignOut_Warning.png](docs/Screenshots/SignOut_Warning.png)
-- [User_account_before_bying_the_membership.png](docs/Screenshots/User_account_before_bying_the_membership.png)
+- [User_account_before_buying_the_membership.png](docs/Screenshots/User_account_before_buying_the_membership.png)
 - [UserAlreadyExists_Error.png](docs/Screenshots/UserAlreadyExists_Error.png)
 - [When_Membership_bought_its_added_to_MyProfile.png](docs/Screenshots/When_Membership_bought_its_added_to_MyProfile.png)
 - [You_need_membership_to_book_classes_message.png](docs/Screenshots/You_need_membership_to_book_classes_message.png)
@@ -531,9 +531,9 @@ This section ensures every screenshot stored in `docs/Screenshots` is referenced
 
 ### Lighthouse and Performance Evidence
 
-- [Lighthouse_classes_mobile copy.png](docs/Screenshots/Lighthouse_classes_mobile%20copy.png)
+- [Lighthouse_classes_mobile_copy.png](docs/Screenshots/Lighthouse_classes_mobile_copy.png)
 - [Lighthouse_classes_mobile.png](docs/Screenshots/Lighthouse_classes_mobile.png)
-- [Lighthouse_ClassSchesule_mobile.png](docs/Screenshots/Lighthouse_ClassSchesule_mobile.png)
+- [Lighthouse_ClassSchedule_mobile.png](docs/Screenshots/Lighthouse_ClassSchedule_mobile.png)
 - [Lighthouse_HomePage_mobile.png](docs/Screenshots/Lighthouse_HomePage_mobile.png)
 - [Lighthouse_shop_mobile.png](docs/Screenshots/Lighthouse_shop_mobile.png)
 - [Lighthouse_AddANewClass_mobile.png](docs/Screenshots/Lighthouse_AddANewClass_mobile.png)
@@ -542,7 +542,7 @@ This section ensures every screenshot stored in `docs/Screenshots` is referenced
 - [Lighthouse_AddNewProduct_desktop.png](docs/Screenshots/Lighthouse_AddNewProduct_desktop.png)
 - [Lighthouse_AddSchedule_desktop.png](docs/Screenshots/Lighthouse_AddSchedule_desktop.png)
 - [Lighthouse_bag_mobile.png](docs/Screenshots/Lighthouse_bag_mobile.png)
-- [Lighthouse_ConfirmE-mailAddress_desktop.png](docs/Screenshots/Lighthouse_ConfirmE-mailAddress_desktop.png)
+- [Lighthouse_ConfirmEmail_desktop.png](docs/Screenshots/Lighthouse_ConfirmEmail_desktop.png)
 - [Lighthouse_ContactUs_mobile.png](docs/Screenshots/Lighthouse_ContactUs_mobile.png)
 - [Lighthouse_FAQ_mobile.png](docs/Screenshots/Lighthouse_FAQ_mobile.png)
 - [Lighthouse_logout_mobile.png](docs/Screenshots/Lighthouse_logout_mobile.png)
@@ -552,7 +552,7 @@ This section ensures every screenshot stored in `docs/Screenshots` is referenced
 - [Lighthouse_PasswordReset_desktop.png](docs/Screenshots/Lighthouse_PasswordReset_desktop.png)
 - [Lighthouse_policy_mobile.png](docs/Screenshots/Lighthouse_policy_mobile.png)
 - [Lighthouse_ProductDetail_mobile.png](docs/Screenshots/Lighthouse_ProductDetail_mobile.png)
-- [LightHouse_Profile_desktop.png](docs/Screenshots/LightHouse_Profile_desktop.png)
+- [Lighthouse_Profile_desktop.png](docs/Screenshots/Lighthouse_Profile_desktop.png)
 - [Lighthouse_profile_mobile.png](docs/Screenshots/Lighthouse_profile_mobile.png)
 - [Lighthouse_schedule_mobile.png](docs/Screenshots/Lighthouse_schedule_mobile.png)
 - [Lighthouse_ShoppingBag_mobile.png](docs/Screenshots/Lighthouse_ShoppingBag_mobile.png)

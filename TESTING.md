@@ -244,7 +244,7 @@ Manual testing was carried out across the main user journeys and special busines
 
 | Test Case | Expected Result | Status | Evidence |
 |---|---|---|---|
-| Homepage loads correctly | Main content and CTAs render | ✅ | [Full_homepage_desktop.png](docs/Screenshots/Full_homepage_desktop.png), [Full_page_mobil;e.png](docs/Screenshots/Full_page_mobil;e.png) |
+| Homepage loads correctly | Main content and CTAs render | ✅ | [Full_homepage_desktop.png](docs/Screenshots/Full_homepage_desktop.png), [Full_page_mobile.png](docs/Screenshots/Full_page_mobile.png) |
 | Contact / FAQ / policy pages render | Static content pages display correctly | ✅ | See HTML and Lighthouse evidence below |
 | 404 page | Missing routes display custom 404 page | ✅ | [404_Error_page.png](docs/Screenshots/404_Error_page.png) |
 | 500 page | Server error route displays custom 500 page | ✅ | [500_Error.png](docs/Screenshots/500_Error.png) |

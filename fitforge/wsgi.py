@@ -9,6 +9,10 @@ https://docs.djangoproject.com/en/3.2/howto/deployment/wsgi/
 
 import os
 
+# Import environment variables from env.py if it exists
+if os.path.isfile('env.py'):
+    import env  # noqa
+
 from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'fitforge.settings')

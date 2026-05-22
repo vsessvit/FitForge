@@ -24,8 +24,29 @@ def add_to_bag(request, item_id):
     # Convert to string for session storage consistency
     item_id = str(item_id)
 
+    # Check current quantity in bag
+    current_quantity = bag.get(item_id, 0)
+    total_quantity = current_quantity + quantity
+
+    # Validate stock availability
+    if product.stock < total_quantity:
+        if current_quantity > 0:
+            messages.error(
+                request,
+                f'Cannot add {quantity} more {product.name}. '
+                f'You have {current_quantity} in your bag and only '
+                f'{product.stock} available in stock.'
+            )
+        else:
+            messages.error(
+                request,
+                f'Cannot add {quantity} {product.name}. '
+                f'Only {product.stock} available in stock.'
+            )
+        return redirect(redirect_url)
+
     if item_id in list(bag.keys()):
-        bag[item_id] += quantity
+        bag[item_id] = total_quantity
         messages.success(request, f'Updated {product.name} quantity to {bag[item_id]}')
     else:
         bag[item_id] = quantity
@@ -69,6 +90,15 @@ def adjust_bag(request, item_id):
     item_id = str(item_id)
 
     if quantity > 0:
+        # Validate stock availability
+        if product.stock < quantity:
+            messages.error(
+                request,
+                f'Cannot update {product.name} to {quantity}. '
+                f'Only {product.stock} available in stock.'
+            )
+            return redirect(reverse('bag:view_bag'))
+        
         bag[item_id] = quantity
         messages.success(request, f'Updated {product.name} quantity to {bag[item_id]}')
     else:

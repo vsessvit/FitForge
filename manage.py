@@ -3,6 +3,10 @@
 import os
 import sys
 
+# Import environment variables from env.py if it exists
+if os.path.isfile('env.py'):
+    import env  # noqa
+
 
 def main():
     """Run administrative tasks."""

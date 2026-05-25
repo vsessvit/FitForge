@@ -112,7 +112,25 @@ def checkout(request):
             messages.error(request, "There's nothing in your bag at the moment")
             return redirect('products:product_list')
 
-        order_form = OrderForm(membership_only=membership_only)
+        # Pre-populate form with user's saved delivery information
+        if request.user.is_authenticated:
+            try:
+                profile = request.user.profile
+                order_form = OrderForm(membership_only=membership_only, initial={
+                    'full_name': request.user.get_full_name(),
+                    'email': request.user.email,
+                    'phone_number': profile.phone_number,
+                    'street_address1': profile.default_street_address1,
+                    'street_address2': profile.default_street_address2,
+                    'town_or_city': profile.default_town_or_city,
+                    'county': profile.default_county,
+                    'postcode': profile.default_postcode,
+                    'country': profile.default_country,
+                })
+            except Exception:
+                order_form = OrderForm(membership_only=membership_only)
+        else:
+            order_form = OrderForm(membership_only=membership_only)
 
     if not stripe_public_key:
         messages.warning(request, 'Stripe public key is missing. \
@@ -133,12 +151,16 @@ def cache_checkout_data(request):
     try:
         pid = request.POST.get('client_secret').split('_secret')[0]
         stripe.api_key = settings.STRIPE_SECRET_KEY
+        save_info = request.POST.get('save_info')
+
+        # Save to session for use in checkout_success
+        request.session['save_info'] = save_info
 
         # Modify the payment intent with metadata
         stripe.PaymentIntent.modify(pid, metadata={
             'bag': json.dumps(request.session.get('bag', {})),
             'membership_id': request.session.get('membership_in_bag', ''),
-            'save_info': request.POST.get('save_info'),
+            'save_info': save_info,
             'username': request.user.username if request.user.is_authenticated else 'AnonymousUser',
             'user_id': request.user.id if request.user.is_authenticated else '',
         })
@@ -179,7 +201,23 @@ def create_payment_intent(request):
 
 def checkout_success(request, order_number):
     """Handle successful checkouts"""
+    save_info = request.session.get('save_info')
     order = get_object_or_404(Order, order_number=order_number)
+
+    # Save delivery info to user's profile if requested
+    if request.user.is_authenticated and save_info:
+        try:
+            profile = request.user.profile
+            profile.phone_number = order.phone_number
+            profile.default_street_address1 = order.street_address1
+            profile.default_street_address2 = order.street_address2
+            profile.default_town_or_city = order.town_or_city
+            profile.default_county = order.county
+            profile.default_postcode = order.postcode
+            profile.default_country = order.country
+            profile.save()
+        except Exception as e:
+            logger.error(f"Failed to save profile info for order {order.order_number}: {e}")
 
     # Activate membership when this checkout includes a membership item
     try:
@@ -229,6 +267,8 @@ def checkout_success(request, order_number):
         del request.session['bag']
     if 'membership_in_bag' in request.session:
         del request.session['membership_in_bag']
+    if 'save_info' in request.session:
+        del request.session['save_info']
 
     context = {
         'order': order,

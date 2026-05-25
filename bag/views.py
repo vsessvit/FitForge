@@ -29,19 +29,19 @@ def add_to_bag(request, item_id):
     total_quantity = current_quantity + quantity
 
     # Validate stock availability
-    if product.stock < total_quantity:
+    if product.stock_quantity < total_quantity:
         if current_quantity > 0:
             messages.error(
                 request,
                 f'Cannot add {quantity} more {product.name}. '
                 f'You have {current_quantity} in your bag and only '
-                f'{product.stock} available in stock.'
+                f'{product.stock_quantity} available in stock.'
             )
         else:
             messages.error(
                 request,
                 f'Cannot add {quantity} {product.name}. '
-                f'Only {product.stock} available in stock.'
+                f'Only {product.stock_quantity} available in stock.'
             )
         return redirect(redirect_url)
 
@@ -91,11 +91,11 @@ def adjust_bag(request, item_id):
 
     if quantity > 0:
         # Validate stock availability
-        if product.stock < quantity:
+        if product.stock_quantity < quantity:
             messages.error(
                 request,
                 f'Cannot update {product.name} to {quantity}. '
-                f'Only {product.stock} available in stock.'
+                f'Only {product.stock_quantity} available in stock.'
             )
             return redirect(reverse('bag:view_bag'))
         

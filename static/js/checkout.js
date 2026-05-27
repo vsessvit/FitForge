@@ -71,7 +71,8 @@ function buildBillingDetails() {
     var city = getTrimmedFieldValue('town_or_city');
     var state = getTrimmedFieldValue('county');
     var postalCode = getTrimmedFieldValue('postcode');
-    var country = getTrimmedFieldValue('country');
+    // Country is stored in our database but not sent to Stripe
+    // (Stripe only accepts 2-letter ISO codes, we want to allow full country names)
 
     if (line1) {
         address.line1 = line1;
@@ -87,9 +88,6 @@ function buildBillingDetails() {
     }
     if (postalCode) {
         address.postal_code = postalCode;
-    }
-    if (country) {
-        address.country = country;
     }
 
     if (Object.keys(address).length > 0) {

@@ -72,7 +72,7 @@ function buildBillingDetails() {
     var state = getTrimmedFieldValue('county');
     var postalCode = getTrimmedFieldValue('postcode');
     // Country is stored in our database but not sent to Stripe
-    // (Stripe only accepts 2-letter ISO codes, we want to allow full country names)
+    // (Stripe only accepts 2-letter ISO codes, i want to allow full country names)
 
     if (line1) {
         address.line1 = line1;

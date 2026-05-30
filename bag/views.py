@@ -98,7 +98,7 @@ def adjust_bag(request, item_id):
                 f'Only {product.stock_quantity} available in stock.'
             )
             return redirect(reverse('bag:view_bag'))
-        
+
         bag[item_id] = quantity
         messages.success(request, f'Updated {product.name} quantity to {bag[item_id]}')
     else:

@@ -54,13 +54,13 @@ class OrderForm(forms.ModelForm):
     def clean_full_name(self):
         """Validate that full name contains at least first and last name"""
         full_name = self.cleaned_data.get('full_name', '').strip()
-        
+
         # Split by spaces and filter out empty strings
         name_parts = [part for part in full_name.split() if part]
-        
+
         if len(name_parts) < 2:
             raise ValidationError(
                 'Please enter your full name (first and last name).'
             )
-        
+
         return full_name

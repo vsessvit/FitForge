@@ -10,7 +10,7 @@ class UserProfile(models.Model):
     fitness_goals = models.TextField(blank=True)
     emergency_contact_name = models.CharField(max_length=100, blank=True)
     emergency_contact_phone = models.CharField(max_length=20, blank=True)
-    
+
     # Default delivery information
     default_street_address1 = models.CharField(max_length=80, blank=True)
     default_street_address2 = models.CharField(max_length=80, blank=True)

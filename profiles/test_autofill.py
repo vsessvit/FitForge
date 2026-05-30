@@ -23,7 +23,7 @@ class DeliveryInfoAutofillTests(TestCase):
             last_name='Doe'
         )
         self.profile = self.user.profile
-        
+
         # Create a test product for checkout
         category = ProductCategory.objects.create(
             name='Equipment',
@@ -60,7 +60,7 @@ class DeliveryInfoAutofillTests(TestCase):
         self.profile.default_postcode = 'D02 XY45'
         self.profile.default_country = 'Ireland'
         self.profile.save()
-        
+
         # Verify saved
         profile = UserProfile.objects.get(user=self.user)
         self.assertEqual(profile.phone_number, '0456837465')
@@ -82,16 +82,16 @@ class DeliveryInfoAutofillTests(TestCase):
         self.profile.default_postcode = 'D02 XY45'
         self.profile.default_country = 'Ireland'
         self.profile.save()
-        
+
         # Log in and add item to bag
         self.client.login(username='testuser', password='testpass123')
         session = self.client.session
         session['bag'] = {str(self.product.id): 1}
         session.save()
-        
+
         # Get checkout page
         response = self.client.get(reverse('checkout:checkout'))
-        
+
         # Check form has initial values from profile
         form = response.context['order_form']
         self.assertEqual(form.initial.get('full_name'), 'John Doe')
@@ -109,13 +109,13 @@ class DeliveryInfoAutofillTests(TestCase):
         session = self.client.session
         session['bag'] = {str(self.product.id): 1}
         session.save()
-        
+
         # Get checkout page
         response = self.client.get(reverse('checkout:checkout'))
-        
+
         # Should load successfully
         self.assertEqual(response.status_code, 200)
-        
+
         # Form should exist but have minimal initial data
         form = response.context['order_form']
         self.assertEqual(form.initial.get('full_name'), 'John Doe')
@@ -127,13 +127,13 @@ class DeliveryInfoAutofillTests(TestCase):
         session = self.client.session
         session['bag'] = {str(self.product.id): 1}
         session.save()
-        
+
         # Get checkout page
         response = self.client.get(reverse('checkout:checkout'))
-        
+
         # Should load successfully
         self.assertEqual(response.status_code, 200)
-        
+
         # Form should have no initial values
         form = response.context['order_form']
         self.assertIsNone(form.initial.get('phone_number'))
@@ -146,12 +146,12 @@ class DeliveryInfoAutofillTests(TestCase):
         self.profile.default_town_or_city = ''
         self.profile.default_postcode = ''
         self.profile.phone_number = ''
-        
+
         # Should save without errors
         try:
             self.profile.save()
             saved = True
         except Exception:
             saved = False
-        
+
         self.assertTrue(saved, "Profile should save with empty delivery fields")
